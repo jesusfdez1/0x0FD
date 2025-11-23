@@ -92,10 +92,8 @@ export function AppearanceForm() {
     const hslForeground = `hsl(${hue}, ${saturation}%, 98%)`
 
     document.documentElement.style.setProperty('--primary', hslValue)
-    document.documentElement.style.setProperty('--accent', hslValue)
     document.documentElement.style.setProperty('--ring', hslValue)
     document.documentElement.style.setProperty('--primary-foreground', hslForeground)
-    document.documentElement.style.setProperty('--accent-foreground', hslForeground)
 
     localStorage.setItem('theme-primary-color', JSON.stringify(color))
 
@@ -168,8 +166,8 @@ export function AppearanceForm() {
                   className={cn(
                     'w-full p-1 rounded-xl border-2 transition-all',
                     theme === option.value
-                      ? 'border-primary bg-accent/50'
-                      : 'border-border hover:border-primary/50 hover:bg-accent/20'
+                      ? 'border-primary bg-primary/50'
+                      : 'border-border hover:border-secondary/50 hover:bg-secondary/20'
                   )}
                   aria-label={`${t('settings.selectTheme')} ${option.label}`}
                 >
@@ -322,7 +320,7 @@ export function AppearanceForm() {
                     primaryColor.saturation === preset.saturation &&
                     primaryColor.lightness === preset.lightness
                       ? 'ring-2 ring-primary'
-                        : 'hover:bg-accent'
+                        : 'hover:bg-secondary'
                   )}
                   onClick={() => handleColorPresetChange(preset)}
                   aria-label={`${t('settings.selectColor')} ${preset.name}`}
@@ -470,8 +468,8 @@ function RadioGroupItem({
       <div
         className={cn(
           'w-full p-1 rounded-xl border-2 transition-all',
-          'group-data-[state=checked]:border-primary group-data-[state=checked]:bg-accent/50',
-          'border-border hover:border-primary/50 hover:bg-accent/20'
+          'group-data-[state=checked]:border-primary group-data-[state=checked]:bg-primary/50',
+          'border-border hover:border-secondary/50 hover:bg-secondary/20'
         )}
         role='img'
         aria-hidden='false'

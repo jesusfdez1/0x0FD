@@ -131,8 +131,8 @@ function RadioGroupItem({
       <div
         className={cn(
           'w-full p-1 rounded-xl border-2 transition-all',
-          'group-data-[state=checked]:border-primary group-data-[state=checked]:bg-accent/50',
-          'border-border hover:border-primary/50 hover:bg-accent/20'
+          'group-data-[state=checked]:border-primary group-data-[state=checked]:bg-primary/50',
+          'border-border hover:border-secondary/50 hover:bg-secondary/20'
         )}
         role='img'
         aria-hidden='false'

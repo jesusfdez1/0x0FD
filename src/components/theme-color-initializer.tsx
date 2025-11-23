@@ -15,12 +15,11 @@ export function ThemeColorInitializer() {
       const hslValue = `hsl(${hue}, ${saturation}%, ${lightness}%)`
       const hslForeground = `hsl(${hue}, ${saturation}%, 98%)`
 
+      // Apply only the primary color and its foreground. Keep `--accent` separate so hover states
+      // and other accent uses continue to use the application's secondary/accent variable.
       document.documentElement.style.setProperty('--primary', hslValue)
-      // Also update accent to use primary color so the application reflects main color
-      document.documentElement.style.setProperty('--accent', hslValue)
       document.documentElement.style.setProperty('--ring', hslValue)
       document.documentElement.style.setProperty('--primary-foreground', hslForeground)
-      document.documentElement.style.setProperty('--accent-foreground', hslForeground)
 
       // Actualizar también los valores para los gráficos si los hay
       document.documentElement.style.setProperty('--chart-1', hslValue)

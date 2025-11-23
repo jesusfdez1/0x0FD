@@ -1,6 +1,6 @@
  
 import { type SVGProps, useState, useEffect, useMemo, useRef, useCallback } from 'react'
-import { Moon, Sun, Laptop } from 'lucide-react'
+import { Moon, Sun, Laptop, RotateCcw } from 'lucide-react'
 import { IconLayoutCompact } from '@/assets/custom/icon-layout-compact'
 import { IconLayoutDefault } from '@/assets/custom/icon-layout-default'
 import { IconLayoutFull } from '@/assets/custom/icon-layout-full'
@@ -91,11 +91,8 @@ export function DisplayForm() {
     const hslForeground = `hsl(${hue}, ${saturation}%, 98%)`
 
     document.documentElement.style.setProperty('--primary', hslValue)
-    // Also update accent to use primary color so the application reflects main color
-    document.documentElement.style.setProperty('--accent', hslValue)
     document.documentElement.style.setProperty('--ring', hslValue)
     document.documentElement.style.setProperty('--primary-foreground', hslForeground)
-    document.documentElement.style.setProperty('--accent-foreground', hslForeground)
 
     localStorage.setItem('theme-primary-color', JSON.stringify(color))
 
@@ -140,8 +137,8 @@ export function DisplayForm() {
                   className={cn(
                     'w-full p-1 rounded-xl border-2 transition-all',
                     theme === option.value
-                      ? 'border-primary bg-accent/50'
-                      : 'border-border hover:border-primary/50 hover:bg-accent/20'
+                      ? 'border-primary bg-primary/50'
+                      : 'border-border hover:border-secondary/50 hover:bg-secondary/20'
                   )}
                   aria-label={`${t('settings.selectTheme')} ${option.label}`}
                 >
@@ -287,7 +284,7 @@ export function DisplayForm() {
                     primaryColor.saturation === preset.saturation &&
                     primaryColor.lightness === preset.lightness
                       ? 'ring-2 ring-primary'
-                        : 'hover:bg-accent'
+                        : 'hover:bg-secondary'
                   )}
                   onClick={() => handleColorPresetChange(preset)}
                   aria-label={`${t('settings.selectColor')} ${preset.name}`}
@@ -465,8 +462,8 @@ function LayoutConfig() {
         <div
           className={cn(
             'w-full p-1 rounded-xl border-2 transition-all',
-            'group-data-[state=checked]:border-primary group-data-[state=checked]:bg-accent/50',
-            'border-border hover:border-primary/50 hover:bg-accent/20'
+            'group-data-[state=checked]:border-primary group-data-[state=checked]:bg-primary/50',
+            'border-border hover:border-secondary/50 hover:bg-secondary/20'
           )}
           role='img'
           aria-hidden='false'
