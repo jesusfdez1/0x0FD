@@ -111,6 +111,7 @@ function SectionTitle({
 function RadioGroupItem({
   item,
   isTheme = false,
+  showLabel = true,
 }: {
   item: {
     value: string
@@ -118,46 +119,49 @@ function RadioGroupItem({
     icon: (props: SVGProps<SVGSVGElement>) => React.ReactElement
   }
   isTheme?: boolean
+  showLabel?: boolean
 }) {
-  return (
-    <Item
-      value={item.value}
+    return (
+      <Item
+        value={item.value}
       className={cn('group outline-none', 'transition duration-200 ease-in')}
       aria-label={`Select ${item.label.toLowerCase()}`}
       aria-describedby={`${item.value}-description`}
     >
       <div
         className={cn(
-          'ring-border relative rounded-[6px] ring-[1px]',
-          'group-data-[state=checked]:ring-primary group-data-[state=checked]:shadow-2xl',
-          'group-focus-visible:ring-2'
+          'w-full p-1 rounded-xl border-2 transition-all',
+          'group-data-[state=checked]:border-primary group-data-[state=checked]:bg-accent/50',
+          'border-border hover:border-primary/50 hover:bg-accent/20'
         )}
         role='img'
         aria-hidden='false'
         aria-label={`${item.label} option preview`}
       >
-        <CircleCheck
-          className={cn(
-            'fill-primary size-6 stroke-white',
-            'group-data-[state=unchecked]:hidden',
-            'absolute top-0 right-0 translate-x-1/2 -translate-y-1/2'
-          )}
-          aria-hidden='true'
-        />
-        <item.icon
-          className={cn(
-            !isTheme &&
-              'stroke-primary fill-primary group-data-[state=unchecked]:stroke-muted-foreground group-data-[state=unchecked]:fill-muted-foreground'
-          )}
-          aria-hidden='true'
-        />
+        <div className='aspect-video w-full overflow-hidden rounded-lg flex items-center justify-center p-2' style={{ backgroundColor: 'var(--secondary)' }}>
+              <CircleCheck
+                className={cn(
+                  'fill-primary size-6 stroke-white absolute top-0 right-0 translate-x-1/2 -translate-y-1/2',
+                  'group-data-[state=unchecked]:hidden'
+                )}
+                aria-hidden='true'
+              />
+              <item.icon
+                className={cn(
+                  !isTheme &&
+                    'stroke-primary fill-primary group-data-[state=unchecked]:stroke-muted-foreground group-data-[state=unchecked]:fill-muted-foreground',
+                  isTheme ? 'h-4 w-4' : 'w-28 h-28'
+                )}
+            aria-hidden='true'
+          />
+        </div>
       </div>
-      <div
-        className='mt-1 text-xs'
-        id={`${item.value}-description`}
-        aria-live='polite'
-      >
-        {item.label}
+      <div className='mt-2 text-xs text-center' id={`${item.value}-description`} aria-live='polite'>
+        {showLabel && (
+          <div className='mt-2 text-xs' id={`${item.value}-description`} aria-live='polite'>
+            {item.label}
+          </div>
+        )}
       </div>
     </Item>
   )
@@ -239,7 +243,7 @@ function SidebarConfig() {
             icon: IconSidebarSidebar,
           },
         ].map((item) => (
-          <RadioGroupItem key={item.value} item={item} />
+          <RadioGroupItem key={item.value} item={item} showLabel={false} />
         ))}
       </Radio>
       <div id='sidebar-description' className='sr-only'>
@@ -296,7 +300,7 @@ function LayoutConfig() {
             icon: IconLayoutFull,
           },
         ].map((item) => (
-          <RadioGroupItem key={item.value} item={item} />
+          <RadioGroupItem key={item.value} item={item} showLabel={false} />
         ))}
       </Radio>
       <div id='layout-description' className='sr-only'>

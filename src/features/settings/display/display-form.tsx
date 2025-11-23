@@ -1,15 +1,12 @@
-/**
- * Componente de configuración de display y personalización de tema
- * Permite personalizar el tema, colores y configuración visual de la aplicación
- */
-
+ 
 import { type SVGProps, useState, useEffect, useMemo, useRef, useCallback } from 'react'
 import { Moon, Sun, Laptop, RotateCcw } from 'lucide-react'
 import { IconLayoutCompact } from '@/assets/custom/icon-layout-compact'
 import { IconLayoutDefault } from '@/assets/custom/icon-layout-default'
 import { IconLayoutFull } from '@/assets/custom/icon-layout-full'
-import { IconSidebarFloating } from '@/assets/custom/icon-sidebar-floating'
+ 
 import { IconSidebarInset } from '@/assets/custom/icon-sidebar-inset'
+import { IconSidebarFloating } from '@/assets/custom/icon-sidebar-floating'
 import { IconSidebarSidebar } from '@/assets/custom/icon-sidebar-sidebar'
 import { Root as Radio, Item } from '@radix-ui/react-radio-group'
 import { CircleCheck } from 'lucide-react'
@@ -89,20 +86,25 @@ export function DisplayForm() {
    */
   const applyThemeColor = (color: { hue: number, saturation: number, lightness: number }) => {
     const { hue, saturation, lightness } = color
-    const hslValue = `${hue} ${saturation}% ${lightness}%`
+    // Use valid CSS color functions so theme variables work across browsers
+    const hslValue = `hsl(${hue}, ${saturation}%, ${lightness}%)`
+    const hslForeground = `hsl(${hue}, ${saturation}%, 98%)`
 
     document.documentElement.style.setProperty('--primary', hslValue)
+    // Also update accent to use primary color so the application reflects main color
+    document.documentElement.style.setProperty('--accent', hslValue)
     document.documentElement.style.setProperty('--ring', hslValue)
-    document.documentElement.style.setProperty('--primary-foreground', `${hue} ${saturation}% 98%`)
+    document.documentElement.style.setProperty('--primary-foreground', hslForeground)
+    document.documentElement.style.setProperty('--accent-foreground', hslForeground)
 
     localStorage.setItem('theme-primary-color', JSON.stringify(color))
 
     // Actualizar también los valores para los gráficos si los hay
     document.documentElement.style.setProperty('--chart-1', hslValue)
-    document.documentElement.style.setProperty('--chart-2', `${(hue + 30) % 360} ${saturation}% ${lightness}%`)
-    document.documentElement.style.setProperty('--chart-3', `${(hue + 60) % 360} ${saturation}% ${lightness}%`)
-    document.documentElement.style.setProperty('--chart-4', `${(hue + 90) % 360} ${saturation}% ${lightness}%`)
-    document.documentElement.style.setProperty('--chart-5', `${(hue + 120) % 360} ${saturation}% ${lightness}%`)
+    document.documentElement.style.setProperty('--chart-2', `hsl(${(hue + 30) % 360}, ${saturation}%, ${lightness}%)`)
+    document.documentElement.style.setProperty('--chart-3', `hsl(${(hue + 60) % 360}, ${saturation}%, ${lightness}%)`)
+    document.documentElement.style.setProperty('--chart-4', `hsl(${(hue + 90) % 360}, ${saturation}%, ${lightness}%)`)
+    document.documentElement.style.setProperty('--chart-5', `hsl(${(hue + 120) % 360}, ${saturation}%, ${lightness}%)`)
 
     window.dispatchEvent(new CustomEvent('theme-color-changed', { detail: color }))
   }
@@ -284,8 +286,8 @@ export function DisplayForm() {
                     primaryColor.hue === preset.hue &&
                     primaryColor.saturation === preset.saturation &&
                     primaryColor.lightness === preset.lightness
-                      ? 'ring-2 ring-primary bg-accent'
-                      : 'hover:bg-accent'
+                      ? 'ring-2 ring-primary'
+                        : 'hover:bg-accent'
                   )}
                   onClick={() => handleColorPresetChange(preset)}
                   aria-label={`${t('settings.selectColor')} ${preset.name}`}
@@ -342,9 +344,6 @@ function SidebarConfig() {
       </CardHeader>
       <CardContent>
         <div className='flex items-center gap-2 mb-4'>
-          <span className='text-sm text-muted-foreground'>
-            {t('settings.sidebar') || 'Barra lateral'}
-          </span>
           {defaultVariant !== variant && (
             <Button
               type='button'
@@ -380,7 +379,7 @@ function SidebarConfig() {
               icon: IconSidebarSidebar,
             },
           ].map((item) => (
-            <RadioGroupItem key={item.value} item={item} />
+            <RadioGroupItem key={item.value} item={item} showLabel={false} />
           ))}
         </Radio>
       </CardContent>
@@ -406,9 +405,6 @@ function LayoutConfig() {
       </CardHeader>
       <CardContent>
         <div className='flex items-center gap-2 mb-4'>
-          <span className='text-sm text-muted-foreground'>
-            {t('settings.layout') || 'Diseño'}
-          </span>
           {radioState !== 'default' && (
             <Button
               type='button'
@@ -454,7 +450,7 @@ function LayoutConfig() {
               icon: IconLayoutFull,
             },
           ].map((item) => (
-            <RadioGroupItem key={item.value} item={item} />
+            <RadioGroupItem key={item.value} item={item} showLabel={false} />
           ))}
         </Radio>
       </CardContent>
@@ -465,58 +461,57 @@ function LayoutConfig() {
 /**
  * Componente RadioGroupItem para los selectores
  */
-function RadioGroupItem({
-  item,
-  isTheme = false,
-}: {
-  item: {
-    value: string
-    label: string
-    icon: (props: SVGProps<SVGSVGElement>) => React.ReactElement
+  function RadioGroupItem({
+      item,
+      isTheme = false,
+      showLabel = true,
+    }: {
+    item: {
+      value: string
+      label: string
+      icon: (props: SVGProps<SVGSVGElement>) => React.ReactElement
+    }
+      isTheme?: boolean
+      showLabel?: boolean
+  }) {
+    return (
+      <Item
+        value={item.value}
+        className={cn('group outline-none', 'transition duration-200 ease-in')}
+        aria-label={`Select ${item.label.toLowerCase()}`}
+      >
+        <div
+          className={cn(
+            'w-full p-1 rounded-xl border-2 transition-all',
+            'group-data-[state=checked]:border-primary group-data-[state=checked]:bg-accent/50',
+            'border-border hover:border-primary/50 hover:bg-accent/20'
+          )}
+          role='img'
+          aria-hidden='false'
+          aria-label={`${item.label} option preview`}
+        >
+          <div className='aspect-video w-full overflow-hidden rounded-lg flex items-center justify-center p-2' style={{ backgroundColor: 'var(--secondary)' }}>
+            <CircleCheck
+              className={cn(
+                'fill-primary size-6 stroke-white absolute top-0 right-0 translate-x-1/2 -translate-y-1/2',
+                'group-data-[state=unchecked]:hidden'
+              )}
+              aria-hidden='true'
+            />
+            <item.icon
+              className={cn(
+                !isTheme &&
+                  'stroke-primary fill-primary group-data-[state=unchecked]:stroke-muted-foreground group-data-[state=unchecked]:fill-muted-foreground',
+                isTheme ? 'h-4 w-4' : 'w-28 h-28'
+              )}
+              aria-hidden='true'
+            />
+          </div>
+        </div>
+        {showLabel && <div className='mt-2 text-xs text-center'>{item.label}</div>}
+      </Item>
+    )
   }
-  isTheme?: boolean
-}) {
-  return (
-    <Item
-      value={item.value}
-      className={cn('group outline-none', 'transition duration-200 ease-in')}
-      aria-label={`Select ${item.label.toLowerCase()}`}
-    >
-      <div
-        className={cn(
-          'ring-border relative rounded-[6px] ring-[1px]',
-          'group-data-[state=checked]:ring-primary group-data-[state=checked]:shadow-2xl',
-          'group-focus-visible:ring-2'
-        )}
-        role='img'
-        aria-hidden='false'
-        aria-label={`${item.label} option preview`}
-      >
-        <CircleCheck
-          className={cn(
-            'fill-primary size-6 stroke-white',
-            'group-data-[state=unchecked]:hidden',
-            'absolute top-0 right-0 translate-x-1/2 -translate-y-1/2'
-          )}
-          aria-hidden='true'
-        />
-        <item.icon
-          className={cn(
-            !isTheme &&
-              'stroke-primary fill-primary group-data-[state=unchecked]:stroke-muted-foreground group-data-[state=unchecked]:fill-muted-foreground'
-          )}
-          aria-hidden='true'
-        />
-      </div>
-      <div
-        className='mt-1 text-xs text-center'
-        aria-live='polite'
-      >
-        {item.label}
-      </div>
-    </Item>
-  )
-}
 
 /**
  * Componente ColorSelector personalizado
@@ -732,7 +727,7 @@ const HueSlider: React.FC<{
       />
       
       <div
-        className='absolute top-0 bottom-0 w-1 bg-white border border-gray-400 rounded-sm shadow-md -ml-[2px] cursor-grab active:cursor-grabbing'
+        className='absolute top-0 bottom-0 w-1 bg-white border border-gray-400 rounded-sm shadow-md -ml-0.5 cursor-grab active:cursor-grabbing'
         style={{ left: `${(hue / 360) * 100}%` }}
         onMouseDown={(e) => {
           e.stopPropagation()
