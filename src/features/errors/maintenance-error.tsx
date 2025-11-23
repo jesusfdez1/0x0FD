@@ -8,6 +8,7 @@ import { Home } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
 import { useNavigate } from '@tanstack/react-router'
+import { useLanguage } from '@/context/language-provider'
 
 /**
  * Componente MaintenanceError que se muestra durante el mantenimiento del sitio
@@ -15,6 +16,7 @@ import { useNavigate } from '@tanstack/react-router'
  */
 export function MaintenanceError() {
   const navigate = useNavigate()
+  const { t } = useLanguage()
 
   return (
     <main className='flex min-h-screen flex-col items-center justify-center p-4 landscape:py-1 text-center mx-5 md:mx-0'>
@@ -32,11 +34,10 @@ export function MaintenanceError() {
 
         {/* Mensaje principal */}
         <h1 className='mb-2 font-heading text-2xl font-bold md:text-3xl'>
-          Sitio en mantenimiento
+          {t('errors.maintenance.title')}
         </h1>
         <p className='mb-8 text-muted-foreground md:text-lg'>
-          El sitio no está disponible en este momento. <br />
-          Volveremos a estar en línea en breve.
+          {t('errors.maintenance.description')}
         </p>
 
         {/* Botones de navegación */}
@@ -48,7 +49,7 @@ export function MaintenanceError() {
             className='w-full sm:w-auto'
           >
             <Home className='mr-2 h-4 w-4' />
-            Volver al inicio
+            {t('errors.backToHome')}
           </Button>
         </div>
       </div>

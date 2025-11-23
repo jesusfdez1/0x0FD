@@ -2,6 +2,7 @@ import { SearchIcon } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useSearch } from '@/context/search-provider'
 import { Button } from './ui/button'
+import { useLanguage } from '@/context/language-provider'
 
 type SearchProps = {
   className?: string
@@ -11,8 +12,10 @@ type SearchProps = {
 
 export function Search({
   className = '',
-  placeholder = 'Search',
+  placeholder,
 }: SearchProps) {
+  const { t } = useLanguage()
+  placeholder = placeholder ?? t('common.search')
   const { setOpen } = useSearch()
   return (
     <Button

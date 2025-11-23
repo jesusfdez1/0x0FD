@@ -7,12 +7,6 @@ export const en = {
     chats: 'Chats',
     users: 'Users',
     pages: 'Pages',
-    errors: 'Errors',
-    unauthorized: 'Unauthorized',
-    forbidden: 'Forbidden',
-    notFound: 'Not Found',
-    internalServerError: 'Internal Server Error',
-    maintenanceError: 'Maintenance Error',
     other: 'Other',
     settings: 'Settings',
     profile: 'Profile',
@@ -164,6 +158,7 @@ export const en = {
     languageError: 'Please select a language.',
     searchLanguage: 'Search language...',
     noLanguageFound: 'No language found.',
+    accountDescription: 'Manage your account information, username, email and language preferences.',
     // Appearance form
     font: 'Font',
     fontDescription: 'Set the font you want to use in the dashboard.',
@@ -260,5 +255,6 @@ export const en = {
     goBack: 'Go Back',
     backToHome: 'Back to Home',
   },
+  // errors translations removed because error pages were removed from the route tree.
 }
 

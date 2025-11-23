@@ -14,6 +14,10 @@ import { cn } from '@/lib/utils'
 import { type Collapsible, useLayout } from '@/context/layout-provider'
 import { useTheme } from '@/context/theme-provider'
 import { Button } from '@/components/ui/button'
+import { showSubmittedData } from '@/lib/show-submitted-data'
+import useExportImport from '@/hooks/useExportImport'
+import { ConfirmDialog } from './confirm-dialog'
+import { useState } from 'react'
 import {
   Sheet,
   SheetContent,
@@ -60,6 +64,7 @@ export function ConfigDrawer() {
           <ThemeConfig />
           <SidebarConfig />
           <LayoutConfig />
+          <ExportImportSection />
         </div>
         <SheetFooter className='gap-2'>
           <Button
@@ -306,6 +311,78 @@ function LayoutConfig() {
       <div id='layout-description' className='sr-only'>
         Choose between default expanded, compact icon-only, or full layout mode
       </div>
+    </div>
+  )
+}
+
+function ExportImportSection() {
+  const { exportAll, parseFile, importAll } = useExportImport('0x0FD')
+  const [openConfirm, setOpenConfirm] = useState(false)
+  const [pendingPayload, setPendingPayload] = useState<any | null>(null)
+  const [overwrite, setOverwrite] = useState(false)
+
+  const onExportClick = () => {
+    const payload = exportAll()
+    showSubmittedData(payload, 'Export process: Completed')
+  }
+
+  const onFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+    try {
+      const parsed = await parseFile(file)
+      setPendingPayload(parsed)
+      showSubmittedData(parsed, 'Preview of imported data')
+      // ask user whether they want overwrite or merge via confirm.
+      setOpenConfirm(true)
+    } catch (err) {
+      console.error('Error parsing import file', err)
+      alert('Invalid JSON file')
+    } finally {
+      e.currentTarget.value = ''
+    }
+  }
+
+  const handleConfirmImport = async () => {
+    if (!pendingPayload) return
+    await importAll(pendingPayload, { overwrite })
+    setOpenConfirm(false)
+    setPendingPayload(null)
+    showSubmittedData(pendingPayload, 'Import completed: new data applied')
+  }
+
+  return (
+    <div>
+      <SectionTitle title='Export & Import' />
+      <div className='flex items-center gap-2'>
+        <Button variant='secondary' size='icon' onClick={onExportClick}>Export</Button>
+        <label className='w-full'>
+          <input
+            type='file'
+            accept='.json,application/json'
+            onChange={onFileChange}
+            className='hidden'
+          />
+          <Button variant='outline' className='ms-2'>Import</Button>
+        </label>
+      </div>
+      <ConfirmDialog
+        open={openConfirm}
+        onOpenChange={setOpenConfirm}
+        title='Import app data'
+        desc={<span>Do you want to overwrite all existing data? Uncheck to merge.</span>}
+        confirmText='Import'
+        cancelBtnText='Cancel'
+        destructive={false}
+        handleConfirm={handleConfirmImport}
+      >
+        <div className='mt-2 flex items-center gap-2'>
+          <label className='inline-flex items-center gap-2'>
+            <input type='checkbox' checked={overwrite} onChange={(e) => setOverwrite(e.target.checked)} className='form-checkbox' />
+            <span>Overwrite all existing data</span>
+          </label>
+        </div>
+      </ConfirmDialog>
     </div>
   )
 }

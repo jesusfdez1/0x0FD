@@ -7,12 +7,6 @@ export const es = {
     chats: 'Chats',
     users: 'Usuarios',
     pages: 'Páginas',
-    errors: 'Errores',
-    unauthorized: 'No autorizado',
-    forbidden: 'Prohibido',
-    notFound: 'No encontrado',
-    internalServerError: 'Error interno del servidor',
-    maintenanceError: 'Error de mantenimiento',
     other: 'Otros',
     settings: 'Configuración',
     profile: 'Perfil',
@@ -164,6 +158,7 @@ export const es = {
     languageError: 'Por favor, selecciona un idioma.',
     searchLanguage: 'Buscar idioma...',
     noLanguageFound: 'No se encontró ningún idioma.',
+    accountDescription: 'Administra la información de tu cuenta, nombre de usuario, correo electrónico y preferencias de idioma.',
     // Formulario de apariencia
     font: 'Fuente',
     fontDescription: 'Configura la fuente que deseas usar en el panel.',
@@ -260,5 +255,6 @@ export const es = {
     goBack: 'Volver',
     backToHome: 'Volver al inicio',
   },
+  // errors translations removed because error pages were removed from the route tree.
 }
 

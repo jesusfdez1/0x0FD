@@ -9,6 +9,7 @@ import { ArrowLeft, Home } from 'lucide-react'
 
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
+import { useLanguage } from '@/context/language-provider'
 
 type GeneralErrorProps = React.HTMLAttributes<HTMLDivElement> & {
   minimal?: boolean
@@ -27,6 +28,7 @@ export function GeneralError({
 }: GeneralErrorProps) {
   const navigate = useNavigate()
   const { history } = useRouter()
+  const { t } = useLanguage()
 
   return (
     <main
@@ -53,10 +55,10 @@ export function GeneralError({
 
         {/* Mensaje principal del error */}
         <h1 className='mb-2 font-heading text-2xl font-bold md:text-3xl'>
-          Ha ocurrido un error
+          {t('errors.internalServer.title')}
         </h1>
         <p className='mb-4 text-muted-foreground md:text-lg'>
-          Lo sentimos, algo ha salido mal en la aplicación.
+          {t('errors.internalServer.description')}
         </p>
 
         {/* Detalles técnicos del error para debugging */}
@@ -76,7 +78,7 @@ export function GeneralError({
               className='w-full sm:w-auto'
             >
               <ArrowLeft className='mr-2 h-4 w-4' />
-              Volver atrás
+                {t('errors.goBack')}
             </Button>
             <Button
               onClick={() => navigate({ to: '/' })}
@@ -85,7 +87,7 @@ export function GeneralError({
               className='w-full sm:w-auto'
             >
               <Home className='mr-2 h-4 w-4' />
-              Volver al inicio
+              {t('errors.backToHome')}
             </Button>
           </div>
         )}

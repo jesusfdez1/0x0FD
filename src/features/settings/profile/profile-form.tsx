@@ -3,6 +3,7 @@ import { useFieldArray, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Link } from '@tanstack/react-router'
 import { showSubmittedData } from '@/lib/show-submitted-data'
+import useLocalStorage from '@/hooks/useLocalStorage'
 import { cn } from '@/lib/utils'
 import { useLanguage } from '@/context/language-provider'
 import { Button } from '@/components/ui/button'
@@ -69,10 +70,19 @@ export function ProfileForm() {
     control: form.control,
   })
 
+  const [profileStored, setProfileStored] = useLocalStorage<ProfileFormValues | null>('user-profile', null)
+
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit((data) => showSubmittedData(data))}
+        onSubmit={form.handleSubmit((data) => {
+          showSubmittedData(data)
+          try {
+            setProfileStored(data)
+          } catch (e) {
+            console.error('Error saving profile to localStorage', e)
+          }
+        })}
         className='space-y-8'
       >
         <FormField

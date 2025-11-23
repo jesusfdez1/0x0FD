@@ -1,20 +1,15 @@
 import {
-  Construction,
   LayoutDashboard,
   Monitor,
-  Bug,
   ListTodo,
-  FileX,
   HelpCircle,
   Lock,
   Bell,
   Package,
   Palette,
-  ServerOff,
   Settings,
   Wrench,
   UserCog,
-  UserX,
   Users,
   MessagesSquare,
   AudioWaveform,
@@ -75,42 +70,6 @@ export const getSidebarData = (t: (key: string) => string): SidebarData => ({
           title: t('nav.users'),
           url: '/users',
           icon: Users,
-        },
-      ],
-    },
-    {
-      title: t('nav.pages'),
-      items: [
-        {
-          title: t('nav.errors'),
-          icon: Bug,
-          items: [
-            {
-              title: t('nav.unauthorized'),
-              url: '/errors/unauthorized',
-              icon: Lock,
-            },
-            {
-              title: t('nav.forbidden'),
-              url: '/errors/forbidden',
-              icon: UserX,
-            },
-            {
-              title: t('nav.notFound'),
-              url: '/errors/not-found',
-              icon: FileX,
-            },
-            {
-              title: t('nav.internalServerError'),
-              url: '/errors/internal-server-error',
-              icon: ServerOff,
-            },
-            {
-              title: t('nav.maintenanceError'),
-              url: '/errors/maintenance-error',
-              icon: Construction,
-            },
-          ],
         },
       ],
     },

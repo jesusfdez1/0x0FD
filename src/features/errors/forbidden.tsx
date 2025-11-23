@@ -8,6 +8,7 @@ import { useNavigate, useRouter } from '@tanstack/react-router'
 import { ArrowLeft, Home } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
+import { useLanguage } from '@/context/language-provider'
 
 /**
  * Componente ForbiddenError que se muestra cuando el acceso está prohibido
@@ -16,6 +17,7 @@ import { Button } from '@/components/ui/button'
 export function ForbiddenError() {
   const navigate = useNavigate()
   const { history } = useRouter()
+  const { t } = useLanguage()
 
   return (
     <main className='flex min-h-screen flex-col items-center justify-center p-4 landscape:py-1 text-center mx-5 md:mx-0'>
@@ -44,10 +46,10 @@ export function ForbiddenError() {
 
         {/* Mensaje principal explicativo */}
         <h1 className='mb-2 font-heading text-2xl font-bold md:text-3xl'>
-          Acceso prohibido
+          {t('errors.forbidden.title')}
         </h1>
         <p className='mb-8 text-muted-foreground md:text-lg'>
-          No tienes los permisos necesarios para ver este recurso.
+          {t('errors.forbidden.description')}
         </p>
 
         {/* Botones de navegación para recuperación */}
@@ -59,7 +61,7 @@ export function ForbiddenError() {
             className='w-full sm:w-auto'
           >
             <ArrowLeft className='mr-2 h-4 w-4' />
-            Volver atrás
+            {t('errors.goBack')}
           </Button>
           <Button
             onClick={() => navigate({ to: '/' })}
@@ -68,7 +70,7 @@ export function ForbiddenError() {
             className='w-full sm:w-auto'
           >
             <Home className='mr-2 h-4 w-4' />
-            Volver al inicio
+            {t('errors.backToHome')}
           </Button>
         </div>
       </div>
