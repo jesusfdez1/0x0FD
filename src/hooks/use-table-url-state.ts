@@ -4,20 +4,14 @@ import type {
   OnChangeFn,
   PaginationState,
 } from '@tanstack/react-table'
+import type { UseNavigateResult } from '@tanstack/react-router'
 
 type SearchRecord = Record<string, unknown>
 
-export type NavigateFn = (opts: {
-  search:
-    | true
-    | SearchRecord
-    | ((prev: SearchRecord) => Partial<SearchRecord> | SearchRecord)
-  replace?: boolean
-}) => void
-
 type UseTableUrlStateParams = {
   search: SearchRecord
-  navigate: NavigateFn
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  navigate: UseNavigateResult<any>
   pagination?: {
     pageKey?: string
     pageSizeKey?: string
@@ -124,13 +118,13 @@ export function useTableUrlState(
     const nextPage = next.pageIndex + 1
     const nextPageSize = next.pageSize
     navigate({
-      search: (prev) => ({
+      search: (prev: any) => ({
         ...(prev as SearchRecord),
         [pageKey]: nextPage <= defaultPage ? undefined : nextPage,
         [pageSizeKey]:
           nextPageSize === defaultPageSize ? undefined : nextPageSize,
       }),
-    })
+    } as any)
   }
 
   const [globalFilter, setGlobalFilter] = useState<string | undefined>(() => {
@@ -149,12 +143,12 @@ export function useTableUrlState(
           const value = trimGlobal ? next.trim() : next
           setGlobalFilter(value)
           navigate({
-            search: (prev) => ({
+            search: (prev: any) => ({
               ...(prev as SearchRecord),
               [pageKey]: undefined,
               [globalFilterKey]: value ? value : undefined,
             }),
-          })
+          } as any)
         }
       : undefined
 
@@ -182,12 +176,12 @@ export function useTableUrlState(
     }
 
     navigate({
-      search: (prev) => ({
+      search: (prev: any) => ({
         ...(prev as SearchRecord),
         [pageKey]: undefined,
         ...patch,
       }),
-    })
+    } as any)
   }
 
   const ensurePageInRange = (
@@ -199,11 +193,11 @@ export function useTableUrlState(
     if (pageCount > 0 && pageNum > pageCount) {
       navigate({
         replace: true,
-        search: (prev) => ({
+        search: (prev: any) => ({
           ...(prev as SearchRecord),
           [pageKey]: opts.resetTo === 'last' ? pageCount : undefined,
         }),
-      })
+      } as any)
     }
   }
 

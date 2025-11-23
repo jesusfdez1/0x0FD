@@ -11,8 +11,9 @@ import {
   getSortedRowModel,
   useReactTable,
 } from '@tanstack/react-table'
+import type { UseNavigateResult } from '@tanstack/react-router'
 import { cn } from '@/lib/utils'
-import { type NavigateFn, useTableUrlState } from '@/hooks/use-table-url-state'
+import { useTableUrlState } from '@/hooks/use-table-url-state'
 import {
   Table,
   TableBody,
@@ -30,7 +31,8 @@ import { usersColumns as columns } from './users-columns'
 type DataTableProps = {
   data: User[]
   search: Record<string, unknown>
-  navigate: NavigateFn
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  navigate: UseNavigateResult<any>
 }
 
 export function UsersTable({ data, search, navigate }: DataTableProps) {

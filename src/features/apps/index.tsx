@@ -1,5 +1,5 @@
 import { type ChangeEvent, useState } from 'react'
-import { getRouteApi } from '@tanstack/react-router'
+import { useNavigate, useSearch } from '@tanstack/react-router'
 import { SlidersHorizontal, ArrowUpAZ, ArrowDownAZ } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -19,8 +19,6 @@ import { Search } from '@/components/search'
 import { ThemeSwitch } from '@/components/theme-switch'
 import { apps } from './data/apps'
 
-const route = getRouteApi('/_authenticated/apps/')
-
 type AppType = 'all' | 'connected' | 'notConnected'
 
 const appText = new Map<AppType, string>([
@@ -30,12 +28,17 @@ const appText = new Map<AppType, string>([
 ])
 
 export function Apps() {
+  const search = useSearch({ strict: false }) as {
+    filter?: string
+    type?: 'all' | 'connected' | 'notConnected'
+    sort?: 'asc' | 'desc'
+  }
   const {
     filter = '',
     type = 'all',
     sort: initSort = 'asc',
-  } = route.useSearch()
-  const navigate = route.useNavigate()
+  } = search
+  const navigate = useNavigate()
 
   const [sort, setSort] = useState(initSort)
   const [appType, setAppType] = useState(type)
@@ -59,26 +62,26 @@ export function Apps() {
   const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value)
     navigate({
-      search: (prev) => ({
+      search: (prev: any) => ({
         ...prev,
         filter: e.target.value || undefined,
       }),
-    })
+    } as any)
   }
 
   const handleTypeChange = (value: AppType) => {
     setAppType(value)
     navigate({
-      search: (prev) => ({
+      search: (prev: any) => ({
         ...prev,
         type: value === 'all' ? undefined : value,
       }),
-    })
+    } as any)
   }
 
   const handleSortChange = (sort: 'asc' | 'desc') => {
     setSort(sort)
-    navigate({ search: (prev) => ({ ...prev, sort }) })
+    navigate({ search: (prev: any) => ({ ...prev, sort }) } as any)
   }
 
   return (

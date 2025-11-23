@@ -1,27 +1,55 @@
-import { cn } from '@/lib/utils'
+import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { createRouter, RouterProvider } from '@tanstack/react-router'
+import { routeTree } from './routeTree.gen'
+import { DirectionProvider } from './context/direction-provider'
+import { FontProvider } from './context/font-provider'
+import { LayoutProvider } from './context/layout-provider'
+import { SearchProvider } from './context/search-provider'
+import { ThemeProvider } from './context/theme-provider'
+import './styles/index.css'
+import './styles/theme.css'
 
-type MainProps = React.HTMLAttributes<HTMLElement> & {
-  fixed?: boolean
-  fluid?: boolean
-  ref?: React.Ref<HTMLElement>
+// Create a new query client instance
+const queryClient = new QueryClient()
+
+// Create a new router instance
+const router = createRouter({
+  routeTree,
+  context: {
+    queryClient,
+  },
+  defaultPreload: 'intent',
+  defaultPreloadStaleTime: 0,
+})
+
+// Register the router instance for type safety
+declare module '@tanstack/react-router' {
+  interface Register {
+    router: typeof router
+  }
 }
 
-export function Main({ fixed, className, fluid, ...props }: MainProps) {
-  return (
-    <main
-      data-layout={fixed ? 'fixed' : 'auto'}
-      className={cn(
-        'px-4 py-6',
-
-        // If layout is fixed, make the main container flex and grow
-        fixed && 'flex grow flex-col overflow-hidden',
-
-        // If layout is not fluid, set the max-width
-        !fluid &&
-          '@7xl/content:mx-auto @7xl/content:w-full @7xl/content:max-w-7xl',
-        className
-      )}
-      {...props}
-    />
+// Render the app
+const rootElement = document.getElementById('root')!
+if (!rootElement.innerHTML) {
+  const root = createRoot(rootElement)
+  root.render(
+    <StrictMode>
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider>
+          <DirectionProvider>
+            <FontProvider>
+              <LayoutProvider>
+                <SearchProvider>
+                  <RouterProvider router={router} />
+                </SearchProvider>
+              </LayoutProvider>
+            </FontProvider>
+          </DirectionProvider>
+        </ThemeProvider>
+      </QueryClientProvider>
+    </StrictMode>
   )
 }
