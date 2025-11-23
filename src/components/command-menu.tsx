@@ -13,7 +13,8 @@ import {
   CommandList,
   CommandSeparator,
 } from '@/components/ui/command'
-import { getSidebarData, type NavGroup, type NavItem, type SubItem } from './layout/data/sidebar-data'
+import { getSidebarData } from './layout/data/sidebar-data'
+import { type NavGroup, type NavItem } from './layout/types'
 import { ScrollArea } from './ui/scroll-area'
 
 export function CommandMenu() {
@@ -57,7 +58,7 @@ export function CommandMenu() {
                     </CommandItem>
                   )
 
-                return navItem.items?.map((subItem: SubItem, i: number) => (
+                return navItem.items?.map((subItem, i: number) => (
                   <CommandItem
                     key={`${navItem.title}-${subItem.url}-${i}`}
                     value={`${navItem.title}-${subItem.url}`}

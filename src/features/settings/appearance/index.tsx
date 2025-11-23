@@ -5,8 +5,7 @@ export function SettingsAppearance() {
   return (
     <ContentSection
       title='Appearance'
-      desc='Customize the appearance of the app. Automatically switch between day
-          and night themes.'
+      desc='Customize the theme, colors, font, sidebar, layout and visual appearance of the application.'
     >
       <AppearanceForm />
     </ContentSection>

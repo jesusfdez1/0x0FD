@@ -5,7 +5,7 @@ export function SettingsDisplay() {
   return (
     <ContentSection
       title='Display'
-      desc='Customize theme, sidebar style, layout mode and text direction.'
+      desc='Customize the theme, colors, and visual appearance of the application.'
     >
       <DisplayForm />
     </ContentSection>

@@ -136,11 +136,6 @@ export const getSidebarData = (t: (key: string) => string): SidebarData => ({
               url: '/settings/notifications',
               icon: Bell,
             },
-            {
-              title: t('nav.display'),
-              url: '/settings/display',
-              icon: Monitor,
-            },
           ],
         },
         {

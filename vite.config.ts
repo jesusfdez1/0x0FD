@@ -11,10 +11,7 @@ export default defineConfig({
       target: 'react',
       autoCodeSplitting: true,
     }),
-    react({
-      // Configuración de React con mejor manejo de errores
-      jsxRuntime: 'automatic',
-    }),
+    react(),
     tailwindcss(),
   ],
   resolve: {

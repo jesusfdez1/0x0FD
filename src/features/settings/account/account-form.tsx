@@ -25,11 +25,6 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover'
-import {
   Select,
   SelectContent,
   SelectItem,
@@ -64,8 +59,8 @@ export function AccountForm() {
       .min(2, t('settings.nameMinError'))
       .max(30, t('settings.nameMaxError')),
     email: z.string().email(t('settings.emailSelectError')),
-    language: z.string({
-      errorMap: () => ({ message: t('settings.languageError') }),
+    language: z.string().refine((val) => val === 'en' || val === 'es', {
+      message: t('settings.languageError'),
     }),
   })
 
@@ -78,8 +73,8 @@ export function AccountForm() {
 
   function onSubmit(data: AccountFormValues) {
     // Cambiar el idioma si es diferente
-    if (data.language !== language) {
-      setLanguage(data.language)
+    if (data.language !== language && (data.language === 'en' || data.language === 'es')) {
+      setLanguage(data.language as 'en' | 'es')
     }
     showSubmittedData(data)
   }
@@ -87,56 +82,53 @@ export function AccountForm() {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
-        <FormField
-          control={form.control}
-          name='username'
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t('settings.username')}</FormLabel>
-              <FormControl>
-                <Input placeholder={t('settings.usernamePlaceholder')} {...field} />
-              </FormControl>
-              <FormDescription>
-                {t('settings.usernameDescription')}
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name='name'
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t('settings.name')}</FormLabel>
-              <FormControl>
-                <Input placeholder={t('settings.namePlaceholder')} {...field} />
-              </FormControl>
-              <FormDescription>
-                {t('settings.nameDescription')}
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+          <FormField
+            control={form.control}
+            name='username'
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>{t('settings.username')}</FormLabel>
+                <FormControl>
+                  <Input placeholder={t('settings.usernamePlaceholder')} {...field} />
+                </FormControl>
+                <FormDescription>
+                  {t('settings.usernameDescription')}
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name='name'
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>{t('settings.name')}</FormLabel>
+                <FormControl>
+                  <Input placeholder={t('settings.namePlaceholder')} {...field} />
+                </FormControl>
+                <FormDescription>
+                  {t('settings.nameDescription')}
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
         <FormField
           control={form.control}
           name='email'
           render={({ field }) => (
             <FormItem>
               <FormLabel>{t('settings.email')}</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder={t('settings.emailPlaceholder')} />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  <SelectItem value='m@example.com'>m@example.com</SelectItem>
-                  <SelectItem value='m@google.com'>m@google.com</SelectItem>
-                  <SelectItem value='m@support.com'>m@support.com</SelectItem>
-                </SelectContent>
-              </Select>
+              <FormControl>
+                <Input 
+                  type='email'
+                  placeholder={t('settings.emailPlaceholder')} 
+                  {...field} 
+                />
+              </FormControl>
               <FormDescription>
                 {t('settings.emailDescription')}
               </FormDescription>

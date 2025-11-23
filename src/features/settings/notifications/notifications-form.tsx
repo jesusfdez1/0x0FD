@@ -31,7 +31,7 @@ export function NotificationsForm() {
   
   const notificationsFormSchema = z.object({
     type: z.enum(['all', 'mentions', 'none'], {
-      errorMap: () => ({ message: t('settings.notificationTypeError') }),
+      message: t('settings.notificationTypeError'),
     }),
     mobile: z.boolean().default(false).optional(),
     communication_emails: z.boolean().default(false).optional(),

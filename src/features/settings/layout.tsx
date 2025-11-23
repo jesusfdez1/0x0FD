@@ -2,8 +2,7 @@ import { Outlet } from '@tanstack/react-router'
 import { 
   UserCog, 
   Palette, 
-  Bell, 
-  Monitor 
+  Bell
 } from 'lucide-react'
 import { useLanguage } from '@/context/language-provider'
 import { Header } from '@/components/layout/header'
@@ -29,11 +28,6 @@ export function Settings() {
       title: t('nav.notifications'),
       icon: <Bell />,
       href: '/settings/notifications',
-    },
-    {
-      title: t('nav.display'),
-      icon: <Monitor />,
-      href: '/settings/display',
     },
   ]
 
