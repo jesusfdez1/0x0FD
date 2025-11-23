@@ -1,121 +1,334 @@
-import { z } from 'zod'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { showSubmittedData } from '@/lib/show-submitted-data'
+import { type SVGProps } from 'react'
+import { Root as Radio, Item } from '@radix-ui/react-radio-group'
+import { CircleCheck, RotateCcw } from 'lucide-react'
+import { IconDir } from '@/assets/custom/icon-dir'
+import { IconLayoutCompact } from '@/assets/custom/icon-layout-compact'
+import { IconLayoutDefault } from '@/assets/custom/icon-layout-default'
+import { IconLayoutFull } from '@/assets/custom/icon-layout-full'
+import { IconSidebarFloating } from '@/assets/custom/icon-sidebar-floating'
+import { IconSidebarInset } from '@/assets/custom/icon-sidebar-inset'
+import { IconSidebarSidebar } from '@/assets/custom/icon-sidebar-sidebar'
+import { IconThemeDark } from '@/assets/custom/icon-theme-dark'
+import { IconThemeLight } from '@/assets/custom/icon-theme-light'
+import { IconThemeSystem } from '@/assets/custom/icon-theme-system'
+import { cn } from '@/lib/utils'
+import { useDirection } from '@/context/direction-provider'
+import { type Collapsible, useLayout } from '@/context/layout-provider'
+import { useTheme } from '@/context/theme-provider'
+import { useLanguage } from '@/context/language-provider'
 import { Button } from '@/components/ui/button'
-import { Checkbox } from '@/components/ui/checkbox'
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form'
-
-const items = [
-  {
-    id: 'recents',
-    label: 'Recents',
-  },
-  {
-    id: 'home',
-    label: 'Home',
-  },
-  {
-    id: 'applications',
-    label: 'Applications',
-  },
-  {
-    id: 'desktop',
-    label: 'Desktop',
-  },
-  {
-    id: 'downloads',
-    label: 'Downloads',
-  },
-  {
-    id: 'documents',
-    label: 'Documents',
-  },
-] as const
-
-const displayFormSchema = z.object({
-  items: z.array(z.string()).refine((value) => value.some((item) => item), {
-    message: 'You have to select at least one item.',
-  }),
-})
-
-type DisplayFormValues = z.infer<typeof displayFormSchema>
-
-// This can come from your database or API.
-const defaultValues: Partial<DisplayFormValues> = {
-  items: ['recents', 'home'],
-}
+import { useSidebar } from '@/components/ui/sidebar'
 
 export function DisplayForm() {
-  const form = useForm<DisplayFormValues>({
-    resolver: zodResolver(displayFormSchema),
-    defaultValues,
-  })
+  const { setOpen } = useSidebar()
+  const { resetDir } = useDirection()
+  const { resetTheme } = useTheme()
+  const { resetLayout } = useLayout()
+  const { t } = useLanguage()
+
+  const handleReset = () => {
+    setOpen(true)
+    resetDir()
+    resetTheme()
+    resetLayout()
+  }
 
   return (
-    <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit((data) => showSubmittedData(data))}
-        className='space-y-8'
+    <div className='space-y-8'>
+      <ThemeConfig />
+      <SidebarConfig />
+      <LayoutConfig />
+      <DirConfig />
+      
+      <div className='flex gap-4'>
+        <Button
+          type='button'
+          variant='destructive'
+          onClick={handleReset}
+          aria-label={t('settings.resetAllSettings')}
+        >
+          <RotateCcw className='mr-2 h-4 w-4' />
+          {t('settings.resetAll')}
+        </Button>
+      </div>
+    </div>
+  )
+}
+
+function SectionTitle({
+  title,
+  showReset = false,
+  onReset,
+  className,
+}: {
+  title: string
+  showReset?: boolean
+  onReset?: () => void
+  className?: string
+}) {
+  return (
+    <div
+      className={cn(
+        'text-muted-foreground mb-4 flex items-center gap-2 text-sm font-semibold',
+        className
+      )}
+    >
+      {title}
+      {showReset && onReset && (
+        <Button
+          type='button'
+          size='icon'
+          variant='secondary'
+          className='size-5 rounded-full'
+          onClick={onReset}
+        >
+          <RotateCcw className='size-3' />
+        </Button>
+      )}
+    </div>
+  )
+}
+
+function RadioGroupItem({
+  item,
+  isTheme = false,
+}: {
+  item: {
+    value: string
+    label: string
+    icon: (props: SVGProps<SVGSVGElement>) => React.ReactElement
+  }
+  isTheme?: boolean
+}) {
+  return (
+    <Item
+      value={item.value}
+      className={cn('group outline-none', 'transition duration-200 ease-in')}
+      aria-label={`Select ${item.label.toLowerCase()}`}
+      aria-describedby={`${item.value}-description`}
+    >
+      <div
+        className={cn(
+          'ring-border relative rounded-[6px] ring-[1px]',
+          'group-data-[state=checked]:ring-primary group-data-[state=checked]:shadow-2xl',
+          'group-focus-visible:ring-2'
+        )}
+        role='img'
+        aria-hidden='false'
+        aria-label={`${item.label} option preview`}
       >
-        <FormField
-          control={form.control}
-          name='items'
-          render={() => (
-            <FormItem>
-              <div className='mb-4'>
-                <FormLabel className='text-base'>Sidebar</FormLabel>
-                <FormDescription>
-                  Select the items you want to display in the sidebar.
-                </FormDescription>
-              </div>
-              {items.map((item) => (
-                <FormField
-                  key={item.id}
-                  control={form.control}
-                  name='items'
-                  render={({ field }) => {
-                    return (
-                      <FormItem
-                        key={item.id}
-                        className='flex flex-row items-start'
-                      >
-                        <FormControl>
-                          <Checkbox
-                            checked={field.value?.includes(item.id)}
-                            onCheckedChange={(checked) => {
-                              return checked
-                                ? field.onChange([...field.value, item.id])
-                                : field.onChange(
-                                    field.value?.filter(
-                                      (value) => value !== item.id
-                                    )
-                                  )
-                            }}
-                          />
-                        </FormControl>
-                        <FormLabel className='font-normal'>
-                          {item.label}
-                        </FormLabel>
-                      </FormItem>
-                    )
-                  }}
-                />
-              ))}
-              <FormMessage />
-            </FormItem>
+        <CircleCheck
+          className={cn(
+            'fill-primary size-6 stroke-white',
+            'group-data-[state=unchecked]:hidden',
+            'absolute top-0 right-0 translate-x-1/2 -translate-y-1/2'
           )}
+          aria-hidden='true'
         />
-        <Button type='submit'>Update display</Button>
-      </form>
-    </Form>
+        <item.icon
+          className={cn(
+            !isTheme &&
+              'stroke-primary fill-primary group-data-[state=unchecked]:stroke-muted-foreground group-data-[state=unchecked]:fill-muted-foreground'
+          )}
+          aria-hidden='true'
+        />
+      </div>
+      <div
+        className='mt-1 text-xs'
+        id={`${item.value}-description`}
+        aria-live='polite'
+      >
+        {item.label}
+      </div>
+    </Item>
+  )
+}
+
+function ThemeConfig() {
+  const { defaultTheme, theme, setTheme } = useTheme()
+  const { t } = useLanguage()
+  return (
+    <div>
+      <SectionTitle
+        title={t('settings.theme')}
+        showReset={theme !== defaultTheme}
+        onReset={() => setTheme(defaultTheme)}
+      />
+      <Radio
+        value={theme}
+        onValueChange={setTheme}
+        className='grid w-full max-w-md grid-cols-3 gap-4'
+        aria-label='Select theme preference'
+        aria-describedby='theme-description'
+      >
+        {[
+          {
+            value: 'system',
+            label: t('settings.system'),
+            icon: IconThemeSystem,
+          },
+          {
+            value: 'light',
+            label: t('settings.light'),
+            icon: IconThemeLight,
+          },
+          {
+            value: 'dark',
+            label: t('settings.dark'),
+            icon: IconThemeDark,
+          },
+        ].map((item) => (
+          <RadioGroupItem key={item.value} item={item} isTheme />
+        ))}
+      </Radio>
+      <div id='theme-description' className='sr-only'>
+        {t('settings.themeDescription')}
+      </div>
+    </div>
+  )
+}
+
+function SidebarConfig() {
+  const { defaultVariant, variant, setVariant } = useLayout()
+  const { t } = useLanguage()
+  return (
+    <div className='max-md:hidden'>
+      <SectionTitle
+        title={t('settings.sidebar')}
+        showReset={defaultVariant !== variant}
+        onReset={() => setVariant(defaultVariant)}
+      />
+      <Radio
+        value={variant}
+        onValueChange={setVariant}
+        className='grid w-full max-w-md grid-cols-3 gap-4'
+        aria-label='Select sidebar style'
+        aria-describedby='sidebar-description'
+      >
+        {[
+          {
+            value: 'inset',
+            label: t('settings.inset'),
+            icon: IconSidebarInset,
+          },
+          {
+            value: 'floating',
+            label: t('settings.floating'),
+            icon: IconSidebarFloating,
+          },
+          {
+            value: 'sidebar',
+            label: t('settings.sidebarStyle'),
+            icon: IconSidebarSidebar,
+          },
+        ].map((item) => (
+          <RadioGroupItem key={item.value} item={item} />
+        ))}
+      </Radio>
+      <div id='sidebar-description' className='sr-only'>
+        {t('settings.sidebarDescription')}
+      </div>
+    </div>
+  )
+}
+
+function LayoutConfig() {
+  const { open, setOpen } = useSidebar()
+  const { defaultCollapsible, collapsible, setCollapsible } = useLayout()
+  const { t } = useLanguage()
+
+  const radioState = open ? 'default' : collapsible
+
+  return (
+    <div className='max-md:hidden'>
+      <SectionTitle
+        title={t('settings.layout')}
+        showReset={radioState !== 'default'}
+        onReset={() => {
+          setOpen(true)
+          setCollapsible(defaultCollapsible)
+        }}
+      />
+      <Radio
+        value={radioState}
+        onValueChange={(v) => {
+          if (v === 'default') {
+            setOpen(true)
+            return
+          }
+          setOpen(false)
+          setCollapsible(v as Collapsible)
+        }}
+        className='grid w-full max-w-md grid-cols-3 gap-4'
+        aria-label='Select layout style'
+        aria-describedby='layout-description'
+      >
+        {[
+          {
+            value: 'default',
+            label: t('settings.default'),
+            icon: IconLayoutDefault,
+          },
+          {
+            value: 'icon',
+            label: t('settings.compact'),
+            icon: IconLayoutCompact,
+          },
+          {
+            value: 'offcanvas',
+            label: t('settings.fullLayout'),
+            icon: IconLayoutFull,
+          },
+        ].map((item) => (
+          <RadioGroupItem key={item.value} item={item} />
+        ))}
+      </Radio>
+      <div id='layout-description' className='sr-only'>
+        {t('settings.layoutDescription')}
+      </div>
+    </div>
+  )
+}
+
+function DirConfig() {
+  const { defaultDir, dir, setDir } = useDirection()
+  const { t } = useLanguage()
+  return (
+    <div>
+      <SectionTitle
+        title={t('settings.direction')}
+        showReset={defaultDir !== dir}
+        onReset={() => setDir(defaultDir)}
+      />
+      <Radio
+        value={dir}
+        onValueChange={setDir}
+        className='grid w-full max-w-md grid-cols-3 gap-4'
+        aria-label='Select site direction'
+        aria-describedby='direction-description'
+      >
+        {[
+          {
+            value: 'ltr',
+            label: t('settings.ltr'),
+            icon: (props: SVGProps<SVGSVGElement>) => (
+              <IconDir dir='ltr' {...props} />
+            ),
+          },
+          {
+            value: 'rtl',
+            label: t('settings.rtl'),
+            icon: (props: SVGProps<SVGSVGElement>) => (
+              <IconDir dir='rtl' {...props} />
+            ),
+          },
+        ].map((item) => (
+          <RadioGroupItem key={item.value} item={item} />
+        ))}
+      </Radio>
+      <div id='direction-description' className='sr-only'>
+        {t('settings.directionDescription')}
+      </div>
+    </div>
   )
 }

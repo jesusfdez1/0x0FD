@@ -5,7 +5,7 @@ export function SettingsDisplay() {
   return (
     <ContentSection
       title='Display'
-      desc="Turn items on or off to control what's displayed in the app."
+      desc='Customize theme, sidebar style, layout mode and text direction.'
     >
       <DisplayForm />
     </ContentSection>

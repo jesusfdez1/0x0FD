@@ -122,14 +122,9 @@ export const getSidebarData = (t: (key: string) => string): SidebarData => ({
           icon: Settings,
           items: [
             {
-              title: t('nav.profile'),
+              title: t('nav.account'),
               url: '/settings',
               icon: UserCog,
-            },
-            {
-              title: t('nav.account'),
-              url: '/settings/account',
-              icon: Wrench,
             },
             {
               title: t('nav.appearance'),

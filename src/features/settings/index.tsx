@@ -1,14 +1,6 @@
-import { ContentSection } from '../components/content-section'
-import { AccountForm } from './account-form'
-
-export function SettingsAccount() {
-  return (
-    <ContentSection
-      title='Account'
-      desc='Update your account settings. Set your preferred language and
-          timezone.'
-    >
-      <AccountForm />
-    </ContentSection>
-  )
-}
+export { Settings } from './layout'
+export { SettingsProfile } from './profile'
+export { SettingsAccount } from './account'
+export { SettingsAppearance } from './appearance'
+export { SettingsNotifications } from './notifications'
+export { SettingsDisplay } from './display'

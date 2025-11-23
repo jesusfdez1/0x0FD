@@ -8,14 +8,10 @@ import {
   CardTitle,
 } from '@/components/ui/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { ConfigDrawer } from '@/components/config-drawer'
 import { Header } from '@/components/layout/header'
-import { LanguageSwitch } from '@/components/language-switch'
 import { Main } from '@/components/layout/main'
 import { TopNav } from '@/components/layout/top-nav'
-import { ProfileDropdown } from '@/components/profile-dropdown'
 import { Search } from '@/components/search'
-import { ThemeSwitch } from '@/components/theme-switch'
 import { Analytics } from './components/analytics'
 import { Overview } from './components/overview'
 import { RecentSales } from './components/recent-sales'
@@ -56,10 +52,6 @@ export function Dashboard() {
         <TopNav links={topNav} />
         <div className='ms-auto flex items-center space-x-4'>
           <Search />
-          <LanguageSwitch />
-          <ThemeSwitch />
-          <ConfigDrawer />
-          <ProfileDropdown />
         </div>
       </Header>
 

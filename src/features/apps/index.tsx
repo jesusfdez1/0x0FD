@@ -12,13 +12,9 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { Separator } from '@/components/ui/separator'
-import { ConfigDrawer } from '@/components/config-drawer'
 import { Header } from '@/components/layout/header'
-import { LanguageSwitch } from '@/components/language-switch'
 import { Main } from '@/components/layout/main'
-import { ProfileDropdown } from '@/components/profile-dropdown'
 import { Search } from '@/components/search'
-import { ThemeSwitch } from '@/components/theme-switch'
 import { apps } from './data/apps'
 
 type AppType = 'all' | 'connected' | 'notConnected'
@@ -92,12 +88,6 @@ export function Apps() {
       {/* ===== Top Heading ===== */}
       <Header>
         <Search />
-        <div className='ms-auto flex items-center gap-4'>
-          <LanguageSwitch />
-          <ThemeSwitch />
-          <ConfigDrawer />
-          <ProfileDropdown />
-        </div>
       </Header>
 
       {/* ===== Content ===== */}
