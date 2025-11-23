@@ -10,6 +10,7 @@ import { LanguageProvider } from './context/language-provider'
 import { LayoutProvider } from './context/layout-provider'
 import { SearchProvider } from './context/search-provider'
 import { ThemeProvider } from './context/theme-provider'
+import { ThemeColorInitializer } from './components/theme-color-initializer'
 import './styles/index.css'
 import './styles/theme.css'
 
@@ -47,6 +48,7 @@ try {
           <QueryClientProvider client={queryClient}>
             <LanguageProvider>
               <ThemeProvider>
+                <ThemeColorInitializer />
                 <DirectionProvider>
                   <FontProvider>
                     <LayoutProvider>

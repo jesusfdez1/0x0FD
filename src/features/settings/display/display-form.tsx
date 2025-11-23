@@ -5,7 +5,6 @@
 
 import { type SVGProps, useState, useEffect, useMemo, useRef, useCallback } from 'react'
 import { Moon, Sun, Laptop, RotateCcw } from 'lucide-react'
-import { IconDir } from '@/assets/custom/icon-dir'
 import { IconLayoutCompact } from '@/assets/custom/icon-layout-compact'
 import { IconLayoutDefault } from '@/assets/custom/icon-layout-default'
 import { IconLayoutFull } from '@/assets/custom/icon-layout-full'
@@ -15,7 +14,6 @@ import { IconSidebarSidebar } from '@/assets/custom/icon-sidebar-sidebar'
 import { Root as Radio, Item } from '@radix-ui/react-radio-group'
 import { CircleCheck } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import { useDirection } from '@/context/direction-provider'
 import { type Collapsible, useLayout } from '@/context/layout-provider'
 import { useTheme } from '@/context/theme-provider'
 import { useLanguage } from '@/context/language-provider'
@@ -30,7 +28,6 @@ export function DisplayForm() {
   const { theme, setTheme, resetTheme } = useTheme()
   const { t } = useLanguage()
   const { setOpen } = useSidebar()
-  const { resetDir } = useDirection()
   const { resetLayout } = useLayout()
   
   // Estado para el color primario personalizado
@@ -307,7 +304,6 @@ export function DisplayForm() {
 
       <SidebarConfig />
       <LayoutConfig />
-      <DirConfig />
       
       <div className='flex gap-4 pt-4'>
         <Button
@@ -315,7 +311,6 @@ export function DisplayForm() {
           variant='destructive'
           onClick={() => {
             setOpen(true)
-            resetDir()
             resetTheme()
             resetLayout()
             // Resetear color a default
@@ -457,65 +452,6 @@ function LayoutConfig() {
               value: 'offcanvas',
               label: t('settings.fullLayout') || 'Diseño completo',
               icon: IconLayoutFull,
-            },
-          ].map((item) => (
-            <RadioGroupItem key={item.value} item={item} />
-          ))}
-        </Radio>
-      </CardContent>
-    </Card>
-  )
-}
-
-/**
- * Componente de configuración de Direction
- */
-function DirConfig() {
-  const { defaultDir, dir, setDir } = useDirection()
-  const { t } = useLanguage()
-  return (
-    <Card>
-      <CardHeader>
-        <CardTitle>{t('settings.direction') || 'Dirección'}</CardTitle>
-        <CardDescription>{t('settings.directionDescription') || 'Elige entre dirección de sitio de izquierda a derecha o de derecha a izquierda.'}</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <div className='flex items-center gap-2 mb-4'>
-          <span className='text-sm text-muted-foreground'>
-            {t('settings.direction') || 'Dirección'}
-          </span>
-          {defaultDir !== dir && (
-            <Button
-              type='button'
-              size='icon'
-              variant='secondary'
-              className='size-5 rounded-full'
-              onClick={() => setDir(defaultDir)}
-            >
-              <RotateCcw className='size-3' />
-            </Button>
-          )}
-        </div>
-        <Radio
-          value={dir}
-          onValueChange={setDir}
-          className='grid w-full max-w-md grid-cols-2 gap-4'
-          aria-label='Select site direction'
-        >
-          {[
-            {
-              value: 'ltr',
-              label: t('settings.ltr') || 'Izquierda a derecha',
-              icon: (props: SVGProps<SVGSVGElement>) => (
-                <IconDir dir='ltr' {...props} />
-              ),
-            },
-            {
-              value: 'rtl',
-              label: t('settings.rtl') || 'Derecha a izquierda',
-              icon: (props: SVGProps<SVGSVGElement>) => (
-                <IconDir dir='rtl' {...props} />
-              ),
             },
           ].map((item) => (
             <RadioGroupItem key={item.value} item={item} />

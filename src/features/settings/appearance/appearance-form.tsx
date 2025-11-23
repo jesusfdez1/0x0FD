@@ -6,7 +6,6 @@
 import { type SVGProps, useState, useEffect, useMemo, useRef, useCallback } from 'react'
 import { Moon, Sun, Laptop, RotateCcw } from 'lucide-react'
 import { ChevronDownIcon } from '@radix-ui/react-icons'
-import { IconDir } from '@/assets/custom/icon-dir'
 import { IconLayoutCompact } from '@/assets/custom/icon-layout-compact'
 import { IconLayoutDefault } from '@/assets/custom/icon-layout-default'
 import { IconLayoutFull } from '@/assets/custom/icon-layout-full'
@@ -18,7 +17,6 @@ import { CircleCheck } from 'lucide-react'
 import { fonts } from '@/config/fonts'
 import { cn } from '@/lib/utils'
 import { useFont } from '@/context/font-provider'
-import { useDirection } from '@/context/direction-provider'
 import { type Collapsible, useLayout } from '@/context/layout-provider'
 import { useTheme } from '@/context/theme-provider'
 import { useLanguage } from '@/context/language-provider'
@@ -34,7 +32,6 @@ export function AppearanceForm() {
   const { theme, setTheme, resetTheme } = useTheme()
   const { t } = useLanguage()
   const { setOpen } = useSidebar()
-  const { resetDir } = useDirection()
   const { resetLayout } = useLayout()
   
   // Estado para el color primario personalizado
@@ -131,22 +128,22 @@ export function AppearanceForm() {
           <CardDescription>{t('settings.fontDescription')}</CardDescription>
         </CardHeader>
         <CardContent>
-          <div className='relative w-max'>
-            <select
-              className={cn(
-                buttonVariants({ variant: 'outline' }),
-                'w-[200px] appearance-none font-normal capitalize',
-                'dark:bg-background dark:hover:bg-background'
-              )}
+              <div className='relative w-max'>
+                  <select
+                    className={cn(
+                      buttonVariants({ variant: 'outline' }),
+                      'w-[200px] appearance-none font-normal capitalize',
+                      'dark:bg-background dark:hover:bg-background'
+                    )}
               value={font}
               onChange={(e) => setFont(e.target.value as typeof font)}
             >
               {fonts.map((f) => (
                 <option key={f} value={f}>
                   {f}
-                </option>
-              ))}
-            </select>
+                      </option>
+                    ))}
+                  </select>
             <ChevronDownIcon className='absolute end-3 top-2.5 h-4 w-4 opacity-50 pointer-events-none' />
           </div>
         </CardContent>
@@ -196,6 +193,12 @@ export function AppearanceForm() {
           </div>
         </CardContent>
       </Card>
+
+      {/* Sidebar Config */}
+      <SidebarConfig />
+      
+      {/* Layout Config */}
+      <LayoutConfig />
 
       {/* Personalización del Tema */}
       <Card>
@@ -294,7 +297,7 @@ export function AppearanceForm() {
                     />
                     <span className='ml-1 text-sm text-muted-foreground'>%</span>
                   </div>
-                </div>
+                        </div>
                 
                 <div className='flex flex-col justify-center items-center'>
                   <Label htmlFor='color-preview' className='text-xs mb-3'>{t('settings.preview') || 'Vista previa'}</Label>
@@ -303,10 +306,10 @@ export function AppearanceForm() {
                     style={{ backgroundColor: selectedColorCSS }}
                     aria-label={t('settings.colorPreview') || 'Vista previa del color seleccionado'}
                   />
-                </div>
-              </div>
-            </div>
-          </div>
+                        </div>
+                        </div>
+                      </div>
+                    </div>
 
           <Separator />
 
@@ -334,19 +337,10 @@ export function AppearanceForm() {
                   <span className='text-xs truncate w-full text-center'>{preset.name}</span>
                 </button>
               ))}
-            </div>
-          </div>
+                        </div>
+                        </div>
         </CardContent>
       </Card>
-
-      {/* Sidebar Config */}
-      <SidebarConfig />
-      
-      {/* Layout Config */}
-      <LayoutConfig />
-      
-      {/* Direction Config */}
-      <DirConfig />
       
       {/* Reset Button */}
       <div className='flex gap-4 pt-4'>
@@ -355,7 +349,6 @@ export function AppearanceForm() {
           variant='destructive'
           onClick={() => {
             setOpen(true)
-            resetDir()
             resetTheme()
             resetLayout()
             // Resetear color a default
@@ -368,8 +361,8 @@ export function AppearanceForm() {
           <RotateCcw className='mr-2 h-4 w-4' />
           {t('settings.resetAll') || 'Restablecer todo'}
         </Button>
-      </div>
-    </div>
+                        </div>
+                      </div>
   )
 }
 
@@ -405,7 +398,7 @@ function SidebarConfig() {
         <Radio
           value={variant}
           onValueChange={setVariant}
-          className='grid w-full max-w-md grid-cols-3 gap-4'
+          className='grid w-full max-w-md grid-cols-3 gap-4 justify-items-center'
           aria-label='Select sidebar style'
         >
           {[
@@ -468,7 +461,7 @@ function LayoutConfig() {
               <RotateCcw className='size-3' />
             </Button>
           )}
-        </div>
+                    </div>
         <Radio
           value={radioState}
           onValueChange={(v) => {
@@ -479,7 +472,7 @@ function LayoutConfig() {
             setOpen(false)
             setCollapsible(v as Collapsible)
           }}
-          className='grid w-full max-w-md grid-cols-3 gap-4'
+          className='grid w-full max-w-md grid-cols-3 gap-4 justify-items-center'
           aria-label='Select layout style'
         >
           {[
@@ -508,65 +501,6 @@ function LayoutConfig() {
 }
 
 /**
- * Componente de configuración de Direction
- */
-function DirConfig() {
-  const { defaultDir, dir, setDir } = useDirection()
-  const { t } = useLanguage()
-  return (
-    <Card>
-      <CardHeader>
-        <CardTitle>{t('settings.direction') || 'Dirección'}</CardTitle>
-        <CardDescription>{t('settings.directionDescription') || 'Elige entre dirección de sitio de izquierda a derecha o de derecha a izquierda.'}</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <div className='flex items-center gap-2 mb-4'>
-          <span className='text-sm text-muted-foreground'>
-            {t('settings.direction') || 'Dirección'}
-          </span>
-          {defaultDir !== dir && (
-            <Button
-              type='button'
-              size='icon'
-              variant='secondary'
-              className='size-5 rounded-full'
-              onClick={() => setDir(defaultDir)}
-            >
-              <RotateCcw className='size-3' />
-            </Button>
-          )}
-        </div>
-        <Radio
-          value={dir}
-          onValueChange={setDir}
-          className='grid w-full max-w-md grid-cols-2 gap-4'
-          aria-label='Select site direction'
-        >
-          {[
-            {
-              value: 'ltr',
-              label: t('settings.ltr') || 'Izquierda a derecha',
-              icon: (props: SVGProps<SVGSVGElement>) => (
-                <IconDir dir='ltr' {...props} />
-              ),
-            },
-            {
-              value: 'rtl',
-              label: t('settings.rtl') || 'Derecha a izquierda',
-              icon: (props: SVGProps<SVGSVGElement>) => (
-                <IconDir dir='rtl' {...props} />
-              ),
-            },
-          ].map((item) => (
-            <RadioGroupItem key={item.value} item={item} />
-          ))}
-        </Radio>
-      </CardContent>
-    </Card>
-  )
-}
-
-/**
  * Componente RadioGroupItem para los selectores
  */
 function RadioGroupItem({
@@ -583,14 +517,16 @@ function RadioGroupItem({
   return (
     <Item
       value={item.value}
-      className={cn('group outline-none', 'transition duration-200 ease-in')}
+      className={cn('group outline-none flex flex-col items-center', 'transition duration-200 ease-in')}
       aria-label={`Select ${item.label.toLowerCase()}`}
     >
       <div
         className={cn(
           'ring-border relative rounded-[6px] ring-[1px]',
           'group-data-[state=checked]:ring-primary group-data-[state=checked]:shadow-2xl',
-          'group-focus-visible:ring-2'
+          'group-focus-visible:ring-2',
+          'flex items-center justify-center',
+          'w-full aspect-video p-2'
         )}
         role='img'
         aria-hidden='false'
@@ -607,7 +543,8 @@ function RadioGroupItem({
         <item.icon
           className={cn(
             !isTheme &&
-              'stroke-primary fill-primary group-data-[state=unchecked]:stroke-muted-foreground group-data-[state=unchecked]:fill-muted-foreground'
+              'stroke-primary fill-primary group-data-[state=unchecked]:stroke-muted-foreground group-data-[state=unchecked]:fill-muted-foreground',
+            'w-full h-full'
           )}
           aria-hidden='true'
         />
