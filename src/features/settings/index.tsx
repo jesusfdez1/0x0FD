@@ -1,7 +1,7 @@
-import { ContentSection } from './components/content-section'
-import { AccountForm } from './account/account-form'
+import { ContentSection } from '../components/content-section'
+import { AccountForm } from './account-form'
 
-export function Settings() {
+export function SettingsAccount() {
   return (
     <ContentSection
       title='Account'

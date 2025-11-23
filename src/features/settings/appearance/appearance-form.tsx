@@ -7,6 +7,7 @@ import { showSubmittedData } from '@/lib/show-submitted-data'
 import { cn } from '@/lib/utils'
 import { useFont } from '@/context/font-provider'
 import { useTheme } from '@/context/theme-provider'
+import { useLanguage } from '@/context/language-provider'
 import { Button, buttonVariants } from '@/components/ui/button'
 import {
   Form,
@@ -29,6 +30,7 @@ type AppearanceFormValues = z.infer<typeof appearanceFormSchema>
 export function AppearanceForm() {
   const { font, setFont } = useFont()
   const { theme, setTheme } = useTheme()
+  const { t } = useLanguage()
 
   // This can come from your database or API.
   const defaultValues: Partial<AppearanceFormValues> = {
@@ -56,7 +58,7 @@ export function AppearanceForm() {
           name='font'
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Font</FormLabel>
+              <FormLabel>{t('settings.font')}</FormLabel>
               <div className='relative w-max'>
                 <FormControl>
                   <select
@@ -77,7 +79,7 @@ export function AppearanceForm() {
                 <ChevronDownIcon className='absolute end-3 top-2.5 h-4 w-4 opacity-50' />
               </div>
               <FormDescription className='font-manrope'>
-                Set the font you want to use in the dashboard.
+                {t('settings.fontDescription')}
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -88,9 +90,9 @@ export function AppearanceForm() {
           name='theme'
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Theme</FormLabel>
+              <FormLabel>{t('settings.theme')}</FormLabel>
               <FormDescription>
-                Select the theme for the dashboard.
+                {t('settings.themeDescription')}
               </FormDescription>
               <FormMessage />
               <RadioGroup
@@ -120,7 +122,7 @@ export function AppearanceForm() {
                       </div>
                     </div>
                     <span className='block w-full p-2 text-center font-normal'>
-                      Light
+                      {t('settings.light')}
                     </span>
                   </FormLabel>
                 </FormItem>
@@ -146,7 +148,7 @@ export function AppearanceForm() {
                       </div>
                     </div>
                     <span className='block w-full p-2 text-center font-normal'>
-                      Dark
+                      {t('settings.dark')}
                     </span>
                   </FormLabel>
                 </FormItem>
@@ -155,7 +157,7 @@ export function AppearanceForm() {
           )}
         />
 
-        <Button type='submit'>Update preferences</Button>
+        <Button type='submit'>{t('settings.updatePreferences')}</Button>
       </form>
     </Form>
   )
