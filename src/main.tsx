@@ -4,7 +4,9 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { createRouter, RouterProvider } from '@tanstack/react-router'
 import { routeTree } from './routeTree.gen'
 import { DirectionProvider } from './context/direction-provider'
+import { ErrorBoundary } from './components/error-boundary'
 import { FontProvider } from './context/font-provider'
+import { LanguageProvider } from './context/language-provider'
 import { LayoutProvider } from './context/layout-provider'
 import { SearchProvider } from './context/search-provider'
 import { ThemeProvider } from './context/theme-provider'
@@ -31,25 +33,37 @@ declare module '@tanstack/react-router' {
   }
 }
 
-// Render the app
+// Render the app con manejo de errores
 const rootElement = document.getElementById('root')!
-if (!rootElement.innerHTML) {
-  const root = createRoot(rootElement)
-  root.render(
-    <StrictMode>
-      <QueryClientProvider client={queryClient}>
-        <ThemeProvider>
-          <DirectionProvider>
-            <FontProvider>
-              <LayoutProvider>
-                <SearchProvider>
-                  <RouterProvider router={router} />
-                </SearchProvider>
-              </LayoutProvider>
-            </FontProvider>
-          </DirectionProvider>
-        </ThemeProvider>
-      </QueryClientProvider>
-    </StrictMode>
-  )
+
+try {
+  if (!rootElement.innerHTML) {
+    const root = createRoot(rootElement)
+    
+    // Intenta renderizar la app
+    root.render(
+      <StrictMode>
+        <ErrorBoundary>
+          <QueryClientProvider client={queryClient}>
+            <LanguageProvider>
+              <ThemeProvider>
+                <DirectionProvider>
+                  <FontProvider>
+                    <LayoutProvider>
+                      <SearchProvider>
+                        <RouterProvider router={router} />
+                      </SearchProvider>
+                    </LayoutProvider>
+                  </FontProvider>
+                </DirectionProvider>
+              </ThemeProvider>
+            </LanguageProvider>
+          </QueryClientProvider>
+        </ErrorBoundary>
+      </StrictMode>
+    )
+  }
+} catch (error) {
+  console.error('❌ Error al renderizar la aplicación:', error)
+  console.error('Stack trace:', (error as Error).stack)
 }

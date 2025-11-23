@@ -23,7 +23,7 @@ import {
 } from 'lucide-react'
 import { type SidebarData } from '../types'
 
-export const sidebarData: SidebarData = {
+export const getSidebarData = (t: (key: string) => string): SidebarData => ({
   user: {
     name: 'satnaing',
     email: 'satnaingdev@gmail.com',
@@ -48,65 +48,65 @@ export const sidebarData: SidebarData = {
   ],
   navGroups: [
     {
-      title: 'General',
+      title: t('nav.general'),
       items: [
         {
-          title: 'Dashboard',
+          title: t('nav.dashboard'),
           url: '/',
           icon: LayoutDashboard,
         },
         {
-          title: 'Tasks',
+          title: t('nav.tasks'),
           url: '/tasks',
           icon: ListTodo,
         },
         {
-          title: 'Apps',
+          title: t('nav.apps'),
           url: '/apps',
           icon: Package,
         },
         {
-          title: 'Chats',
+          title: t('nav.chats'),
           url: '/chats',
           badge: '3',
           icon: MessagesSquare,
         },
         {
-          title: 'Users',
+          title: t('nav.users'),
           url: '/users',
           icon: Users,
         },
       ],
     },
     {
-      title: 'Pages',
+      title: t('nav.pages'),
       items: [
         {
-          title: 'Errors',
+          title: t('nav.errors'),
           icon: Bug,
           items: [
             {
-              title: 'Unauthorized',
+              title: t('nav.unauthorized'),
               url: '/errors/unauthorized',
               icon: Lock,
             },
             {
-              title: 'Forbidden',
+              title: t('nav.forbidden'),
               url: '/errors/forbidden',
               icon: UserX,
             },
             {
-              title: 'Not Found',
+              title: t('nav.notFound'),
               url: '/errors/not-found',
               icon: FileX,
             },
             {
-              title: 'Internal Server Error',
+              title: t('nav.internalServerError'),
               url: '/errors/internal-server-error',
               icon: ServerOff,
             },
             {
-              title: 'Maintenance Error',
+              title: t('nav.maintenanceError'),
               url: '/errors/maintenance-error',
               icon: Construction,
             },
@@ -115,45 +115,45 @@ export const sidebarData: SidebarData = {
       ],
     },
     {
-      title: 'Other',
+      title: t('nav.other'),
       items: [
         {
-          title: 'Settings',
+          title: t('nav.settings'),
           icon: Settings,
           items: [
             {
-              title: 'Profile',
+              title: t('nav.profile'),
               url: '/settings',
               icon: UserCog,
             },
             {
-              title: 'Account',
+              title: t('nav.account'),
               url: '/settings/account',
               icon: Wrench,
             },
             {
-              title: 'Appearance',
+              title: t('nav.appearance'),
               url: '/settings/appearance',
               icon: Palette,
             },
             {
-              title: 'Notifications',
+              title: t('nav.notifications'),
               url: '/settings/notifications',
               icon: Bell,
             },
             {
-              title: 'Display',
+              title: t('nav.display'),
               url: '/settings/display',
               icon: Monitor,
             },
           ],
         },
         {
-          title: 'Help Center',
+          title: t('nav.helpCenter'),
           url: '/help-center',
           icon: HelpCircle,
         },
       ],
     },
   ],
-}
+})

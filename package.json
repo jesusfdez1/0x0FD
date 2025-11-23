@@ -5,12 +5,15 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev:safe": "vite --force",
     "build": "tsc -b && vite build",
+    "build:skip-check": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
     "format:check": "prettier --check .",
     "format": "prettier --write .",
-    "knip": "knip"
+    "knip": "knip",
+    "type-check": "tsc -b --noEmit"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",

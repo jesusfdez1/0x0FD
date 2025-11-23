@@ -1,6 +1,8 @@
 import { useNavigate, useSearch } from '@tanstack/react-router'
+import { useLanguage } from '@/context/language-provider'
 import { ConfigDrawer } from '@/components/config-drawer'
 import { Header } from '@/components/layout/header'
+import { LanguageSwitch } from '@/components/language-switch'
 import { Main } from '@/components/layout/main'
 import { ProfileDropdown } from '@/components/profile-dropdown'
 import { Search } from '@/components/search'
@@ -12,6 +14,7 @@ import { UsersTable } from './components/users-table'
 import { users } from './data/users'
 
 export function Users() {
+  const { t } = useLanguage()
   const search = useSearch({ strict: false }) as Record<string, unknown>
   const navigate = useNavigate()
 
@@ -20,6 +23,7 @@ export function Users() {
       <Header fixed>
         <Search />
         <div className='ms-auto flex items-center space-x-4'>
+          <LanguageSwitch />
           <ThemeSwitch />
           <ConfigDrawer />
           <ProfileDropdown />
@@ -29,9 +33,9 @@ export function Users() {
       <Main className='flex flex-1 flex-col gap-4 sm:gap-6'>
         <div className='flex flex-wrap items-end justify-between gap-2'>
           <div>
-            <h2 className='text-2xl font-bold tracking-tight'>User List</h2>
+            <h2 className='text-2xl font-bold tracking-tight'>{t('users.title')}</h2>
             <p className='text-muted-foreground'>
-              Manage your users and their roles here.
+              {t('users.description')}
             </p>
           </div>
           <UsersPrimaryButtons />

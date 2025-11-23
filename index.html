@@ -75,6 +75,23 @@
 
   <body>
     <div id="root"></div>
+    
+    <script>
+      // Captura errores globales y los muestra en consola
+      window.addEventListener('error', function(event) {
+        console.error('❌ Error global capturado:', event.error);
+        console.error('Stack trace:', event.error?.stack);
+      });
+      
+      // Captura errores de promesas no manejadas
+      window.addEventListener('unhandledrejection', function(event) {
+        console.error('❌ Promise rechazada no manejada:', event.reason);
+        if (event.reason?.stack) {
+          console.error('Stack trace:', event.reason.stack);
+        }
+      });
+    </script>
+    
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
