@@ -138,7 +138,7 @@ function RadioGroupItem({
         aria-hidden='false'
         aria-label={`${item.label} option preview`}
       >
-        <div className='aspect-video w-full overflow-hidden rounded-lg flex items-center justify-center p-2' style={{ backgroundColor: 'var(--secondary)' }}>
+        <div className='aspect-video w-full overflow-hidden rounded-lg flex items-center justify-center p-1' style={{ backgroundColor: 'var(--secondary)' }}>
               <CircleCheck
                 className={cn(
                   'fill-primary size-6 stroke-white absolute top-0 right-0 translate-x-1/2 -translate-y-1/2',
@@ -150,7 +150,7 @@ function RadioGroupItem({
                 className={cn(
                   !isTheme &&
                     'stroke-primary fill-primary group-data-[state=unchecked]:stroke-muted-foreground group-data-[state=unchecked]:fill-muted-foreground',
-                  isTheme ? 'h-4 w-4' : 'w-28 h-28'
+                  isTheme ? 'h-4 w-4' : 'w-36 h-36'
                 )}
             aria-hidden='true'
           />
@@ -179,7 +179,7 @@ function ThemeConfig() {
       <Radio
         value={theme}
         onValueChange={setTheme}
-        className='grid w-full max-w-md grid-cols-3 gap-4'
+        className='grid w-full max-w-lg grid-cols-3 gap-6'
         aria-label='Select theme preference'
         aria-describedby='theme-description'
       >
@@ -222,7 +222,7 @@ function SidebarConfig() {
       <Radio
         value={variant}
         onValueChange={setVariant}
-        className='grid w-full max-w-md grid-cols-3 gap-4'
+        className='grid w-full max-w-lg grid-cols-3 gap-6'
         aria-label='Select sidebar style'
         aria-describedby='sidebar-description'
       >

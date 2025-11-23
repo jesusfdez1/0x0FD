@@ -1,6 +1,6 @@
  
 import { type SVGProps, useState, useEffect, useMemo, useRef, useCallback } from 'react'
-import { Moon, Sun, Laptop, RotateCcw } from 'lucide-react'
+import { Moon, Sun, Laptop } from 'lucide-react'
 import { IconLayoutCompact } from '@/assets/custom/icon-layout-compact'
 import { IconLayoutDefault } from '@/assets/custom/icon-layout-default'
 import { IconLayoutFull } from '@/assets/custom/icon-layout-full'
@@ -307,25 +307,7 @@ export function DisplayForm() {
       <SidebarConfig />
       <LayoutConfig />
       
-      <div className='flex gap-4 pt-4'>
-        <Button
-          type='button'
-          variant='destructive'
-          onClick={() => {
-            setOpen(true)
-            resetTheme()
-            resetLayout()
-            // Resetear color a default
-            const defaultColor = { hue: 240, saturation: 100, lightness: 50 }
-            setPrimaryColor(defaultColor)
-            applyThemeColor(defaultColor)
-          }}
-          aria-label={t('settings.resetAllSettings') || 'Restablecer todas las configuraciones'}
-        >
-          <RotateCcw className='mr-2 h-4 w-4' />
-          {t('settings.resetAll') || 'Restablecer todo'}
-        </Button>
-      </div>
+      {/* Reset Button removed per user request */}
     </div>
   )
 }
@@ -359,7 +341,7 @@ function SidebarConfig() {
         <Radio
           value={variant}
           onValueChange={setVariant}
-          className='grid w-full max-w-md grid-cols-3 gap-4'
+          className='grid w-full max-w-lg grid-cols-3 gap-6'
           aria-label='Select sidebar style'
         >
           {[
@@ -430,7 +412,7 @@ function LayoutConfig() {
             setOpen(false)
             setCollapsible(v as Collapsible)
           }}
-          className='grid w-full max-w-md grid-cols-3 gap-4'
+          className='grid w-full max-w-lg grid-cols-3 gap-6'
           aria-label='Select layout style'
         >
           {[
@@ -502,7 +484,7 @@ function LayoutConfig() {
               className={cn(
                 !isTheme &&
                   'stroke-primary fill-primary group-data-[state=unchecked]:stroke-muted-foreground group-data-[state=unchecked]:fill-muted-foreground',
-                isTheme ? 'h-4 w-4' : 'w-28 h-28'
+                isTheme ? 'h-4 w-4' : 'w-36 h-36'
               )}
               aria-hidden='true'
             />

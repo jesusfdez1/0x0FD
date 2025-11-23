@@ -1,6 +1,6 @@
  
 import { type SVGProps, useState, useEffect, useMemo, useRef, useCallback } from 'react'
-import { Moon, Sun, Laptop, RotateCcw } from 'lucide-react'
+import { Moon, Sun, Laptop } from 'lucide-react'
 import { ChevronDownIcon } from '@radix-ui/react-icons'
 import { IconLayoutCompact } from '@/assets/custom/icon-layout-compact'
 import { IconLayoutDefault } from '@/assets/custom/icon-layout-default'
@@ -25,10 +25,9 @@ import { useSidebar } from '@/components/ui/sidebar'
 
 export function AppearanceForm() {
   const { font, setFont } = useFont()
-  const { theme, setTheme, resetTheme } = useTheme()
+  const { theme, setTheme } = useTheme()
   const { t } = useLanguage()
   const { setOpen } = useSidebar()
-  const { resetLayout } = useLayout()
   
   // Estado para el color primario personalizado
   const [primaryColor, setPrimaryColor] = useState({ hue: 240, saturation: 100, lightness: 50 })
@@ -148,7 +147,6 @@ export function AppearanceForm() {
         </CardContent>
       </Card>
 
-      {/* Preferencia de Tema */}
       <Card>
         <CardHeader>
           <CardTitle>{t('settings.themePreference') || 'Preferencia de tema'}</CardTitle>
@@ -341,26 +339,7 @@ export function AppearanceForm() {
         </CardContent>
       </Card>
       
-      {/* Reset Button */}
-      <div className='flex gap-4 pt-4'>
-        <Button
-          type='button'
-          variant='destructive'
-          onClick={() => {
-            setOpen(true)
-            resetTheme()
-            resetLayout()
-            // Resetear color a default
-            const defaultColor = { hue: 240, saturation: 100, lightness: 50 }
-            setPrimaryColor(defaultColor)
-            applyThemeColor(defaultColor)
-          }}
-          aria-label={t('settings.resetAllSettings') || 'Restablecer todas las configuraciones'}
-        >
-          <RotateCcw className='mr-2 h-4 w-4' />
-          {t('settings.resetAll') || 'Restablecer todo'}
-        </Button>
-                        </div>
+      {/* Reset Button removed per user request */}
                       </div>
   )
 }
@@ -378,23 +357,11 @@ function SidebarConfig() {
         <CardDescription>{t('settings.sidebarDescription') || 'Elige entre estilo integrado, flotante o barra lateral estándar.'}</CardDescription>
       </CardHeader>
       <CardContent>
-        <div className='flex items-center gap-2 mb-4'>
-          {defaultVariant !== variant && (
-            <Button
-              type='button'
-              size='icon'
-              variant='secondary'
-              className='size-5 rounded-full'
-              onClick={() => setVariant(defaultVariant)}
-            >
-              <RotateCcw className='size-3' />
-            </Button>
-          )}
-        </div>
+        {/* Reset control removed per user request */}
         <Radio
           value={variant}
           onValueChange={setVariant}
-          className='grid w-full max-w-md grid-cols-3 gap-4 justify-items-center'
+          className='grid w-full max-w-lg grid-cols-3 gap-6 justify-items-center'
           aria-label='Select sidebar style'
         >
           {[
@@ -439,22 +406,7 @@ function LayoutConfig() {
         <CardDescription>{t('settings.layoutDescription') || 'Elige entre modo expandido por defecto, compacto solo iconos o diseño completo.'}</CardDescription>
       </CardHeader>
       <CardContent>
-        <div className='flex items-center gap-2 mb-4'>
-          {radioState !== 'default' && (
-            <Button
-              type='button'
-              size='icon'
-              variant='secondary'
-              className='size-5 rounded-full'
-              onClick={() => {
-                setOpen(true)
-                setCollapsible(defaultCollapsible)
-              }}
-            >
-              <RotateCcw className='size-3' />
-            </Button>
-          )}
-                    </div>
+        {/* Reset control removed per user request */}
         <Radio
           value={radioState}
           onValueChange={(v) => {
@@ -465,7 +417,7 @@ function LayoutConfig() {
             setOpen(false)
             setCollapsible(v as Collapsible)
           }}
-          className='grid w-full max-w-md grid-cols-3 gap-4 justify-items-center'
+          className='grid w-full max-w-lg grid-cols-3 gap-6 justify-items-center'
           aria-label='Select layout style'
         >
           {[
@@ -530,7 +482,7 @@ function RadioGroupItem({
               className={cn(
                 !isTheme &&
                   'stroke-primary fill-primary group-data-[state=unchecked]:stroke-muted-foreground group-data-[state=unchecked]:fill-muted-foreground',
-                isTheme ? 'h-4 w-4' : 'w-28 h-28'
+                isTheme ? 'h-4 w-4' : 'w-36 h-36'
               )}
             aria-hidden='true'
           />
