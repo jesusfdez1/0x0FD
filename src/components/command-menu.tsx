@@ -27,20 +27,17 @@ export function CommandMenu() {
 
   const runCommand = React.useCallback(
     (command: () => unknown) => {
-      // Close the command dialog first, then run the command after a micro delay
-      // to avoid executing navigation while the CommandMenu is unmounting and
-      // losing router context.
-      setOpen(false)
-      // Use setTimeout 0 (macro task) to ensure the dialog close animation and
-      // unmounting starts, but the navigation still occurs shortly after.
-      setTimeout(() => {
-        try {
-          command()
-        } catch (err) {
-          // swallow errors to avoid breaking the app from unexpected issues
-          console.error('Command execution error', err)
-        }
-      }, 0)
+      // Try to run the command first (this often triggers navigation),
+      // then close the Command Dialog after a short delay to ensure the
+      // navigation is handled while the dialog is still mounted.
+      try {
+        command()
+      } catch (err) {
+        console.error('Command execution error', err)
+      }
+      // Close the dialog after a small delay so UX feels snappy, but the
+      // navigation occurs before unmounting relevant components.
+      setTimeout(() => setOpen(false), 50)
     },
     [setOpen]
   )
@@ -60,8 +57,23 @@ export function CommandMenu() {
                       key={`${navItem.url}-${i}`}
                       value={navItem.title}
                       onSelect={() => {
-                        runCommand(() => navigate({ to: navItem.url }))
-                      }}
+                          runCommand(() => {
+                            const to = navItem.url
+                            console.debug('CommandMenu: navigating to', to)
+                            try {
+                              navigate({ to })
+                            } catch (err) {
+                              console.error('CommandMenu: navigate error', err)
+                            }
+                            // fallback after short delay if router doesn't navigate
+                            setTimeout(() => {
+                              if (typeof window !== 'undefined' && to && window.location.pathname !== to) {
+                                console.warn('CommandMenu: router did not navigate, fallback to full page navigation', to)
+                                window.location.href = to
+                              }
+                            }, 200)
+                          })
+                        }}
                     >
                       <div className='flex size-4 items-center justify-center'>
                         <ArrowRight className='text-muted-foreground/80 size-2' />
@@ -75,7 +87,21 @@ export function CommandMenu() {
                     key={`${navItem.title}-${subItem.url}-${i}`}
                     value={`${navItem.title}-${subItem.url}`}
                     onSelect={() => {
-                      runCommand(() => navigate({ to: subItem.url }))
+                      runCommand(() => {
+                        const to = subItem.url
+                        console.debug('CommandMenu: navigating to', to)
+                        try {
+                          navigate({ to })
+                        } catch (err) {
+                          console.error('CommandMenu: navigate error', err)
+                        }
+                        setTimeout(() => {
+                          if (typeof window !== 'undefined' && to && window.location.pathname !== to) {
+                            console.warn('CommandMenu: router did not navigate, fallback to full page navigation', to)
+                            window.location.href = to
+                          }
+                        }, 200)
+                      })
                     }}
                   >
                     <div className='flex size-4 items-center justify-center'>
