@@ -61,6 +61,16 @@ export const getSidebarData = (t: (key: string) => string): SidebarData => ({
           icon: Package,
         },
         {
+          title: t('nav.companies'),
+          url: '/companies',
+          icon: Monitor,
+        },
+        {
+          title: t('nav.portfolios'),
+          url: '/portfolios',
+          icon: Wrench,
+        },
+        {
           title: t('nav.chats'),
           url: '/chats',
           badge: '3',

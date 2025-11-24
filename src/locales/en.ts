@@ -6,6 +6,8 @@ export const en = {
     apps: 'Apps',
     chats: 'Chats',
     users: 'Users',
+    companies: 'Companies',
+    portfolios: 'Portfolios',
     pages: 'Pages',
     other: 'Other',
     settings: 'Settings',
@@ -127,6 +129,18 @@ export const en = {
     inactive: 'Inactive',
     invited: 'Invited',
     suspended: 'Suspended',
+  },
+  companies: {
+    title: 'Companies',
+    description: 'Browse publicly-listed companies grouped by region and market. Use the search bar to find companies across markets.',
+    filterPlaceholder: 'Buscar empresas...',
+    byRegion: 'Grouped by region & market',
+  },
+  portfolios: {
+    title: 'Portfolios',
+    description: 'Create and manage custom portfolios (carteras) with companies from different markets.',
+    create: 'Create portfolio',
+    addCompany: 'Add company',
   },
   dashboard: {
     title: 'Dashboard',

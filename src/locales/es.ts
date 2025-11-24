@@ -6,6 +6,8 @@ export const es = {
     apps: 'Aplicaciones',
     chats: 'Chats',
     users: 'Usuarios',
+    companies: 'Empresas',
+    portfolios: 'Carteras',
     pages: 'Páginas',
     other: 'Otros',
     settings: 'Configuración',
@@ -127,6 +129,18 @@ export const es = {
     inactive: 'Inactivo',
     invited: 'Invitado',
     suspended: 'Suspendido',
+  },
+  companies: {
+    title: 'Empresas',
+    description: 'Explora compañías cotizadas agrupadas por región y bolsa. Usa la barra de búsqueda para encontrar compañías en diferentes mercados.',
+    filterPlaceholder: 'Buscar empresas...',
+    byRegion: 'Agrupadas por región y bolsa',
+  },
+  portfolios: {
+    title: 'Carteras',
+    description: 'Crea y gestiona carteras personalizadas con compañías de diferentes mercados.',
+    create: 'Crear cartera',
+    addCompany: 'Agregar compañía',
   },
   dashboard: {
     title: 'Escritorio',
