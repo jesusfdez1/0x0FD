@@ -1,6 +1,6 @@
  
 import { type SVGProps, useState, useEffect, useMemo, useRef, useCallback } from 'react'
-import { Moon, Sun, Laptop } from 'lucide-react'
+// icons removed for visible labels under theme images (kept accessible labels)
 import { ChevronDownIcon } from '@radix-ui/react-icons'
 import { IconLayoutCompact } from '@/assets/custom/icon-layout-compact'
 import { IconLayoutDefault } from '@/assets/custom/icon-layout-default'
@@ -153,9 +153,9 @@ export function AppearanceForm() {
         <CardContent>
           <div className='grid grid-cols-3 gap-4'>
             {[
-              { value: 'light', label: t('settings.light'), icon: Sun, image: '/images/ui-light.png' },
-              { value: 'dark', label: t('settings.dark'), icon: Moon, image: '/images/ui-dark.png' },
-              { value: 'system', label: t('settings.system'), icon: Laptop, image: '/images/ui-system.png' },
+              { value: 'light', label: t('settings.light'), image: '/images/ui-light.png' },
+              { value: 'dark', label: t('settings.dark'), image: '/images/ui-dark.png' },
+              { value: 'system', label: t('settings.system'), image: '/images/ui-system.png' },
             ].map((option) => (
               <div key={option.value} className='flex flex-col items-center gap-2'>
                 <button
@@ -180,8 +180,8 @@ export function AppearanceForm() {
                   </div>
                 </button>
                 <div className='flex items-center gap-2'>
-                  <option.icon className='h-4 w-4' />
-                  <span className='text-sm font-medium'>{option.label}</span>
+                  {/* Visible icons and texts removed per user request. Keep screen-reader label. */}
+                  <span className='sr-only'>{option.label}</span>
                 </div>
               </div>
             ))}

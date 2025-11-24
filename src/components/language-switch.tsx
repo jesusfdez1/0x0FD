@@ -7,16 +7,17 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
+import { useLanguage as useLocale } from '@/context/language-provider'
 
 export function LanguageSwitch() {
-  const { language, setLanguage } = useLanguage()
+  const { language, setLanguage, t } = useLocale()
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant='ghost' size='icon'>
           <Languages className='h-[1.2rem] w-[1.2rem]' />
-          <span className='sr-only'>Change language</span>
+          <span className='sr-only'>{t('common.changeLanguage')}</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align='end'>
@@ -24,13 +25,13 @@ export function LanguageSwitch() {
           onClick={() => setLanguage('en')}
           className={language === 'en' ? 'bg-accent' : ''}
         >
-          English
+          {t('common.english')}
         </DropdownMenuItem>
         <DropdownMenuItem
           onClick={() => setLanguage('es')}
           className={language === 'es' ? 'bg-accent' : ''}
         >
-          Español
+          {t('common.spanish')}
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

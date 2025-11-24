@@ -1,3 +1,4 @@
+import React from 'react'
 import { z } from 'zod'
 import { useFieldArray, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -27,13 +28,7 @@ import {
 import { Textarea } from '@/components/ui/textarea'
 
 // This can come from your database or API.
-const defaultValues: Partial<any> = {
-  bio: 'I own a computer.',
-  urls: [
-    { value: 'https://shadcn.com' },
-    { value: 'http://twitter.com/shadcn' },
-  ],
-}
+// Default values are derived from the user's saved profile in localStorage (if any).
 
 export function ProfileForm() {
   const { t } = useLanguage()
@@ -59,9 +54,11 @@ export function ProfileForm() {
 
   type ProfileFormValues = z.infer<typeof profileFormSchema>
 
+  const [profileStored, setProfileStored] = useLocalStorage<ProfileFormValues | null>('user-profile', null)
+
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(profileFormSchema),
-    defaultValues,
+    defaultValues: profileStored ?? undefined,
     mode: 'onChange',
   })
 
@@ -70,7 +67,11 @@ export function ProfileForm() {
     control: form.control,
   })
 
-  const [profileStored, setProfileStored] = useLocalStorage<ProfileFormValues | null>('user-profile', null)
+  // Keep the form in sync with the value stored in localStorage
+  React.useEffect(() => {
+    if (profileStored) form.reset(profileStored)
+  }, [profileStored])
+  
 
   return (
     <Form {...form}>

@@ -17,20 +17,32 @@ export function SearchProvider({ children }: SearchProviderProps) {
 
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
-      if (e.key === 'k' && (e.metaKey || e.ctrlKey)) {
+      // If we are typing in an input/textarea or content editable, don't toggle.
+      const target = e.target as HTMLElement | null
+      if (
+        target &&
+        (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable)
+      ) {
+        return
+      }
+
+      if ((e.key === 'k' || e.key === 'K') && (e.metaKey || e.ctrlKey)) {
+        // Stop the browser default (ex: focus omnibox)
         e.preventDefault()
+        e.stopPropagation()
         setOpen((open) => !open)
       }
     }
-    document.addEventListener('keydown', down)
-    return () => document.removeEventListener('keydown', down)
+    // Use capture phase and explicit passive: false so preventDefault works across browsers.
+    document.addEventListener('keydown', down, { capture: true, passive: false })
+    return () => document.removeEventListener('keydown', down, { capture: true })
   }, [])
 
   return (
-    <SearchContext value={{ open, setOpen }}>
+    <SearchContext.Provider value={{ open, setOpen }}>
       {children}
       <CommandMenu />
-    </SearchContext>
+    </SearchContext.Provider>
   )
 }
 

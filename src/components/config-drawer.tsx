@@ -53,14 +53,14 @@ export function ConfigDrawer() {
           <Settings aria-hidden='true' />
         </Button>
       </SheetTrigger>
-      <SheetContent className='flex flex-col'>
+      <SheetContent className='flex flex-col min-h-0'>
         <SheetHeader className='pb-0 text-start'>
           <SheetTitle>Theme Settings</SheetTitle>
           <SheetDescription id='config-drawer-description'>
             Adjust the appearance and layout to suit your preferences.
           </SheetDescription>
         </SheetHeader>
-        <div className='space-y-6 overflow-y-auto px-4'>
+        <div className='space-y-6 overflow-y-auto px-4 min-h-0'>
           <ThemeConfig />
           <SidebarConfig />
           <LayoutConfig />

@@ -4,6 +4,7 @@ import { Trash2, UserX, UserCheck, Mail } from 'lucide-react'
 import { toast } from 'sonner'
 import { sleep } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
+import { useLanguage } from '@/context/language-provider'
 import {
   Tooltip,
   TooltipContent,
@@ -20,18 +21,19 @@ type DataTableBulkActionsProps<TData> = {
 export function DataTableBulkActions<TData>({
   table,
 }: DataTableBulkActionsProps<TData>) {
+  const { t } = useLanguage()
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
   const selectedRows = table.getFilteredSelectedRowModel().rows
 
   const handleBulkStatusChange = (status: 'active' | 'inactive') => {
     const selectedUsers = selectedRows.map((row) => row.original as User)
     toast.promise(sleep(2000), {
-      loading: `${status === 'active' ? 'Activating' : 'Deactivating'} users...`,
+      loading: t('common.changingStatusLoading'),
       success: () => {
         table.resetRowSelection()
-        return `${status === 'active' ? 'Activated' : 'Deactivated'} ${selectedUsers.length} user${selectedUsers.length > 1 ? 's' : ''}`
+        return t('common.changedStatusSuccess').replace('{count}', `${selectedUsers.length}`)
       },
-      error: `Error ${status === 'active' ? 'activating' : 'deactivating'} users`,
+      error: t('common.changingStatusError'),
     })
     table.resetRowSelection()
   }
@@ -39,12 +41,12 @@ export function DataTableBulkActions<TData>({
   const handleBulkInvite = () => {
     const selectedUsers = selectedRows.map((row) => row.original as User)
     toast.promise(sleep(2000), {
-      loading: 'Inviting users...',
+      loading: t('common.invitingUsersLoading'),
       success: () => {
         table.resetRowSelection()
-        return `Invited ${selectedUsers.length} user${selectedUsers.length > 1 ? 's' : ''}`
+        return t('common.invitedUsers').replace('{count}', `${selectedUsers.length}`)
       },
-      error: 'Error inviting users',
+      error: t('common.inviteUsersError'),
     })
     table.resetRowSelection()
   }
@@ -66,9 +68,9 @@ export function DataTableBulkActions<TData>({
               <span className='sr-only'>Invite selected users</span>
             </Button>
           </TooltipTrigger>
-          <TooltipContent>
-            <p>Invite selected users</p>
-          </TooltipContent>
+              <TooltipContent>
+                <p>{t('common.inviteSelected')}</p>
+              </TooltipContent>
         </Tooltip>
 
         <Tooltip>
@@ -78,15 +80,15 @@ export function DataTableBulkActions<TData>({
               size='icon'
               onClick={() => handleBulkStatusChange('active')}
               className='size-8'
-              aria-label='Activate selected users'
-              title='Activate selected users'
+                aria-label={t('common.activateSelected')}
+                title={t('common.activateSelected')}
             >
               <UserCheck />
               <span className='sr-only'>Activate selected users</span>
             </Button>
           </TooltipTrigger>
           <TooltipContent>
-            <p>Activate selected users</p>
+            <p>{t('common.activateSelected')}</p>
           </TooltipContent>
         </Tooltip>
 
@@ -97,15 +99,15 @@ export function DataTableBulkActions<TData>({
               size='icon'
               onClick={() => handleBulkStatusChange('inactive')}
               className='size-8'
-              aria-label='Deactivate selected users'
-              title='Deactivate selected users'
+                aria-label={t('common.deactivateSelected')}
+                title={t('common.deactivateSelected')}
             >
               <UserX />
               <span className='sr-only'>Deactivate selected users</span>
             </Button>
           </TooltipTrigger>
           <TooltipContent>
-            <p>Deactivate selected users</p>
+            <p>{t('common.deactivateSelected')}</p>
           </TooltipContent>
         </Tooltip>
 
@@ -116,15 +118,15 @@ export function DataTableBulkActions<TData>({
               size='icon'
               onClick={() => setShowDeleteConfirm(true)}
               className='size-8'
-              aria-label='Delete selected users'
-              title='Delete selected users'
+                aria-label={t('common.deleteSelectedUsers')}
+                title={t('common.deleteSelectedUsers')}
             >
               <Trash2 />
               <span className='sr-only'>Delete selected users</span>
             </Button>
           </TooltipTrigger>
           <TooltipContent>
-            <p>Delete selected users</p>
+            <p>{t('common.deleteSelectedUsers')}</p>
           </TooltipContent>
         </Tooltip>
       </BulkActionsToolbar>

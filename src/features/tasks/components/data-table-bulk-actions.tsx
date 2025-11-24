@@ -4,6 +4,7 @@ import { Trash2, CircleArrowUp, ArrowUpDown, Download } from 'lucide-react'
 import { toast } from 'sonner'
 import { sleep } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
+import { useLanguage } from '@/context/language-provider'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -27,18 +28,21 @@ type DataTableBulkActionsProps<TData> = {
 export function DataTableBulkActions<TData>({
   table,
 }: DataTableBulkActionsProps<TData>) {
+  const { t } = useLanguage()
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
   const selectedRows = table.getFilteredSelectedRowModel().rows
 
   const handleBulkStatusChange = (status: string) => {
     const selectedTasks = selectedRows.map((row) => row.original as Task)
     toast.promise(sleep(2000), {
-      loading: 'Updating status...',
+      loading: t('common.updatingStatusLoading'),
       success: () => {
         table.resetRowSelection()
-        return `Status updated to "${status}" for ${selectedTasks.length} task${selectedTasks.length > 1 ? 's' : ''}.`
+        return t('common.updatedStatusSuccess')
+          .replace('{status}', `${status}`)
+          .replace('{count}', `${selectedTasks.length}`)
       },
-      error: 'Error',
+      error: t('common.updatingStatusError'),
     })
     table.resetRowSelection()
   }
@@ -46,12 +50,14 @@ export function DataTableBulkActions<TData>({
   const handleBulkPriorityChange = (priority: string) => {
     const selectedTasks = selectedRows.map((row) => row.original as Task)
     toast.promise(sleep(2000), {
-      loading: 'Updating priority...',
+      loading: t('common.updatingPriorityLoading'),
       success: () => {
         table.resetRowSelection()
-        return `Priority updated to "${priority}" for ${selectedTasks.length} task${selectedTasks.length > 1 ? 's' : ''}.`
+        return t('common.updatedPrioritySuccess')
+          .replace('{priority}', `${priority}`)
+          .replace('{count}', `${selectedTasks.length}`)
       },
-      error: 'Error',
+      error: t('common.updatingPriorityError'),
     })
     table.resetRowSelection()
   }
@@ -59,12 +65,12 @@ export function DataTableBulkActions<TData>({
   const handleBulkExport = () => {
     const selectedTasks = selectedRows.map((row) => row.original as Task)
     toast.promise(sleep(2000), {
-      loading: 'Exporting tasks...',
+      loading: t('common.exportingTasksLoading'),
       success: () => {
         table.resetRowSelection()
-        return `Exported ${selectedTasks.length} task${selectedTasks.length > 1 ? 's' : ''} to CSV.`
+        return t('common.exportingTasksSuccess').replace('{count}', `${selectedTasks.length}`)
       },
-      error: 'Error',
+      error: t('common.exportingTasksError'),
     })
     table.resetRowSelection()
   }
@@ -80,16 +86,16 @@ export function DataTableBulkActions<TData>({
                   variant='outline'
                   size='icon'
                   className='size-8'
-                  aria-label='Update status'
-                  title='Update status'
+                  aria-label={t('common.updateStatus')}
+                  title={t('common.updateStatus')}
                 >
                   <CircleArrowUp />
-                  <span className='sr-only'>Update status</span>
+                  <span className='sr-only'>{t('common.updateStatus')}</span>
                 </Button>
               </DropdownMenuTrigger>
             </TooltipTrigger>
             <TooltipContent>
-              <p>Update status</p>
+              <p>{t('common.updateStatus')}</p>
             </TooltipContent>
           </Tooltip>
           <DropdownMenuContent sideOffset={14}>
@@ -116,16 +122,16 @@ export function DataTableBulkActions<TData>({
                   variant='outline'
                   size='icon'
                   className='size-8'
-                  aria-label='Update priority'
-                  title='Update priority'
+                  aria-label={t('common.updatePriority')}
+                  title={t('common.updatePriority')}
                 >
                   <ArrowUpDown />
-                  <span className='sr-only'>Update priority</span>
+                  <span className='sr-only'>{t('common.updatePriority')}</span>
                 </Button>
               </DropdownMenuTrigger>
             </TooltipTrigger>
             <TooltipContent>
-              <p>Update priority</p>
+              <p>{t('common.updatePriority')}</p>
             </TooltipContent>
           </Tooltip>
           <DropdownMenuContent sideOffset={14}>
@@ -151,15 +157,15 @@ export function DataTableBulkActions<TData>({
               size='icon'
               onClick={() => handleBulkExport()}
               className='size-8'
-              aria-label='Export tasks'
-              title='Export tasks'
+                aria-label={t('common.exportTasks')}
+              title={t('common.exportTasks')}
             >
               <Download />
-              <span className='sr-only'>Export tasks</span>
+              <span className='sr-only'>{t('common.exportTasks')}</span>
             </Button>
           </TooltipTrigger>
           <TooltipContent>
-            <p>Export tasks</p>
+            <p>{t('common.exportTasks')}</p>
           </TooltipContent>
         </Tooltip>
 
@@ -170,15 +176,15 @@ export function DataTableBulkActions<TData>({
               size='icon'
               onClick={() => setShowDeleteConfirm(true)}
               className='size-8'
-              aria-label='Delete selected tasks'
-              title='Delete selected tasks'
+              aria-label={t('common.deleteSelectedTasks')}
+              title={t('common.deleteSelectedTasks')}
             >
               <Trash2 />
-              <span className='sr-only'>Delete selected tasks</span>
+              <span className='sr-only'>{t('common.deleteSelectedTasks')}</span>
             </Button>
           </TooltipTrigger>
           <TooltipContent>
-            <p>Delete selected tasks</p>
+            <p>{t('common.deleteSelectedTasks')}</p>
           </TooltipContent>
         </Tooltip>
       </BulkActionsToolbar>

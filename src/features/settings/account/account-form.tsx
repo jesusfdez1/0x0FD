@@ -1,3 +1,4 @@
+import React from 'react'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons'
@@ -6,6 +7,7 @@ import { showSubmittedData } from '@/lib/show-submitted-data'
 import { cn } from '@/lib/utils'
 import { useLanguage } from '@/context/language-provider'
 import { Button } from '@/components/ui/button'
+import useLocalStorage from '@/hooks/useLocalStorage'
 import {
   Command,
   CommandEmpty,
@@ -40,12 +42,14 @@ const languages = [
 export function AccountForm() {
   const { t, language, setLanguage } = useLanguage()
   
-  // This can come from your database or API.
+  // Load current profile values from localStorage if present,
+  // otherwise fallback to empty values and current language.
+  const [profileStored, setProfileStored] = useLocalStorage<any | null>('user-profile', null)
   const defaultValues: Partial<any> = {
-    username: '',
-    name: '',
-    email: '',
-    language: language,
+    username: profileStored?.username ?? '',
+    name: profileStored?.name ?? '',
+    email: profileStored?.email ?? '',
+    language: profileStored?.language ?? language,
   }
   
   const accountFormSchema = z.object({
@@ -71,10 +75,21 @@ export function AccountForm() {
     defaultValues,
   })
 
+  // Keep the form in sync with the value stored in localStorage
+  React.useEffect(() => {
+    if (profileStored) form.reset(profileStored)
+  }, [profileStored])
+
   function onSubmit(data: AccountFormValues) {
     // Cambiar el idioma si es diferente
     if (data.language !== language && (data.language === 'en' || data.language === 'es')) {
       setLanguage(data.language as 'en' | 'es')
+    }
+    // Persist the edited account details in localStorage for now.
+    try {
+      setProfileStored({ ...(profileStored ?? {}), ...data })
+    } catch (e) {
+      console.error('Error saving profile to localStorage', e)
     }
     showSubmittedData(data)
   }

@@ -27,8 +27,20 @@ export function CommandMenu() {
 
   const runCommand = React.useCallback(
     (command: () => unknown) => {
+      // Close the command dialog first, then run the command after a micro delay
+      // to avoid executing navigation while the CommandMenu is unmounting and
+      // losing router context.
       setOpen(false)
-      command()
+      // Use setTimeout 0 (macro task) to ensure the dialog close animation and
+      // unmounting starts, but the navigation still occurs shortly after.
+      setTimeout(() => {
+        try {
+          command()
+        } catch (err) {
+          // swallow errors to avoid breaking the app from unexpected issues
+          console.error('Command execution error', err)
+        }
+      }, 0)
     },
     [setOpen]
   )

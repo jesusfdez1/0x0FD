@@ -26,13 +26,13 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-[800px] h-[90vh] sm:h-[80vh] p-0 gap-0 bg-background mx-auto my-auto rounded-lg">
-        <Tabs value={activeTab || undefined} onValueChange={setActiveTab} className="flex flex-col h-full overflow-hidden">
+        <Tabs value={activeTab || undefined} onValueChange={setActiveTab} className="flex flex-col h-full overflow-hidden min-h-0">
           <div className="flex items-center justify-between p-4 border-b border-border bg-background rounded-lg">
             <DialogTitle className="text-lg font-bold">{t('nav.settings')}</DialogTitle>
           </div>
-          <div className="flex flex-col md:flex-row flex-grow overflow-hidden">
+            <div className="flex flex-col md:flex-row flex-grow overflow-hidden min-h-0">
             <div className="md:w-1/4 md:min-w-[200px] md:max-w-[200px] border-b md:border-b-0 md:border-r border-border bg-muted/30 relative">
-              <ScrollArea className="h-full absolute inset-0 z-10">
+              <ScrollArea className="h-full relative">
                 <div className="p-2 md:p-4">
                   <div className="pt-6 mb-4 hidden md:block"></div>
                   <TabsList className="flex flex-row md:flex-col w-full bg-transparent space-y-0 space-x-1 md:space-x-0 md:space-y-2 p-1 md:p-2">
@@ -58,15 +58,15 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
                 </div>
               </ScrollArea>
             </div>
-            <ScrollArea className="flex-grow">
+            <ScrollArea className="flex-1 min-h-0">
               <div className="p-4 md:p-6">
-                <TabsContent value="account" className="mt-0 space-y-6">
+                <TabsContent value="account" className="mt-0 space-y-6 min-h-0">
                   <AccountForm />
                 </TabsContent>
-                <TabsContent value="appearance" className="mt-0 space-y-6">
+                <TabsContent value="appearance" className="mt-0 space-y-6 min-h-0">
                   <AppearanceForm />
                 </TabsContent>
-                <TabsContent value="notifications" className="mt-0 space-y-6">
+                <TabsContent value="notifications" className="mt-0 space-y-6 min-h-0">
                   <NotificationsForm />
                 </TabsContent>
               </div>

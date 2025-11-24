@@ -1,6 +1,6 @@
  
 import { type SVGProps, useState, useEffect, useMemo, useRef, useCallback } from 'react'
-import { Moon, Sun, Laptop, RotateCcw } from 'lucide-react'
+// icons removed for visible labels under theme images (kept accessible labels)
 import { IconLayoutCompact } from '@/assets/custom/icon-layout-compact'
 import { IconLayoutDefault } from '@/assets/custom/icon-layout-default'
 import { IconLayoutFull } from '@/assets/custom/icon-layout-full'
@@ -9,7 +9,7 @@ import { IconSidebarInset } from '@/assets/custom/icon-sidebar-inset'
 import { IconSidebarFloating } from '@/assets/custom/icon-sidebar-floating'
 import { IconSidebarSidebar } from '@/assets/custom/icon-sidebar-sidebar'
 import { Root as Radio, Item } from '@radix-ui/react-radio-group'
-import { CircleCheck } from 'lucide-react'
+import { CircleCheck, RotateCcw } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { type Collapsible, useLayout } from '@/context/layout-provider'
 import { useTheme } from '@/context/theme-provider'
@@ -124,9 +124,9 @@ export function DisplayForm() {
         <CardContent>
           <div className='grid grid-cols-3 gap-4'>
             {[
-              { value: 'light', label: t('settings.light'), icon: Sun, image: '/images/ui-light.png' },
-              { value: 'dark', label: t('settings.dark'), icon: Moon, image: '/images/ui-dark.png' },
-              { value: 'system', label: t('settings.system'), icon: Laptop, image: '/images/ui-system.png' },
+              { value: 'light', label: t('settings.light'), image: '/images/ui-light.png' },
+              { value: 'dark', label: t('settings.dark'), image: '/images/ui-dark.png' },
+              { value: 'system', label: t('settings.system'), image: '/images/ui-system.png' },
             ].map((option) => (
               <div key={option.value} className='flex flex-col items-center gap-2'>
                 <button
@@ -151,8 +151,8 @@ export function DisplayForm() {
                   </div>
                 </button>
                 <div className='flex items-center gap-2'>
-                  <option.icon className='h-4 w-4' />
-                  <span className='text-sm font-medium'>{option.label}</span>
+                  {/* Visible icons and texts removed per user request. Keep screen-reader label. */}
+                  <span className='sr-only'>{option.label}</span>
                 </div>
               </div>
             ))}

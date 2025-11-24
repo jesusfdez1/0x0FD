@@ -15,6 +15,7 @@ import {
   MessagesSquare,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { useLanguage } from '@/context/language-provider'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
 import { ScrollArea } from '@/components/ui/scroll-area'
@@ -28,6 +29,7 @@ import { type ChatUser, type Convo } from './data/chat-types'
 import { conversations } from './data/convo.json'
 
 export function Chats() {
+  const { t } = useLanguage()
   const [search, setSearch] = useState('')
   const [selectedUser, setSelectedUser] = useState<ChatUser | null>(null)
   const [mobileSelectedUser, setMobileSelectedUser] = useState<ChatUser | null>(
@@ -95,11 +97,11 @@ export function Chats() {
                 )}
               >
                 <SearchIcon size={15} className='me-2 stroke-slate-500' />
-                <span className='sr-only'>Search</span>
+                <span className='sr-only'>{t('common.search')}</span>
                 <input
                   type='text'
                   className='w-full flex-1 bg-inherit text-sm focus-visible:outline-hidden'
-                  placeholder='Search chat...'
+                  placeholder={t('common.searchPlaceholder')}
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                 />
