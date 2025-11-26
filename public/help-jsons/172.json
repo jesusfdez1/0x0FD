@@ -1,0 +1,31 @@
+{
+  "Body": " <p>Dentro de las ofertas de fondos garantizados que puedes encontrar en tu bróker podrás <strong>buscar y</strong> <strong>filtrar en función a diversos criterios: </strong> </p> <ul> <li> <strong>ISIN</strong>: sólo si se trata de un fondo garantizado tendrá un código ISIN que facilitará su identificación. Los productos garantizados que no tienen el formato de fondo de inversión no tienen código ISIN y tendrás que identificarlos por su nombre.  <li> <strong>Vencimiento</strong>: fecha en la se liquida el producto y se recibe el principal invertido. Recuerda que los productos garantizados tienen liquidez muy reducida y tendrás que mantener tú inversión hasta el vencimiento.  <li> <strong>Rentabilidad</strong>: los intereses que va a generar el producto garantizado. Recuerda que puede ser una rentabilidad fija o variable en función de la evolución del subyacente. Un producto garantizado puede tener varios posibles escenarios de rentabilidad por lo que tienes que entender cada uno de ellos para adecuar el perfil de rentabilidad / riesgo a tus necesidades.  <li> <strong>Subyacente</strong>: es el activo (o cesta de activos) sobre el que dependerá la rentabilidad que genere el producto garantizado. Los más habituales son acciones, índices bursátiles, divisas o materias primas.  <li> <strong>Divisa</strong>: al igual que en la compra de acciones y fondos, los productos garantizados también pueden estar denominados en una divisa diferente a la tuya. Tendrás que convertir el importe a euros (puedes comprobar el tipo de cambio en el bróker) para saber exactamente el importe que invertirás.  </ul> <p>La operativa es sencilla<strong>: deberás seleccionar el producto</strong>, indicar el <strong>importe que quieres invertir</strong> (se te indicará cual es el importe o nominal mínimo antes de hacer la operación), seleccionar <strong>la cuenta corriente </strong>con la que quieres efectuar la operación y finalmente la<strong> cartera de valores</strong> en la que quieres incorporar el activo.  <p>Al igual que con los fondos de inversión, <strong>tardarás alrededor de dos días en ver el activo en la cartera de valores</strong> seleccionada, mientras tanto el saldo que has seleccionado quedará bloqueado de la cuenta corriente elegida.  <p>  <p>  ",
+  "Order": 0,
+  "RelatedContents": [],
+  "PromoContents": [],
+  "ConceptKeys": [
+    "ISIN, vencimiento, rentabilidad, subyacente y divisa, aspectos clave para seleccionar productos garantizados. ",
+    "Deberás seleccionar el producto, importe, cuenta corriente y la cartera de valores asociada. "
+  ],
+  "Progress": 0.0,
+  "SubjectId": 169,
+  "Subject": "¿Cómo comprar y vender?",
+  "Difficulty": 1,
+  "ReadTime": 3,
+  "Read": false,
+  "New": false,
+  "Passed": false,
+  "HasExam": false,
+  "BlockPendingTime": 0,
+  "LikeIt": null,
+  "CreationDate": "2022-04-01T00:00:00",
+  "Id": 172,
+  "Context": 2,
+  "ContentType": 1,
+  "Title": "Garantizados",
+  "TitleDisambiguation": null,
+  "Summary": "",
+  "UrlFile": "",
+  "UrlImage": "assets/rcs/content.jpg",
+  "ExtraData": null
+}

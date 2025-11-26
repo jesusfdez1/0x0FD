@@ -1,0 +1,33 @@
+{
+  "Body": " <p>Es muy importante que conozcas la <strong>relevancia de una correcta diversificación</strong>. Aquella frase que habrás oído repetir en innumerables ocasiones \"no guardes todos los huevos en la misma cesta\" tiene una importancia mucho mayor de la que puedes pensar.  <p>Y ¿por qué esto es tan importante? La respuesta es sencilla: <strong>si todos los activos en los que inviertes son parecidos, tu cartera tendrá un muy buen comportamiento si su evolución es buena, pero en el caso contrario, la evolución de tu cartera será muy negativa, ya que todos los activos se comportarán igual de mal. </strong>  <p>Por tanto, la razón fundamental para diversificar una cartera no es tanto conseguir una rentabilidad más elevada, sino <strong>tratar de reducir el riesgo</strong> incorporando activos que, cuando algunas inversiones vayan mal, presenten un buen comportamiento.  <p>Conseguir una correcta diversificación <strong>no sólo pasa por incluir muchos activos</strong> en cartera. Esto servirá de muy poco si todos los activos tienen características muy similares y su evolución depende de las mismas variables.  <p>En el siguiente ejemplo comparamos dos carteras. </p> <table class=\"table mt-5 mb-5 example\"> <thead> <tr> <th scope=col>CARTERA 1</th> <th scope=col>CARTERA 2</th> </tr> </thead> <tbody> <tr> <td>10% Acción empresa A del sector Auto en Francia.</td> <td>25% Acción empresa A del sector Auto en Francia.</td> </tr> <tr> <td>10% Acción empresa B del sector Auto en Francia.</td> <td>25% Acción empresa B del sector Tecnología en EEUU.</td> </tr> <tr> <td>10% Acción empresa C del sector Auto en Alemania.</td> <td>25% Bono empresa C del sector Alimentación en Australia.</td> </tr> <tr> <td>10% Acción empresa D del sector Auto en Alemania.</td> <td>25% Producto garantizado.</td> </tr> <tr> <td>10% Acción empresa E del sector Auto en Países bajos.</td> <td></td> </tr> <tr> <td>10% Acción empresa F del sector Auto en Países bajos.</td> <td></td> </tr> <tr> <td>10% Acción empresa G del sector Auto en Italia.</td> <td></td> </tr> <tr> <td>10% Acción empresa H del sector Auto en España.</td> <td></td> </tr> <tr> <td>10% Acción empresa I del sector Auto en España.</td> <td></td> </tr> <tr> <td>10% Bono emitido por empresa I sector Auto España</td> <td></td> </tr> </tbody> </table> <p>La cartera 1 está, aparentemente, muy diversificada: </p> <ul> <li> 10 activos en cartera  <li> 5 Países  <li> 2 tipos de activos: acciones y un bono  </ul> <p>Pero realmente se está concentrando el riesgo en <strong>un único sector</strong> del automóvil y geográficamente todos los activos están en <strong>una única región</strong> (Unión Europea).  <p>  <p>  <p>A pesar de tener muchos activos, <strong>la evolución de la cartera dependerá en gran medida de dos únicos factores</strong>: evolución del sector del automóvil y de la economía de Europa.  <p>La Cartera 2, aunque a primera vista pueda parecer que está menos diversificada por el reducido número de activos en cartera, en realidad su riesgo se haya mejor repartido: </p> <ul> <li> <strong>3 tipos de activos muy diferentes:</strong> acciones, bono y producto garantizado. Se trata de activos de características diferentes. Las acciones son activos que buscan generar rentabilidad, los bonos generan estabilidad y pago de cupones recurrente y los garantizados suponen una protección del capital con un riesgo más reducido.  <li> <strong>3 sectores de características diferentes</strong>: automóviles, tecnología y farmacéuticas. Además, uno de los sectores es cíclico (autos), otro de crecimiento (tecnología) y otro defensivo (Alimentación), por lo que también aquí hay una gran diversificación.  <li> <strong>3 países de regiones diferentes</strong>: Francia (Europa), Estados Unidos y Australia.  </ul> <p>Esta cartera, como se ha mencionado, cuenta con un producto garantizado. Tener este tipo de activos en cartera, con garantía de capital (y rentabilidad), puede favorecer tener un mayor control de riesgo que persigue una correcta diversificación.  <p>Y <strong>la diversificación no sólo es una herramienta de control de riesgos</strong>. Diversificar correctamente te puede ayudar a <strong>buscar oportunidades y fuentes de rentabilidad muy diversas.</strong> Al dotar de un <strong>enfoque global</strong> a tus inversiones podrás aprovechar en cada momento las mejores oportunidades de inversión que veas en los diferentes activos, regiones o sectores. Si solo inviertes en acciones, por ejemplo, no te podrás beneficiar de un posible buen comportamiento del mercado de bonos. O si solo inviertes en Europa, tendrás complicado aprovechar la evolución de las compañías tecnológicas punteras a nivel global.  <p>Por tanto, puedes plantearte <strong>no solo diversificar regional y sectorialmente</strong>. También podrías valorar incluir <strong>diferentes activos</strong> en tus inversiones. Y, de manera más concreta, valorar incluir <strong>activos que se consideran de protección</strong>. En los mercados hay determinados activos que, de forma general a lo largo del tiempo, muestran un comportamiento favorable cuando \"las cosas se tuercen\". El oro, el dólar estadounidense o la deuda pública de Estados Unidos, entre otros, son inversiones de este tipo, conocidas como <strong>activos refugio</strong>. Te invitamos a considerar la posibilidad de mantener cierta exposición a este tipo de activos para una mayor protección de tu cartera.  ",
+  "Order": 124,
+  "RelatedContents": [],
+  "PromoContents": [],
+  "ConceptKeys": [
+    "Mantener una cartera diversificada ayuda a reducir los riesgos.",
+    "Una correcta diversificación no sólo pasa por incluir varios activos en cartera. Estos tienen que ser de características diferentes. ",
+    "Diversificar geográficamente, sectorialmente y por tipo de activos. ",
+    "Podrás valorar incluir activos refugio o que permitan proteger tu inversión. "
+  ],
+  "Progress": 0.0,
+  "SubjectId": 164,
+  "Subject": "¿Qué debes tener en cuenta una vez hayas decidido invertir?",
+  "Difficulty": 1,
+  "ReadTime": 6,
+  "Read": false,
+  "New": false,
+  "Passed": false,
+  "HasExam": true,
+  "BlockPendingTime": 0,
+  "LikeIt": null,
+  "CreationDate": "2022-04-01T00:00:00",
+  "Id": 165,
+  "Context": 2,
+  "ContentType": 1,
+  "Title": "Asegura una correcta diversificación",
+  "TitleDisambiguation": "Asegura una correcta diversificación",
+  "Summary": "",
+  "UrlFile": "",
+  "UrlImage": "assets/rcs/content.jpg",
+  "ExtraData": null
+}

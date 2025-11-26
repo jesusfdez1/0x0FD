@@ -1,0 +1,55 @@
+{
+  "Body": " <p>Un warrant es un tipo de opción que <strong>otorga al comprador el derecho a comprar (o a vender) un activo subyacente</strong> (acciones, índices, divisas, etc.) a un precio fijado de antemano en un momento determinado.  <p>A diferencia de las opciones convencionales, cuando se compra un warrant <strong>existe riesgo del emisor </strong>(riesgo de que el emisor te pueda dar o no contrapartida a tu posición) porque están emitidos por una institución financiera o una compañía (en este caso sobre sus propias acciones), por lo que, en caso de su quiebra, puedes perder el capital.  <p>Podrás comprar el <strong>derecho de compra</strong> (<i> <strong>warrant call</strong> </i>) o comprar el <strong>derecho de venta</strong> (<i> <strong>warrant put</strong> </i>), pero no podrás vender estos derechos, a diferencia de lo que sí puedes hacer con las opciones tradicionales. Por comprar estos derechos, pagarás un precio denominado prima.  <p>Por lo demás, el funcionamiento de los warrants es muy similar a las opciones tradicionales. Por eso, te recomendamos que consultes el paso <span eci-content-link=160>Opciones del Camino del Inversor</span>.  <p>  ",
+  "Order": 122,
+  "RelatedContents": [
+    {
+      "Id": 72,
+      "Context": 1,
+      "ContentType": 1,
+      "Title": "Tipos de Warrants",
+      "TitleDisambiguation": "Tipos de Warrants",
+      "Summary": "",
+      "UrlFile": "",
+      "UrlImage": "",
+      "ExtraData": null
+    },
+    {
+      "Id": 93,
+      "Context": 1,
+      "ContentType": 1,
+      "Title": "Warrants, ¿por dónde empezar?",
+      "TitleDisambiguation": "Warrants, ¿por dónde empezar?",
+      "Summary": "",
+      "UrlFile": "",
+      "UrlImage": "",
+      "ExtraData": null
+    }
+  ],
+  "PromoContents": [],
+  "ConceptKeys": [
+    "Los warrants están emitidos por instituciones financieras o por compañías. ",
+    "Los warrants otorgan un derecho, no una obligación.",
+    "Existen warrants de compra o venta, lo que permite tomar posiciones alcistas y bajistas."
+  ],
+  "Progress": 0.0,
+  "SubjectId": 154,
+  "Subject": "¿Qué activos inversión existen?",
+  "Difficulty": 1,
+  "ReadTime": 3,
+  "Read": false,
+  "New": false,
+  "Passed": false,
+  "HasExam": true,
+  "BlockPendingTime": 0,
+  "LikeIt": null,
+  "CreationDate": "2022-04-01T00:00:00",
+  "Id": 163,
+  "Context": 2,
+  "ContentType": 1,
+  "Title": "Warrants",
+  "TitleDisambiguation": "Warrants",
+  "Summary": "",
+  "UrlFile": "",
+  "UrlImage": "assets/rcs/content.jpg",
+  "ExtraData": null
+}

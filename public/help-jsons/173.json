@@ -1,0 +1,67 @@
+{
+  "Body": " <p>La operativa de contratación de un fondo de inversión es sencilla, pero tienes que conocer algunos conceptos claves.  <p>A la hora de contratar un fondo de inversión necesitarás saber su <strong>código ISIN</strong>, un código alfanumérico único para cada fondo de inversión (por ejemplo, ES114400444).  <p>El fondo tiene un precio llamado \"<strong>valor liquidativo</strong>\" o \"<strong>NAV</strong>\". Este es el precio al que se compra o vende una participación del fondo. Se calcula dividiendo el patrimonio del fondo (descontados los gastos y comisiones) entre el número de participaciones existentes. Debes tener en cuenta que el valor liquidativo se calcula habitualmente de forma diaria (puede ser semanal o incluso mensual), por lo que al introducir una orden tanto de compra como de venta no podrás saber a qué precio se está realizando la operación hasta que no se publique el valor liquidativo de ese día (esto suele ocurrir al día siguiente). Por lo tanto, tendrás que utilizar el último NAV disponible como referencia del precio al que estás operando.  <p>Puedes <strong>contratar un fondo de inversión tanto por importe</strong> (determinando el dinero que quieres invertir en ese fondo) <strong>como por número de participaciones</strong>. Si eliges esta segunda opción deberás tener en cuenta el valor liquidativo para calcular el importe que vas a invertir. Recuerda que el importe será aproximado ya que no sabrás el precio de contratación hasta que se ejecute (generalmente a los dos días).  <p>Con dos ejemplos lo verás mucho más claro: </p> <div class=\"box_down mb-3\"> <h2>Compra de un fondo de inversión por importe</h2> <p>Imagina que quieres invertir 5.000 euros en un fondo de inversión </p> <div class=lista-checks-rojos> <ul> <li> Introduce una orden de compra por ese importe.  <li> El valor liquidativo del día en el que realizaste la operación es de 105 (aunque en el momento de la inversión no conoces este dato puesto que se publicará con posterioridad).  <li> Automáticamente, el sistema calculará el número de participaciones de la siguiente manera: 5 000 / 105 = 47,62 participaciones.  </ul> </div> <p>Para invertir 5.000 euros habrás comprado 47,62 participaciones. Como ves, a diferencia de las acciones, se puede operar con decimales y no es necesario redondear a la unidad el número de participaciones.  </div> <div class=\"box_down mb-3\"> <h2>Compra de un fondo de inversión por participaciones</h2> <p>Decides comprar 40 participaciones de un fondo de inversión </p> <div class=lista-checks-rojos> <ul> <li> El valor liquidativo del día anterior es 100,0  <li> Estarás comprando (aproximadamente): 40 * 100 = 4.000 euros de ese fondo de inversión.  <li> Al día siguiente se pública el valor liquidativo del día anterior en el que realizaste la compra y verás el importe exacto de la operación. Si este valor liquidativo es de 100,3 habrás invertido: 40*100,3 = 4.012 euros.  </ul> </div> <p>Para invertir 5.000 euros habrás comprado 47,62 participaciones. Como ves, a diferencia de las acciones, se puede operar con decimales y no es necesario redondear a la unidad el número de participaciones.  </div> <p>Recuerda que si el ISIN del fondo de inversión con el que vas a operar está en otra divisa debes mirar el tipo de cambio ese día (tienes esta información disponible en Plataforma de Inversión) para calcular el importe en tu divisa.  <p>La operativa no es tan rápida como en el caso de las acciones y no verás en tu cuenta de valores el nuevo fondo que has comprado o la venta (ni su correspondiente movimiento en la cuenta corriente) hasta pasados uno o dos días. </p> <h2>¿Cómo se realiza un traspaso de un fondo a otro difiriendo la tributación por la plusvalía o minusvalía? </h2> <p>Es muy sencillo, tan sólo necesitarás el código ISIN del fondo de inversión de origen y el de destino y seleccionar la opción \"traspasar\". El traspaso entre fondos de la misma gestora o de la misma comercializadora debe hacerse en un plazo máximo de 5 días hábiles. El traspaso entre fondos de inversión de distintas gestoras o comercializadoras es más complejo y puede requerir hasta 8 días hábiles.  <p>  <p>  ",
+  "Order": 131,
+  "RelatedContents": [
+    {
+      "Id": 105,
+      "Context": 1,
+      "ContentType": 1,
+      "Title": "¿Cómo se valoran las suscripciones y reembolsos?",
+      "TitleDisambiguation": "¿Cómo se valoran las suscripciones y reembolsos?",
+      "Summary": "",
+      "UrlFile": "",
+      "UrlImage": "",
+      "ExtraData": null
+    },
+    {
+      "Id": 118,
+      "Context": 1,
+      "ContentType": 1,
+      "Title": "Consejos útiles para invertir en un fondo de inversión",
+      "TitleDisambiguation": "Consejos útiles para invertir en un fondo de inversión",
+      "Summary": "",
+      "UrlFile": "",
+      "UrlImage": "",
+      "ExtraData": null
+    },
+    {
+      "Id": 119,
+      "Context": 1,
+      "ContentType": 1,
+      "Title": "Q&A sobre fondos de inversión",
+      "TitleDisambiguation": "Q&A sobre fondos de inversión",
+      "Summary": "",
+      "UrlFile": "",
+      "UrlImage": "",
+      "ExtraData": null
+    }
+  ],
+  "PromoContents": [],
+  "ConceptKeys": [
+    "Cada fondo tiene un código único (ISIN).",
+    "Compras y vendes participaciones del fondo de inversión",
+    "El precio del fondo de inversión se llama \"valor liquidativo\" o en inglés \"NAV\".",
+    "Podrás operar por participaciones o por importe."
+  ],
+  "Progress": 0.0,
+  "SubjectId": 169,
+  "Subject": "¿Cómo comprar y vender?",
+  "Difficulty": 1,
+  "ReadTime": 5,
+  "Read": false,
+  "New": false,
+  "Passed": false,
+  "HasExam": true,
+  "BlockPendingTime": 0,
+  "LikeIt": null,
+  "CreationDate": "2022-04-01T00:00:00",
+  "Id": 173,
+  "Context": 2,
+  "ContentType": 1,
+  "Title": "Fondos Inversión",
+  "TitleDisambiguation": "Fondos Inversión",
+  "Summary": "",
+  "UrlFile": "",
+  "UrlImage": "assets/rcs/Invest_sem_risco.svg",
+  "ExtraData": null
+}

@@ -1,0 +1,31 @@
+{
+  "Body": " <p>Te explicamos todos los aspectos que debes conocer para realizar operaciones de renta fija.  <p>En primer lugar, deberás seleccionar el bono con el que deseas operar. Podrás buscar y seleccionar bonos en filtrando en función de diversos criterios: </p> <ul> <li> <strong>ISIN:</strong> se trata de un código alfanumérico único con el que podrás identificar cada bono.  <li> <strong>Tipo de deuda</strong>: en función de si su emisor es una compañía privada o bien un estado (soberana).  <li> <strong>Tiempo a vencimiento:</strong> podrás filtrar aquellos bonos con tiempo a vencimiento (momento de la devolución del nominal). Podrás buscar entre dos rangos: hasta cinco o superior a cinco años.  <li> <strong>Divisa:</strong> al igual que en el caso de las acciones, la divisa de denominación del bono es importante puesto que deberás comprar y vender el bono en esa divisa y por lo tanto existirá riesgo divisa en tú inversión.  <li> Una vez hayas seleccionado el bono con el que deseas operar, deberás indicar el importe a invertir. <strong>Para saber el importe exacto que debes desembolsar </strong>en la compra de un bono debes tener en cuenta dos variables fundamentales:<strong> nominal y cotización (precio ex cupón)</strong>.  </ul> <p> Pongamos un ejemplo. </p> <div class=\"box_down mb-3\"><h2>¿Cúal es el importe a pagar por el nominal?</h2><p> Quieres comprar el bono de la empresa ABC con vencimiento 27 de mayo de 2022 y código ISIN XS0099887766.  <p> El nominal (o importe mínimo para invertir) de este bono son 100.000 euros. El nominal no es negociable y está predefinido de antemano. No podrás invertir un importe nominal inferior.  <p> Imaginemos que este bono cotiza en este momento a un precio ex -cupón de 101,1. Deberás realizar el siguiente cálculo para saber el importe a pagar por el nominal. </p> <ul><li>101,1 / 100 * 100.000 = 101.100 euros. A este importe habrá que sumar el cupón corrido del bono </ul></div> <p>Es decir, cuando decidas comprar un bono, tendrás que tener presente el nominal (mínimo de inversión), cotización (precio ex cupón), cupón corrido y divisa  <p>Al ejecutar una compra o venta de bonos podrás ver el movimiento en tu cuenta de valores así como el correspondiente movimiento en la cuenta corriente asociada.  ",
+  "Order": 130,
+  "RelatedContents": [],
+  "PromoContents": [],
+  "ConceptKeys": [
+    "Búsqueda de bonos en función de cuatro criterios: ISIN, tipo de deuda, vencimiento y divisa. ",
+    "Nominal y precio para calcular el importe a desembolsar. "
+  ],
+  "Progress": 0.0,
+  "SubjectId": 169,
+  "Subject": "¿Cómo comprar y vender?",
+  "Difficulty": 1,
+  "ReadTime": 3,
+  "Read": false,
+  "New": false,
+  "Passed": false,
+  "HasExam": true,
+  "BlockPendingTime": 0,
+  "LikeIt": null,
+  "CreationDate": "2022-04-01T00:00:00",
+  "Id": 171,
+  "Context": 2,
+  "ContentType": 1,
+  "Title": "Renta Fija",
+  "TitleDisambiguation": "Renta Fija",
+  "Summary": "",
+  "UrlFile": "",
+  "UrlImage": "assets/rcs/Invest_sem_risco.svg",
+  "ExtraData": null
+}

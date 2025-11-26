@@ -1,0 +1,77 @@
+{
+  "Body": " <p> <strong>Diversificación y gestión profesionalizada: </strong>estos son los dos atributos que mejor definen la inversión en fondos de inversión.  <p>Los fondos de inversión son vehículos que <strong>agrupan las aportaciones de los inversores para invertirlas de forma colectiva en activos financieros.</strong> La gestión se delega a un equipo especializado y, por ello, se deben pagar unas comisiones (conocidas por el inversor y dentro de unos rangos que marca la regulación).  <p>Aunque normalmente los fondos de inversión son de <strong>gestión activa</strong>, existen fondos de gestión pasiva que replican índices.  <p>En los fondos de inversión intervienen tres figuras: </p> <ul> <li> <strong>Partícipe:</strong> quien realiza la suscripción al patrimonio del fondo mediante la compra de participaciones.  <li> <strong>Sociedad gestora del fondo:</strong> gestiona el fondo decidiendo y ejecutando las decisiones de inversión.  <li> <strong>Sociedad depositaria del fondo:</strong> custodia los activos del fondo y controla que la sociedad gestora cumpla con la política de inversión. Son entidades reguladas y dedicadas exclusivamente a este cometido.  </ul> <p> <strong>Los fondos de inversión están regulados y supervisados para velar por la protección de los inversores.</strong> En España, se ocupa la Comisión Nacional del Mercado de Valores (CNMV) aunque la regulación está armonizada a nivel europeo. La regulación establece los límites sobre cómo la gestora puede invertir estableciendo criterios de riesgo, diversificación, liquidez y transparencia. La información más relevante del fondo (política de inversión, comisiones, perfil de riesgo, política de reembolsos, etc.), está recogida en el folleto informativo del fondo, el DFI (Datos Fundamentales para el inversor) un documento público que debe estar disponible para todos los inversores.  <p>Es importante resaltar que <strong>un fondo de inversión es un \"patrimonio separados\", es decir, segregado de la gestora</strong> (y de la entidad financiera a la que la gestora pertenezca, si es el caso). Esto significa que tu inversión en el fondo no se ve afectada por la evolución y situación financiera de la gestora o entidad financiera. Solo por la evolución del precio de los activos en los que invierte el fondo.  <p> <strong>Otra de las ventajas de los fondos de inversión es su fiscalidad.</strong> El partícipe de un fondo sólo tributa cuando realiza un reembolso de las participaciones. En este caso el rendimiento que se genera, tanto positivo o negativo tiene la consideración de ganancia o pérdida patrimonial. Pero <strong>si las participaciones se traspasan a otro fondo, el traspaso está exento de tributación difiriendo el impacto fiscal</strong> hasta el momento de la venta.  <p> <strong>El universo de inversión en fondos de inversión es enorme</strong>. Podrás crear una cartera de fondos de inversión seleccionando fondos que inviertan en los activos, sectores o geografías que mejor se adapten a tus objetivos. Incluso, puedes limitarte a seleccionar un determinado perfil de riesgo e invertir en un fondo mixto que invierta en todos los tipos de activos, sectores y geografías delegando completamente la toma de decisiones.  <p>  <p>  ",
+  "Order": 120,
+  "RelatedContents": [
+    {
+      "Id": 98,
+      "Context": 1,
+      "ContentType": 1,
+      "Title": "¿Qué es un fondo de inversión?",
+      "TitleDisambiguation": "¿Qué es un fondo de inversión?",
+      "Summary": "",
+      "UrlFile": "",
+      "UrlImage": "",
+      "ExtraData": null
+    },
+    {
+      "Id": 100,
+      "Context": 1,
+      "ContentType": 1,
+      "Title": "Principales elementos intervinientes en un fondo de inversión",
+      "TitleDisambiguation": "Principales elementos intervinientes en un fondo de inversión",
+      "Summary": "",
+      "UrlFile": "",
+      "UrlImage": "",
+      "ExtraData": null
+    },
+    {
+      "Id": 101,
+      "Context": 1,
+      "ContentType": 1,
+      "Title": "¿En qué invierten los Fondos de Inversión?",
+      "TitleDisambiguation": "¿En qué invierten los Fondos de Inversión?",
+      "Summary": "",
+      "UrlFile": "",
+      "UrlImage": "",
+      "ExtraData": null
+    },
+    {
+      "Id": 140,
+      "Context": 1,
+      "ContentType": 1,
+      "Title": "Fondos de inversión, ¿por dónde empezar?",
+      "TitleDisambiguation": "Fondos de inversión, ¿por dónde empezar?",
+      "Summary": "",
+      "UrlFile": "",
+      "UrlImage": "",
+      "ExtraData": null
+    }
+  ],
+  "PromoContents": [],
+  "ConceptKeys": [
+    "Mediante la inversión en fondos de inversión consigues diversificar la inversión mediante una gestión profesionalizada. ",
+    "Los fondos de inversión están regulados y supervisados.",
+    "Tienen ventajas fiscales."
+  ],
+  "Progress": 0.0,
+  "SubjectId": 154,
+  "Subject": "¿Qué activos inversión existen?",
+  "Difficulty": 1,
+  "ReadTime": 4,
+  "Read": false,
+  "New": false,
+  "Passed": false,
+  "HasExam": true,
+  "BlockPendingTime": 0,
+  "LikeIt": null,
+  "CreationDate": "2022-04-01T00:00:00",
+  "Id": 161,
+  "Context": 2,
+  "ContentType": 1,
+  "Title": "Fondos Inversión",
+  "TitleDisambiguation": "Fondos Inversión",
+  "Summary": "",
+  "UrlFile": "",
+  "UrlImage": "assets/rcs/Invest_sem_risco.svg",
+  "ExtraData": null
+}

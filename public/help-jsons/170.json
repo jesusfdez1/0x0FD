@@ -1,0 +1,56 @@
+{
+  "Body": " <p>En pasos anteriores del camino has visto como la inversión en Acciones, ETF y Warrants permite invertir en mercados de todo el mundo.  <p>La operativa es sencilla, pero deberías conocer algunos aspectos particulares para poder ejecutar tus inversiones, con mayor conocimiento. </p> <ul> <li> Cuenta de valores  <li> Subyacente  <li> Número de títulos e importe  <li> Tipo de orden  <li> Validez de la orden  </ul> <p>Lo primero que hay que saber es que para poder comprar uno de estos activos necesitarás abrir una <strong>cuenta de valores</strong> dónde depositarlos. En esta cuenta aparecerán los activos que vayamos incorporando en nuestra cartera. Podrás seleccionar en cuál de tus cuentas de valores (ya que puedes abrir varias) deseas realizar la operación.  <p> Una vez dispongas de cuenta, podrás comenzar a invertir. Puedes abrirla <span eci-content-link=220>aquí</span>  <p>Lo siguiente será seleccionar el valor concreto en el que invertir (llamado <strong>subyacente</strong>). Podrás identificarlo correctamente por su nombre o por su código para asegurar de que no coges otro activo con un nombre similar. Existen dos tipos de códigos: el <strong> <i>ticker</i> </strong>y el <strong>ISIN. </strong> </p> <ul> <li> <strong>El ticker</strong> es un código compuesto por un \"nombre\" y \"apellido\", el cual nos especifica tanto qué activo es como en qué mercado cotiza (podría darse el caso de que un mismo activo cotice en varios mercados diferentes).  <li> <strong>El código ISIN</strong> es un código alfanumérico de 12 caracteres.  </ul> <p>Por ejemplo, en el caso de las acciones del Banco Santander el ticker es <i>SAN SM Equity </i>y el ISIN es <i>ES0113900J37. </i>  <p>Para <strong>seleccionar el importe que quieres invertir tienes que saber que </strong>las acciones y ETF no se pueden dividir en menos de una unidad, por lo que deberás redondear el número de acciones (en el caso de las acciones y warrants) o participaciones (en ETF).  <p> No hay importe mínimo de inversión. Puedes comprar desde 1 título.  <p> <strong>Hay dos formas para seleccionar el importe a invertir: por número de títulos o por importe</strong> en la divisa en la que cotice el activo. No obstante, las operaciones se tramitan siempre por número de títulos, de forma que el importe es orientativo (calculado a partir del precio de cotización del momento) </p> <ul> <li> En el caso de introducir la orden de compra por número de títulos, tendrás que introducir el mismo, el cual multiplicado por el precio de compra te mostrará el importe total a desembolsar.  </ul> <p>Por ejemplo, empresa ABC con ticker ABC SM Equity. Cotiza a 10 euros/acc, si introduces una orden de compra a mercado de 100 acciones estarás comprando: 100 x 10 = 1000 euros en acciones de la empresa ABC. </p> <ul> <li> Si por el contrario introduces la orden de compra por importe, tendrás que especificarlo, y automáticamente se te indicarán el número de títulos que debes comprar.  </ul> <p>Siguiendo con el mismo ejemplo, quieres comprar 1000 euros en acciones de la compañía ABC, tras introducir el importe automáticamente se te indicarán el número de acciones que debes comprar. Si la compañía ABC cotiza a 10 euros, se te indicará que debes comprar 100 acciones: 1000 / 10 = 100 acciones  <p>  <p>Debes tener en cuenta el mercado en el que cotiza la acción o ETF para <strong>tener en cuenta la divisa en que la cotiza el activo</strong>.  <p>Una vez tengas claro subyacente, importe y número de títulos tendrás que decidir el <strong>tipo de orden que quieres enviar al mercado.</strong> Existen varios tipos de órdenes tanto de compra como de venta en función de lo que quieras conseguir:  <p><strong>Órdenes Estándar:</strong></p> <ul> <li> <strong>Orden a mercado: </strong>se trata de comprar o vender al precio que esté cotizando en el mercado en ese momento. Con este tipo de orden no aseguras el precio de compra o venta, pero sí la ejecución de la operación por el importe deseado. <strong> </strong>  <li> <strong>Orden limitada: </strong>se trata de<strong> </strong>dejar guardada una orden de compra a un determinado precio. La orden no se ejecutará hasta que la acción o ETF no llegue a ese precio. En caso de no tocarlo no se ejecutará tu compra. Este tipo de orden se utiliza cuando buscas un determinado precio de compra o venta, pero no asegura la ejecución de la operación: de no llegar a ese precio marcado, la orden no se ejecutará. <strong> </strong>  <li> <strong>Orden por lo mejor:</strong> es un hibrido entre la orden limitada y a mercado. Se ordena comprar o vender al mejor precio que haya en ese momento (como en la orden a mercado) y comprará las acciones disponibles a ese precio. Si no se pudiera ejecutar la orden por todos los títulos se convierte en una orden limitada por el resto de títulos con el primer precio de ejecución.  </ul> <p><strong>Órdenes Stop</strong></p> <ul> <li> <strong>Orden stop loss</strong>: la orden se enviará al mercado sólo si se cumple una condición de precio que establezcas. Esta opción se utiliza cuando buscas comprar a un precio superior al que existe en mercado, para asegurar tu compra ante posibles subidas. Es decir, que a veces podría interesarte establecer un nivel de stop loss para que en caso de que el precio del activo caiga se limiten las perdidas. Deberás establecer ese nivel en el cual los activos se venderán automáticamente \"a mercado\". Al venderse a mercado el precio de venta final puede no coincidir con el nivel marcado de (<i>stop loss</i>). <strong> </strong>  <li> <strong>Orden stop loss dinámica</strong>: la orden se enviará al mercado sólo si se cumple la condición sobre una variación de precio que establezcas. El sistema calculará el precio dinámicamente cuando el movimiento del mercado sea favorable y se quedará fijo en el momento que sea desfavorable  </ul> <p>Si en algún momento decides que ya no te interesa comprar o vender las acciones o ETF sobre las que has puesto una orden<strong>, podrás cancelar la operación</strong> (siempre y cuando no se haya ejecutado previamente).  <p>Salvo excepciones puntuales, en las compras y ventas de acciones y ETF, podrás ver como las mismas <strong>aparecen</strong> (en caso de comprar) o <strong>desaparecen</strong> (en caso de vender) <strong>de tu cuenta de valores en el mismo momento en el que se ejecuta la operación</strong>. Así mismo verás el correspondiente movimiento en la cuenta corriente asociada a la cuenta de valores desde la que realizas la operación.  <p>  <p>Debes tener en cuenta que cualquier operación que realices de compra o venta llevará unas <strong>comisiones asociadas</strong>. Podrás ver todo el detalle y conceptos antes de confirmar tu orden  <p>En el caso de las acciones, tienes que tener en cuenta que pueden ocurrir lo que se denominan \"<strong>eventos corporativos</strong>\". Son sucesos que atañen a la compañía y que pueden afectar a tu inversión en acciones. Estos eventos pueden ser de carácter voluntario u obligatorio para el accionista. Cuando sean de carácter voluntario podrás ejercer tu decisión desde la cuenta de valores en la que tengas depositadas las acciones.  <p>Entre los principales eventos corporativos destacan las siguientes: </p> <ul> <li> <strong>Dividendos:</strong> los dividendos son parte de los beneficios de la empresa que se entregan al accionista como retribución al inversor. Estos pueden ser en forma de efectivo (cash dividend) o como acciones de la compañía (script dividend). En algunas ocasiones, el cómo recibir el dividendo. En esos casos, recibirás lo que se conoce como \"derechos\", que te permitirán elegir la modalidad de cobro de los dividendos.  <li> <strong>OPA:</strong> es el acrónimo de Oferta Pública de Adquisición. Es una operación por la cual una empresa hace una oferta para comprar todas o parte de las acciones de otra empresa. Este tipo de ofertas suelen llevar una prima (incremento) sobre el precio actual de cotización. Si tienes acciones de la compañía que recibe la OPA podrás decidir si acudir y recibir efectivo o mantener tus acciones.  </ul> ",
+  "Order": 129,
+  "RelatedContents": [
+    {
+      "Id": 13,
+      "Context": 1,
+      "ContentType": 1,
+      "Title": "Tipos de órdenes (Infografía)",
+      "TitleDisambiguation": "Tipos de órdenes (Infografía)",
+      "Summary": "",
+      "UrlFile": "",
+      "UrlImage": "#imagPath#/01_Tipos_de_ordenes.png",
+      "ExtraData": null
+    },
+    {
+      "Id": 47,
+      "Context": 1,
+      "ContentType": 1,
+      "Title": "Transmisión y ejecución de órdenes",
+      "TitleDisambiguation": "Transmisión y ejecución de órdenes",
+      "Summary": "",
+      "UrlFile": "",
+      "UrlImage": "",
+      "ExtraData": null
+    }
+  ],
+  "PromoContents": [],
+  "ConceptKeys": [
+    "No hay importe mínimo de inversión",
+    "A la hora de comprar o vender valores, has de tener en cuenta qué tipo de orden realizas (a mercado, limitada, por lo mejor, stop los o stop los dinámica)",
+    "Puden suceder \"eventos corporativos\" con tus valores",
+    "ETF"
+  ],
+  "Progress": 0.0,
+  "SubjectId": 169,
+  "Subject": "¿Cómo comprar y vender?",
+  "Difficulty": 1,
+  "ReadTime": 10,
+  "Read": false,
+  "New": false,
+  "Passed": false,
+  "HasExam": true,
+  "BlockPendingTime": 0,
+  "LikeIt": null,
+  "CreationDate": "2022-04-01T00:00:00",
+  "Id": 170,
+  "Context": 2,
+  "ContentType": 1,
+  "Title": "Acciones, ETFs y Warrants",
+  "TitleDisambiguation": "Acciones, ETFs y Warrants",
+  "Summary": "",
+  "UrlFile": "",
+  "UrlImage": "assets/rcs/content.jpg",
+  "ExtraData": null
+}

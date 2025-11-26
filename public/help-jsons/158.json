@@ -1,0 +1,32 @@
+{
+  "Body": " <p>Si buscas un producto que aporte certidumbre a tu cartera, los productos estructurados garantizados pueden ser una opción adecuada para ti, pues permiten invertir a un plazo fijo, garantizando total o parcialmente el importe de tu inversión y generando una rentabilidad que depende del mercado.  <p>Podrás invertir una cantidad a un plazo determinado, fijado de antemano en el contrato del producto (1-5 años), a cambio de obtener una rentabilidad potencial que depende de que una serie de valores se comporten de una forma determinada en el mercado.  <p>Durante la vida del producto, podrás recibir cupones según las características del contrato, o a vencimiento, recibir el principal (total o parcialmente) y la rentabilidad generada.  <p>Estos productos, pueden tener garantía total o parcial del importe invertido, de manera que, a vencimiento, recuperas una parte del principal o la totalidad, además de generar una rentabilidad fija o variable.  <p>Son idóneos para inversores que buscan obtener rentabilidad invirtiendo en renta fija o variable, pero acotando el riesgo de perder capital. Valoran seguridad, pero también quieren rentabilidad, y además quieren conocer desde el inicio las características de su inversión, recibiendo potenciales intereses periódicos.  <p>Aunque se habla de producto garantizado, esta <strong>garantía está sujeta al riesgo de crédito del emisor</strong>. En caso de quiebra del emisor, es posible que no recuperes una parte o el total de la inversión inicial. Por este motivo, es habitual que los emisores de garantizados tengan una muy buena calidad crediticia.  <p>Estos productos tienen poca liquidez, ya que se negocian en mercados no organizados (OTC), por lo que en general, son productos pensados para mantener hasta el vencimiento.  <p>Pongamos un ejemplo sencillo de producto garantizado: </p> <ul> <li> Capital garantizado al 100% (o garantía total)  <li> Emisor: entidad financiera con rating A  <li> Rendimiento variable ligado al Ibex 35 por el 50% de lo que suba el índice  <li> Plazo: 3 años  </ul> <div class=\"box_down mb-3\"> <h2>Escenario A: el Ibex sube un 8%</h2> <div class=lista-checks-rojos> <ul> <li> Al vencimiento obtendrás el 100% del capital invertido y un 4% de rentabilidad adicional (el 50% de la subida del índice).  </ul> </div> </div> <div class=box_down> <h2>Escenario B: el Ibex cae un 8%</h2> <div class=lista-checks-rojos> <ul> <li> Al vencimiento obtendrás el 100% del capital invertido, pero no obtendrás rentabilidad adicional ligada a la evolución del Ibex 35.  </ul> </div> </div> ",
+  "Order": 117,
+  "RelatedContents": [],
+  "PromoContents": [],
+  "ConceptKeys": [
+    "Aseguran la recuperación de un determinado nivel del capital invertido. ",
+    "Existen diferentes tipos de garantizados en función del nivel de protección y de la potencial rentabilidad",
+    "Para inversores que valoran seguridad, pero también quieren rentabilidad"
+  ],
+  "Progress": 0.0,
+  "SubjectId": 154,
+  "Subject": "¿Qué activos inversión existen?",
+  "Difficulty": 1,
+  "ReadTime": 3,
+  "Read": false,
+  "New": false,
+  "Passed": false,
+  "HasExam": true,
+  "BlockPendingTime": 0,
+  "LikeIt": null,
+  "CreationDate": "2022-04-01T00:00:00",
+  "Id": 158,
+  "Context": 2,
+  "ContentType": 1,
+  "Title": "Garantizados y parcialmente garantizados",
+  "TitleDisambiguation": "Garantizados y parcialmente garantizados",
+  "Summary": "",
+  "UrlFile": "",
+  "UrlImage": "assets/rcs/content.jpg",
+  "ExtraData": null
+}

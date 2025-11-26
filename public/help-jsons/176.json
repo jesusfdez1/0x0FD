@@ -1,0 +1,67 @@
+{
+  "Body": " <p>El seguimiento de las inversiones realizadas es una de las piezas clave del Camino del Inversor.  <p>En este sentido, una de las variables sobre la cual debes prestar mayor atención es la <strong>evolución de la rentabilidad de tus inversiones.</strong> Esto te permitirá conocer cómo están evolucionando tus inversiones, si están cumpliendo con tus expectativas o detectar comportamientos no esperados tanto positivos como negativos, tanto a nivel individual de cada posición como sobre el conjunto de tu cartera.  <p>La rentabilidad, que a priori parece un concepto ampliamente conocido por todos, se puede expresarse de distintas maneras., brindando todas ellas información relevante para conocer el comportamiento de nuestra inversión.  <p>A continuación, te mostramos alguna de las <strong>formas de calcular e interpretar la rentabilidad de tus inversiones, para que puedas entender los conceptos que te mostraremos sobre ella al consultar tus inversiones en tu Banca Online</strong>. No tendrás que estar calculándola tú, pero si entender lo que significa cada concepto. </p> <h2>Rentabilidad </h2> <p>La <strong>rentabilidad</strong> es la suma de la <strong>revalorización</strong> y del <strong>rendimiento</strong> de tu inversión. </p> <ul> <li>Rentabilidad = Revalorización + Rendimiento  </ul> <p>En este sentido, la <strong>revalorización</strong> es la diferencia de valoración producida por la variación del precio del producto/instrumento desde su adquisición, y el <strong>rendimiento</strong> es el importe efectivo recibido de un producto/instrumento, denominadas comúnmente como rendimientos de capital mobiliario (ejemplos: dividendos de acciones, devoluciones de prima, reducciones de nominal, etc.). </p> <h2>Periodo</h2> <p>Además, la rentabilidad puede calcularse a diferentes plazos: </p> <ul> <li> <strong>A origen</strong>: rentabilidad registrada desde el momento inicial de inversión hasta la fecha actual  <li> <strong>Año en curso</strong>: rentabilidad registrada desde el comienzo de año natural (1 de enero) hasta la fecha actual  <li> <strong>Mensual</strong>: rentabilidad registrada en el último mes  <li> <strong>Trimestral</strong>: rentabilidad registrada en el último trimestre  <li> <strong>Anual</strong>: rentabilidad registrada en el último año  </ul> <h2>Estado </h2> <p>Otro punto a destacar, es la necesidad de conocer el <strong>estado</strong> de la rentabilidad de tus inversiones. Y es que debemos recordar que <strong>la rentabilidad de una inversión no se materializa</strong>, es decir no se convierte en cierta, <strong>hasta el momento en que se realiza la operación de desinversión (venta)</strong>. Y, por tanto, durante el periodo en el cual la inversión se mantenga en la cartera, hablaremos de una \"<strong>rentabilidad latente</strong>\", que podrá ir variando en función del comportamiento del propio activo. Es decir, la rentabilidad latente será la referencia a aquellas posiciones vivas en la fecha fin del periodo consultado. Por otro lado, una vez, que se materialice la operación de desinversión, hablaremos de <strong>\"rentabilidad realizada\"</strong>, es decir, la referencia a aquellas posiciones traspasadas, amortizadas o vendidas en el periodo de consulta.  <p> </p> <h2>Rentabilidad simple</h2> <p>La <strong>rentabilidad simple</strong> (también conocida como rentabilidad acumulada) mide el beneficio obtenido de una inversión. Es decir, mide la ratio de ganancias o pérdidas obtenidas sobre la cantidad inicial invertida. </p> <ul> <li><img class=equation src=img/176_Eq1.svg>  </ul> <p>Imagina que has realizado dos inversiones, (A) y (B), en distintos momentos temporales y por un importe distinto: la inversión inicial en (A) fue de 100 euros, en enero del 2021, y la inversión inicial en (B) fue de 50 euros en enero de 2019. A cierre de octubre de 2021, decides vender ambas inversiones por un importe de 150 euros cada una de ellas. Así: </p> <div class=\"box_down mb-3\"> <h2>¿Cuál es la rentabilidad simple de cada inversión?</h2> <p>La rentabilidad simple de la inversión (A) es de un 50% </p> <ul> <li> <img class=equation src=img/176_Eq2.svg>  </ul> <p>La rentabilidad simple de la inversión (B) es de un 200% </p> <ul> <li> <img class=equation src=img/176_Eq3.svg>  </ul> </div> <p>Esa sería la rentabilidad simple que obtendrías en %, pero ¿sabría decir cuál es la rentabilidad monetaria de esta inversión? Para ello basta con multiplicar la rentabilidad en porcentaje por el importe inicial invertido. Así, en el ejemplo de las inversiones A y B: </p> <div class=\"box_down mb-3\"> <h2>¿Cuál es la rentabilidad monetaria de esta inversión?</h2> <p>La inversión en (A), genera unas ganancias monetarias de 50 euros </p> <ul> <li> <img class=equation src=img/176_Eq4.svg>  </ul> <p>Mientras que la inversión en (B) genera unos beneficios de 100 euros </p> <ul> <li> <img class=equation src=img/176_Eq5.svg>  </ul> </div> <p>Con esta información, ¿podríamos decir que la inversión (B) ha sido mucho más rentable que la inversión (A)? Depende cómo lo veas. En términos brutos, la respuesta es obvia: sí. Pero a continuación verás cómo es posible ver la rentabilidad desde otro ángulo teniendo en cuenta el plazo que has tardado en conseguir la rentabilidad. </p> <h2>Rentabilidad anualizada</h2> <p>Otra forma de medir la rentabilidad de una determinada inversión es a través de la <strong>rentabilidad anualizada</strong>. Esta ratio indica cuánto hubieras ganado o perdido si el plazo de tu inversión hubiera sido de un año. Esta ratio es muy <strong>útil cuando queremos comparar la rentabilidad obtenida de varias inversiones con una duración distinta</strong>. Así, podríamos comparar en términos equivalentes la rentabilidad obtenida de una inversión realizada en tres meses, con una realizada a lo largo de un año y medio. En el primer caso, la rentabilidad anualizada asume que la rentabilidad obtenida en tres meses se repite a lo largo del año, y en el caso de la inversión realizada a lo largo de un año y medio, se calcula la rentabilidad que debería haberse obtenido cada año para lograr dicho rendimiento. </p> <ul> <li> <img class=equation src=img/176_Eq6.svg>  </ul> <p>Recuperemos ahora el ejemplo anterior: ¿cuál es la rentabilidad anualizada de cada inversión? </p> <div class=\"box_down mb-3\"> <h2>¿Cuál es la rentabilidad anualizada de cada inversión?</h2> <p>La rentabilidad anualizada de la inversión (A) es de un 63% </p> <ul> <li> <img class=equation src=img/176_Eq7.svg>  </ul> <p>La rentabilidad anualizada de la inversión (B) es de un 47% </p> <ul> <li> <img class=equation src=img/176_Eq8.svg>  </ul> </div> <p>Como veis, y al contrario de lo que parecía al analizar la rentabilidad simple, viendo la rentabilidad anualizada, la inversión en (A) parece mucho más interesante, ya que está inversión ha conseguido generar una mayor rentabilidad en términos relativos frente tiempo que necesitado para generarlo. Y es que la rentabilidad anualizada te permite comparar inversiones realizadas en diferentes periodos de tiempo y a distintos plazos.  <p>  ",
+  "Order": 134,
+  "RelatedContents": [
+    {
+      "Id": 34,
+      "Context": 1,
+      "ContentType": 1,
+      "Title": "Rentabilidad libre de riesgo y cálculo básico de rentabilidad",
+      "TitleDisambiguation": "Rentabilidad libre de riesgo y cálculo básico de rentabilidad",
+      "Summary": "",
+      "UrlFile": "",
+      "UrlImage": "",
+      "ExtraData": null
+    },
+    {
+      "Id": 35,
+      "Context": 1,
+      "ContentType": 1,
+      "Title": "Cálculo y comparativa de rentabilidades",
+      "TitleDisambiguation": "Cálculo y comparativa de rentabilidades",
+      "Summary": "",
+      "UrlFile": "",
+      "UrlImage": "",
+      "ExtraData": null
+    },
+    {
+      "Id": 36,
+      "Context": 1,
+      "ContentType": 1,
+      "Title": "Indicadores avanzados de cálculo de rentabilidad",
+      "TitleDisambiguation": "Indicadores avanzados de cálculo de rentabilidad",
+      "Summary": "",
+      "UrlFile": "",
+      "UrlImage": "",
+      "ExtraData": null
+    }
+  ],
+  "PromoContents": [],
+  "ConceptKeys": [
+    "El seguimiento de la rentabilidad de las inversiones es clave en el proceso de inversión",
+    "La rentabilidad mide el beneficio o pérdida derivado de la inversión",
+    "Las diferentes formas de medir la rentabilidad nos ofrecen un mayor grado de información sobre nuestra inversión",
+    "Diferencia entre rentabilidad realizada y rentabilidad latente"
+  ],
+  "Progress": 0.0,
+  "SubjectId": 175,
+  "Subject": "¿Qué sucede después invertir?",
+  "Difficulty": 1,
+  "ReadTime": 7,
+  "Read": false,
+  "New": false,
+  "Passed": false,
+  "HasExam": true,
+  "BlockPendingTime": 0,
+  "LikeIt": null,
+  "CreationDate": "2022-04-01T00:00:00",
+  "Id": 176,
+  "Context": 2,
+  "ContentType": 1,
+  "Title": "Rentabilidad",
+  "TitleDisambiguation": "Rentabilidad",
+  "Summary": "",
+  "UrlFile": "",
+  "UrlImage": "assets/rcs/Major_rentability.svg",
+  "ExtraData": null
+}

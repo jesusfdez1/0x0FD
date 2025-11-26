@@ -1,0 +1,32 @@
+{
+  "Body": " <p>Una vez te decides a invertir, te recomendamos hacer un correcto seguimiento de tus operaciones y de lo que sucede con los valores que te interesan. Para ello, es recomendable que utilices nuestros sistemas de <strong>alertas automatizadas</strong>, pues te permitirá identificar aquellas cuestiones más relevantes sobre las que se debe prestar atención en relación a tu inversión.  <p>Podrás configurarlas en tu Banca Online, accediendo a \"Buzón/Alertas/Alertas de Inversión\", y decidir si quieres recibirlas por email o en tu móvil a través de mensaje <i>push</i>.  <p>Dispondrás de los siguientes tipos de alertas: </p> <ul> <li> Alertas de mis posiciones  <li>Movimientos generados en la operativa de renta variable y renta fija  </ul> <p>Activando estas alertas te avisaremos de lo que suceda con tus operaciones tras una inversión, para que sepas cuando se ha realizado correctamente en mercado o si no se ha ejecutado por algún motivo y debas revisar algo. También sirven para avisarte cuando se cumpla alguna condición, que pudiste establecer para que se activara alguna operación.  <p>¡Asegúrate de tenerlas activadas para que no se te escape nada!  <p> </p> <h2> Alertas avanzadas de inversión </h2> <p>Existen alertas que pueden ser de gran utilidad si buscas <strong>automatizar el seguimiento de tus inversiones</strong>, o al menos despreocuparte de la necesidad de hacer un seguimiento demasiado recurrente y exigente en términos de dedicación de horas y recursos.  <p>Dispondrás de alertas de precio, volumen y noticias. </p> <ul> <li>Las <strong>alertas de precio</strong> permiten la notificación automática en el momento en que un activo ha llegado a un nivel de precio establecido previamente. De esta manera, consigues <strong>prestar atención únicamente a aquellos movimientos de mercado que son relevantes para tu inversión</strong>, evitando estar constantemente pendiente de los vaivenes de mercado. Las alertas de precio también pueden ayudarte a ser un inversor más \"disciplinado\" y evitar así sesgos conductuales que te hagan comprar o vender en los momentos de máxima subida o máximas caídas, respectivamente.  <li>Las <strong>alertas de volumen</strong> te servirán para saber si un activo está perdiendo o ganando liquidez en los mercados de negociación. Un bajo volumen significa que en el mercado existe poca liquidez, y que, por tanto, te resulte más difícil operar sobre ese activo, o tengas que hacerlo en unas condiciones más desfavorables. En sentido contrario, un volumen alto, significa que el mercado es muy líquido, y que por tanto será más fácil operar.  <li>También dispondrás de <strong>alertas sobre noticias de compañías</strong>, las cuales te pueden ayudar a estar informado sobre el entorno macroeconómico y de mercado que puede afectar a dicha compañía y, por tanto, ayudarte a detectar rápidamente riesgos u oportunidades de inversión.  </ul> ",
+  "Order": 135,
+  "RelatedContents": [],
+  "PromoContents": [],
+  "ConceptKeys": [
+    "Las alertas te ayudarán a realizar un buen seguimiento de tus inversiones ",
+    "Asegúrate de tener activadas tus alertas de posiciones para estar informado del estado de tus inversiones",
+    "Las alertas de precio te ayudarán a tomar mejores decisiones de inversión"
+  ],
+  "Progress": 0.0,
+  "SubjectId": 175,
+  "Subject": "¿Qué sucede después invertir?",
+  "Difficulty": 1,
+  "ReadTime": 3,
+  "Read": false,
+  "New": false,
+  "Passed": false,
+  "HasExam": true,
+  "BlockPendingTime": 0,
+  "LikeIt": null,
+  "CreationDate": "2022-04-01T00:00:00",
+  "Id": 177,
+  "Context": 2,
+  "ContentType": 1,
+  "Title": "Establece alertas seguimiento",
+  "TitleDisambiguation": "Establece alertas seguimiento",
+  "Summary": "",
+  "UrlFile": "",
+  "UrlImage": "assets/rcs/Portal_trade.svg",
+  "ExtraData": null
+}

@@ -1,0 +1,66 @@
+{
+  "Body": " <p>Los ETFs o Fondos cotizados son una forma de invertir en lo que te interesa: tecnología, salud, materias primas, compañías americanas... De la misma manera que operar en Bolsa (sin importe mínimo y las mismas tarifas), pero invirtiendo en gran diversidad de activos en una sola operación  <p>Empecemos por aclarar cierta terminología financiera, para que no te suene a chino:  <p> A estos productos se les enomina \"ETPs\" (<i>Exchange Trade Product</i>, por sus siglas en inglés), y son <strong>instrumentos emitidos por gestoras de todo el mundo que replican la evolución de determinados activos</strong> y que permiten tomar <strong>exposición muy ágil, rápida y barata al mercado de renta variable, renta fija, materias primas o divisas</strong> sin necesidad de seleccionar valores concretos.  <p>Aunque los ETF son los más conocidos y utilizados existen otros <strong>dos tipos de ETP:</strong></p> <ul> <li> <strong>ETC</strong>: replican índices de <strong>materias primas</strong>. Existen ETC muy diversos, que replican desde el precio del Brent hasta el precio del trigo.  <li> <strong>ETN</strong>: son <strong>instrumentos que replican el comportamiento de cualquier tipo de activo</strong> (generalmente índices de renta variable).  </ul> <p>Los ETF se <strong>gestionan de forma pasiva replicando la evolución de un determinado índice</strong>. Por ello, las <strong>comisiones son sustancialmente menores que las de un fondo de inversión</strong> de gestión activa. Al igual que las acciones, <strong>los ETF</strong> <strong>cotizan en mercado</strong> y los puedes comprar y vender en cualquier momento a su precio de cotización. Como ves, un ETF es un <strong>hibrido entre un fondo de inversión y una acción</strong>: por un lado, inviertes en una cesta de activos diversificada (como en un fondo de inversión) pero por otro puedes comprarlo y venderlo en cualquier momento en la bolsa.  <p>Si tienes una idea de inversión sobre una <strong>región, sector o temática</strong>, el ETF es un instrumento muy eficiente para hacerlo de <strong>forma diversificada</strong>.  <p>Existe una amplísima gama de ETF que <strong>permite invertir en nichos muy concretos sin tener que seleccionar acciones o bonos individuales</strong>. Podrás, por lo tanto, realizar inversiones diversificadas, pero al mismo tiempo con un enfoque muy específico, por ejemplo, los siguientes: </p> <ul> <li> <strong>Temáticos: </strong>se trata de uno de los enfoques más innovadores y que más se ha desarrollado en los últimos años y que te permitirá invertir en ideas, temas o tendencias de futuro independientemente de regiones, sectores u otros enfoques más tradicionales. Podrás invertir en compañías de inteligencia artificial, <i>blockchain</i>, movilidad sostenible o robótica.<strong> </strong>  <li> <strong>Tipo de activo</strong>: existen ETF tanto de renta variable, renta fija, divisas o materias primas.  <li> <strong>Geográficos:</strong> podrás invertir en el conjunto de un mercado geográfico concreto. Por ejemplo, en España a través del Ibex 35, en Alemania a través del Dax, en EEUU a través del S&amp;P500 o en China a través del MSCI China.  <li> <strong>Sectoriales:</strong> si consideras que un sector tiene mayor potencial de revalorización frente al resto del mercado, podrás seleccionar un ETF que invierta en las compañías más importantes de ese determinado sector. Podrías, por ejemplo, seleccionar un ETF que invierta en el sector tecnológico de EEUU, en el sector del automóvil en Europa o en el sector consumo con un enfoque geográfico global. <strong> </strong>  <li> <strong>Estilos: </strong>existen ETF que invierten en compañías <i>Value, Growth</i> o de elevada rentabilidad por dividendo, por ejemplo.<strong> </strong>  <li> <strong>Capitalización: </strong>podrás realizar inversiones centradas en empresas con una capitalización determinada, por ejemplo, empresas de pequeña capitalización.<strong> </strong>  </ul> <p>  ",
+  "Order": 115,
+  "RelatedContents": [
+    {
+      "Id": 15,
+      "Context": 1,
+      "ContentType": 1,
+      "Title": "¿Qué es la custodia de valores?",
+      "TitleDisambiguation": "¿Qué es la custodia de valores?",
+      "Summary": "",
+      "UrlFile": "",
+      "UrlImage": "",
+      "ExtraData": null
+    },
+    {
+      "Id": 20,
+      "Context": 1,
+      "ContentType": 1,
+      "Title": "¿Qué es un índice bursátil?",
+      "TitleDisambiguation": "¿Qué es un índice bursátil? (Avanzado)",
+      "Summary": "",
+      "UrlFile": "",
+      "UrlImage": "",
+      "ExtraData": null
+    },
+    {
+      "Id": 92,
+      "Context": 1,
+      "ContentType": 1,
+      "Title": "ETF, ¿por dónde empezar?",
+      "TitleDisambiguation": "ETF, ¿por dónde empezar?",
+      "Summary": "",
+      "UrlFile": "",
+      "UrlImage": "",
+      "ExtraData": null
+    }
+  ],
+  "PromoContents": [],
+  "ConceptKeys": [
+    "Una forma de invertir en lo que te interesa.",
+    "Permite invertir en todo tipo de temáticas, de última tendencia (salud, tecnología, EEUU, ...)",
+    "De la misma forma y con las mismas tarifas que operar en Bolsa"
+  ],
+  "Progress": 0.0,
+  "SubjectId": 154,
+  "Subject": "¿Qué activos inversión existen?",
+  "Difficulty": 1,
+  "ReadTime": 4,
+  "Read": false,
+  "New": false,
+  "Passed": false,
+  "HasExam": true,
+  "BlockPendingTime": 0,
+  "LikeIt": null,
+  "CreationDate": "2022-04-01T00:00:00",
+  "Id": 156,
+  "Context": 2,
+  "ContentType": 1,
+  "Title": "ETFs (Fondos cotizados)",
+  "TitleDisambiguation": "ETFs (Fondos cotizados)",
+  "Summary": "",
+  "UrlFile": "",
+  "UrlImage": "assets/rcs/content.jpg",
+  "ExtraData": null
+}

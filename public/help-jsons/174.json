@@ -1,0 +1,56 @@
+{
+  "Body": " <p>La operativa para invertir en un plan de pensiones es muy similar a la contratación de un fondo de inversión.  <p>En primer lugar deberás <strong>seleccionar el plan de pensiones</strong> en el que quieres invertir. Podrás <strong>identificarlo y seleccionarlo por su código DGS</strong> (que comienza por N seguido de 4 dígitos) o <strong>realizar una selección atendiendo a diferentes criterios</strong>: </p> <ul> <li> <strong>Categoría</strong>: aquí podrás encontrar distintos tipos de planes en función de su política de inversión, es decir, <strong>en función de que activos pueden comprar</strong> (sólo renta variable, sólo renta fija, ambos, etc).  <li> <strong>Área geográfica</strong>: en este apartado puedes filtrar en función de <strong>la región del mundo donde el fondo o plan puede invertir el patrimonio</strong>.  <li> <strong>Nivel de riesgo</strong> que quieras asumir con el plan. Para ello, existe una escala de riesgo del 1 al 7 definida por el Regulador, donde 1 supone el menor riesgo y 7 el mayor.  </ul> <p>Cuando hayas seleccionado el plan de pensiones que mejor se ajuste a tus necesidades, <strong>deberás decidir el importe que quieres invertir</strong> (en el caso de un plan de pensiones se denomina \"aportación\"). Podrás hacerlo o bien indicando el importe o bien por el numero participaciones teniendo en cuenta el último valor liquidativo. Ten en cuenta los límites que marca la ley en cuanto a aportaciones máximas a planes de pensiones.  <p>Al igual que en los fondos de inversión, también <strong>puedes traspasar tu posición a otro plan de pensiones sin la necesidad de tributar</strong> por la plusvalía/minusvalía generada hasta el momento. Esto es una ventaja importante puesto que a medida que pase el tiempo, y se acerque el momento de la jubilación, puede ser conveniente modificar el perfil de riesgo buscando otro plan de pensiones.  <p>Una opción muy interesante para ir incrementando tu posición en un plan de pensiones es realizarlo a través de <strong>aportaciones periódicas</strong>. De esta forma podrás predefinir el importe que quieres aportar de forma automática con la periodicidad que desees. Por ejemplo, puedes aportar 100 euros al mes de forma automática sin necesidad de realizar la operativa de contratación en cada ocasión. Se trata de una forma de preparar tu jubilación de forma ordenada y disciplinada y que requiere menos esfuerzo al realizarlo poco a poco y de forma planificada  ",
+  "Order": 132,
+  "RelatedContents": [
+    {
+      "Id": 136,
+      "Context": 1,
+      "ContentType": 1,
+      "Title": "Pautas para invertir en un plan de pensiones",
+      "TitleDisambiguation": "Pautas para invertir en un plan de pensiones",
+      "Summary": "",
+      "UrlFile": "",
+      "UrlImage": "",
+      "ExtraData": null
+    },
+    {
+      "Id": 137,
+      "Context": 1,
+      "ContentType": 1,
+      "Title": "Q&A sobre planes de pensiones",
+      "TitleDisambiguation": "Q&A sobre planes de pensiones",
+      "Summary": "",
+      "UrlFile": "",
+      "UrlImage": "",
+      "ExtraData": null
+    }
+  ],
+  "PromoContents": [],
+  "ConceptKeys": [
+    "Operativa similar a la contratación de fondos de inversión",
+    "Cada plan de pensiones tiene un código DGS",
+    "Operativa por importe o por número de participaciones",
+    "Aportaciones periódicas"
+  ],
+  "Progress": 0.0,
+  "SubjectId": 169,
+  "Subject": "¿Cómo comprar y vender?",
+  "Difficulty": 1,
+  "ReadTime": 3,
+  "Read": false,
+  "New": false,
+  "Passed": false,
+  "HasExam": true,
+  "BlockPendingTime": 0,
+  "LikeIt": null,
+  "CreationDate": "2022-04-01T00:00:00",
+  "Id": 174,
+  "Context": 2,
+  "ContentType": 1,
+  "Title": "Planes de pensiones",
+  "TitleDisambiguation": "Planes de pensiones",
+  "Summary": "",
+  "UrlFile": "",
+  "UrlImage": "assets/rcs/Invest_cohesion.svg",
+  "ExtraData": null
+}
