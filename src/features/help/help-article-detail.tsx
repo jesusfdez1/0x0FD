@@ -52,59 +52,95 @@ export function HelpArticleDetail({
   }).filter(Boolean) as HelpContent[]
 
   // Procesar URL de imagen de portada
-  const coverImageUrl = article.UrlImage
-    ? article.UrlImage.startsWith('http')
-      ? article.UrlImage
-      : article.UrlImage.startsWith('assets/')
-      ? `/${article.UrlImage}`
-      : article.UrlImage
-    : null
+  // Intenta usar imagen local primero, si no existe usa la remota
+  const getImageUrls = (urlImage: string): { local: string; remote: string | null } | null => {
+    if (!urlImage) return null
+    if (urlImage.startsWith('http')) {
+      return { local: urlImage, remote: null }
+    }
+    
+    // Extraer nombre del archivo
+    const filename = urlImage.split('/').pop() || ''
+    
+    // Intentar primero con imagen local
+    const localPath = `/help-images/${filename}`
+    
+    // Si empieza con assets/, construir URL remota
+    if (urlImage.startsWith('assets/')) {
+      const remoteUrl = `https://formacion-inversion.bancosantander.es/eci/${urlImage}`
+      return { local: localPath, remote: remoteUrl }
+    }
+    
+    return { local: localPath, remote: null }
+  }
+  
+  const imageUrls = article.UrlImage ? getImageUrls(article.UrlImage) : null
+  const coverImageUrl = imageUrls?.local || null
+  const remoteImageUrl = imageUrls?.remote || null
 
   return (
     <div className='flex h-full flex-col bg-background'>
-      {/* Header con imagen de portada */}
-      <div className='relative border-b bg-gradient-to-br from-primary/5 via-background to-background'>
-        {coverImageUrl && (
-          <div className='absolute inset-0 overflow-hidden opacity-10'>
-            <img
-              src={coverImageUrl}
-              alt={article.Title}
-              className='w-full h-full object-cover'
-              onError={(e) => {
-                e.currentTarget.style.display = 'none'
-              }}
-            />
-          </div>
-        )}
-        <div className='relative px-6 py-6'>
+      {/* Header */}
+      <div className='relative border-b overflow-visible'>
+        <div className='absolute inset-0 bg-gradient-to-br from-primary/5 via-muted/30 to-background' />
+        
+        <div className='relative container mx-auto max-w-6xl px-6 py-8'>
           <Button
             variant='ghost'
             onClick={onBack}
-            className='mb-4 -ml-2 text-muted-foreground hover:text-foreground'
+            className='mb-6 -ml-2 text-muted-foreground hover:text-foreground hover:bg-accent'
           >
             <ArrowLeft className='mr-2 size-4' />
-            Volver
+            Volver al centro de ayuda
           </Button>
-          <div className='space-y-4'>
-            <div>
-              <Badge variant='secondary' className='mb-3'>
-                {article.Subject}
-              </Badge>
-              <h1 className='text-3xl font-bold leading-tight mb-3'>{article.Title}</h1>
-              {article.Summary && (
-                <p className='text-muted-foreground text-lg leading-relaxed max-w-3xl'>
-                  {article.Summary}
-                </p>
-              )}
+          
+          <div className='relative flex flex-col md:flex-row gap-6 pb-8'>
+            <div className='flex-1 space-y-4'>
+              <div className='space-y-3'>
+                <Badge variant='secondary' className='text-xs font-medium'>
+                  {article.Subject}
+                </Badge>
+                <h1 className='text-4xl font-bold leading-tight tracking-tight'>
+                  {article.Title}
+                </h1>
+                {article.Summary && (
+                  <p className='text-muted-foreground text-lg leading-relaxed max-w-3xl'>
+                    {article.Summary}
+                  </p>
+                )}
+              </div>
+              
+              <div className='flex items-center gap-4 pt-2'>
+                {article.ReadTime && (
+                  <Badge variant='outline' className='text-sm font-medium bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/30 hover:bg-blue-500/15'>
+                    <Clock className='mr-1.5 size-3.5' />
+                    {article.ReadTime} min de lectura
+                  </Badge>
+                )}
+              </div>
             </div>
-            <div className='flex items-center gap-4'>
-              {article.ReadTime && (
-                <div className='flex items-center gap-2 text-muted-foreground text-sm'>
-                  <Clock className='size-4' />
-                  <span>{article.ReadTime} min de lectura</span>
+            
+            {/* Imagen a la derecha del título - posicionada más arriba para no invadir contenido */}
+            {coverImageUrl && (
+              <div className='hidden md:block absolute right-0 -top-12 w-96' style={{ height: 'fit-content' }}>
+                <div className='relative w-full' style={{ aspectRatio: '16/9' }}>
+                  <img
+                    src={coverImageUrl}
+                    alt={article.Title}
+                    className='w-full h-full object-contain'
+                    onError={(e) => {
+                      // Si falla la imagen local, intentar con la remota
+                      if (remoteImageUrl && e.currentTarget.src !== remoteImageUrl) {
+                        e.currentTarget.src = remoteImageUrl
+                      } else {
+                        e.currentTarget.style.display = 'none'
+                        e.currentTarget.parentElement!.style.display = 'none'
+                      }
+                    }}
+                  />
                 </div>
-              )}
-            </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -116,10 +152,10 @@ export function HelpArticleDetail({
             {/* Contenido principal */}
             <article className='flex-1 min-w-0'>
               {processedBody ? (
-                <div className='prose prose-slate dark:prose-invert max-w-none prose-headings:font-bold prose-headings:tracking-tight prose-p:leading-relaxed prose-strong:font-semibold'>
+                <div className='prose prose-slate dark:prose-invert max-w-none prose-headings:font-bold prose-headings:tracking-tight prose-p:leading-relaxed prose-strong:font-semibold prose-sm'>
                   <div
                     dangerouslySetInnerHTML={{ __html: processedBody }}
-                    className='help-content'
+                    className='help-content text-sm'
                   />
                 </div>
               ) : (
@@ -150,6 +186,28 @@ export function HelpArticleDetail({
                       </li>
                     ))}
                   </ul>
+                </div>
+              )}
+              
+              {/* Imagen en móvil debajo del título */}
+              {coverImageUrl && (
+                <div className='mt-6 md:hidden rounded-lg border bg-gradient-to-r from-muted via-muted/80 to-muted p-4 overflow-hidden'>
+                  <div className='relative w-full aspect-video'>
+                    <img
+                      src={coverImageUrl}
+                      alt={article.Title}
+                      className='w-full h-full object-contain'
+                      onError={(e) => {
+                        // Si falla la imagen local, intentar con la remota
+                        if (remoteImageUrl && e.currentTarget.src !== remoteImageUrl) {
+                          e.currentTarget.src = remoteImageUrl
+                        } else {
+                          e.currentTarget.style.display = 'none'
+                          e.currentTarget.parentElement!.style.display = 'none'
+                        }
+                      }}
+                    />
+                  </div>
                 </div>
               )}
 
@@ -220,31 +278,33 @@ export function HelpArticleDetail({
 
       <style>{`
         .help-content {
-          line-height: 1.75;
+          line-height: 1.7;
           color: hsl(var(--foreground));
+          font-size: 0.9375rem;
         }
         
         .help-content h2 {
-          margin-top: 2.5rem;
-          margin-bottom: 1rem;
-          font-size: 1.75rem;
+          margin-top: 2rem;
+          margin-bottom: 0.875rem;
+          font-size: 1.5rem;
           font-weight: 700;
           line-height: 1.3;
           color: hsl(var(--foreground));
         }
         
         .help-content h3 {
-          margin-top: 2rem;
+          margin-top: 1.75rem;
           margin-bottom: 0.75rem;
-          font-size: 1.375rem;
+          font-size: 1.25rem;
           font-weight: 600;
           line-height: 1.4;
           color: hsl(var(--foreground));
         }
         
         .help-content p {
-          margin-bottom: 1.25rem;
-          line-height: 1.75;
+          margin-bottom: 1rem;
+          line-height: 1.7;
+          font-size: 0.9375rem;
         }
         
         .help-content ul,
