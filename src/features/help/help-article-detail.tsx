@@ -147,7 +147,7 @@ export function HelpArticleDetail({
 
       {/* Contenido */}
       <ScrollArea className='flex-1'>
-        <div className='container mx-auto max-w-6xl px-6 py-8'>
+        <div className='container mx-auto max-w-6xl px-6 py-8 md:px-6 px-4'>
           <div className='flex gap-8'>
             {/* Contenido principal */}
             <article className='flex-1 min-w-0'>
