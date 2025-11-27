@@ -33,7 +33,9 @@ import {
 } from '@/components/ui/tooltip'
 import { toast } from 'sonner'
 import { type Asset, AssetType } from '../types'
-import { assetsColumns as columns } from './assets-columns'
+import { getAssetSymbol, getAssetCategory } from '../utils/asset-helpers'
+import { investmentColumns } from './assets-columns-investment'
+import { accountsColumns } from './assets-columns-accounts'
 
 type DataTableProps = {
   data: Asset[]
@@ -42,9 +44,21 @@ type DataTableProps = {
   navigate: UseNavigateResult<any>
 }
 
-export function AssetsTable({ data, search, navigate }: DataTableProps) {
+// Componente de tabla individual
+function SingleTable({ 
+  data, 
+  columns, 
+  search, 
+  navigate, 
+  title 
+}: { 
+  data: Asset[]
+  columns: typeof investmentColumns
+  search: Record<string, unknown>
+  navigate: UseNavigateResult<any>
+  title?: string
+}) {
   const queryClient = useQueryClient()
-  // Local UI-only states
   const [rowSelection, setRowSelection] = useState({})
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
   const [sorting, setSorting] = useState<SortingState>([])
@@ -56,7 +70,7 @@ export function AssetsTable({ data, search, navigate }: DataTableProps) {
     onPaginationChange,
     ensurePageInRange,
   } = useTableUrlState({
-    search,
+    search: { ...search, tableGroup: title },
     navigate,
     pagination: { defaultPage: 1, defaultPageSize: 10 },
     globalFilter: { enabled: false },
@@ -90,7 +104,10 @@ export function AssetsTable({ data, search, navigate }: DataTableProps) {
     ensurePageInRange(table.getPageCount())
   }, [table, ensurePageInRange])
 
-  // Obtener opciones para filtros
+  if (data.length === 0) {
+    return null
+  }
+
   const assetTypes = Array.from(new Set(data.map(d => d.type)))
     .map(type => {
       const labels: Record<AssetType, string> = {
@@ -116,32 +133,15 @@ export function AssetsTable({ data, search, navigate }: DataTableProps) {
       return { label: labels[type] || type, value: type }
     })
 
-  // Obtener regiones únicas
-  const regions = Array.from(
-    new Set(
-      data
-        .map(d => {
-          if ('region' in d && d.region) return d.region
-          return null
-        })
-        .filter((r): r is string => r !== null)
-    )
-  ).map(region => ({ label: region, value: region }))
-
-  // Obtener sectores únicos
-  const sectors = Array.from(
-    new Set(
-      data
-        .map(d => {
-          if ('sector' in d && d.sector) return d.sector
-          return null
-        })
-        .filter((s): s is string => s !== null)
-    )
-  ).map(sector => ({ label: sector, value: sector }))
-
   return (
     <div className={cn('max-sm:has-[div[role="toolbar"]]:mb-16', 'flex flex-1 flex-col gap-4')}>
+      {title && (
+        <div className='mb-2'>
+          <h3 className='text-lg font-semibold'>{title}</h3>
+          <p className='text-sm text-muted-foreground'>{data.length} activo{data.length > 1 ? 's' : ''}</p>
+        </div>
+      )}
+      
       <DataTableToolbar 
         table={table} 
         searchPlaceholder='Buscar por nombre, ticker, símbolo...' 
@@ -152,16 +152,6 @@ export function AssetsTable({ data, search, navigate }: DataTableProps) {
             title: 'Tipo de Activo',
             options: assetTypes,
           },
-          ...(regions.length > 0 ? [{
-            columnId: 'region',
-            title: 'Región',
-            options: regions,
-          }] : []),
-          ...(sectors.length > 0 ? [{
-            columnId: 'sector',
-            title: 'Sector',
-            options: sectors,
-          }] : []),
         ]} 
       />
 
@@ -303,6 +293,51 @@ export function AssetsTable({ data, search, navigate }: DataTableProps) {
           )
         })()}
       </DataTableBulkActions>
+    </div>
+  )
+}
+
+export function AssetsTable({ data, search, navigate }: DataTableProps) {
+  // Agrupar activos por tipo: inversiones vs cuentas/depósitos
+  const investmentAssets: Asset[] = []
+  const accountsAssets: Asset[] = []
+
+  data.forEach(asset => {
+    const category = getAssetCategory(asset.type)
+    if (category === 'Efectivo y depósitos') {
+      accountsAssets.push(asset)
+    } else {
+      investmentAssets.push(asset)
+    }
+  })
+
+  return (
+    <div className='space-y-8'>
+      {investmentAssets.length > 0 && (
+        <SingleTable
+          data={investmentAssets}
+          columns={investmentColumns}
+          search={search}
+          navigate={navigate}
+          title='Activos de Inversión'
+        />
+      )}
+      
+      {accountsAssets.length > 0 && (
+        <SingleTable
+          data={accountsAssets}
+          columns={accountsColumns}
+          search={search}
+          navigate={navigate}
+          title='Efectivo y Depósitos'
+        />
+      )}
+      
+      {investmentAssets.length === 0 && accountsAssets.length === 0 && (
+        <div className='text-center py-12 text-muted-foreground'>
+          No hay activos para mostrar.
+        </div>
+      )}
     </div>
   )
 }

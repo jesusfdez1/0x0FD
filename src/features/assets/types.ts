@@ -34,7 +34,11 @@ export interface BaseAsset {
   sector?: string
   market?: string
   currency?: string
-  price?: number
+  price?: number // Precio actual de mercado
+  
+  // Campos de inversión (opcionales, para tracking de cartera)
+  quantity?: number // Cantidad de activos que posees
+  purchasePrice?: number // Precio al que compraste
   
   // Metadatos
   createdAt?: Date

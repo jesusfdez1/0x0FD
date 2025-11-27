@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/badge'
 import { type Asset, AssetType } from '../types'
 import { DataTableRowActions } from './data-table-row-actions'
 import { AssetTypeBadge, getAssetSymbol } from '../utils/asset-helpers'
+import { TrendingUp, TrendingDown } from 'lucide-react'
 
 export const assetsColumns: ColumnDef<Asset>[] = [
   {
@@ -126,10 +127,58 @@ export const assetsColumns: ColumnDef<Asset>[] = [
     },
   },
   {
+    id: 'quantity',
+    accessorFn: (row) => row.quantity || null,
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title='Cantidad' />
+    ),
+    cell: ({ row }) => {
+      const quantity = row.original.quantity
+      if (quantity === undefined) {
+        return <span className='text-muted-foreground text-xs'>-</span>
+      }
+      return (
+        <div className='text-xs font-medium'>
+          {quantity.toLocaleString('es-ES', { maximumFractionDigits: 4 })}
+        </div>
+      )
+    },
+    meta: { tdClassName: 'py-2' },
+  },
+  {
+    id: 'purchasePrice',
+    accessorFn: (row) => row.purchasePrice || null,
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title='Precio Compra' />
+    ),
+    cell: ({ row }) => {
+      const asset = row.original
+      const purchasePrice = asset.purchasePrice
+      const currency = asset.currency || 'EUR'
+      
+      if (purchasePrice === undefined) {
+        return <span className='text-muted-foreground text-xs'>-</span>
+      }
+      
+      return (
+        <div className='text-xs'>
+          <span className='font-medium'>
+            {purchasePrice.toLocaleString('es-ES', { 
+              minimumFractionDigits: 2, 
+              maximumFractionDigits: 2 
+            })}
+          </span>
+          <span className='text-muted-foreground ml-1'>{currency}</span>
+        </div>
+      )
+    },
+    meta: { tdClassName: 'py-2' },
+  },
+  {
     id: 'price',
     accessorFn: (row) => row.price || null,
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Precio' />
+      <DataTableColumnHeader column={column} title='Precio Actual' />
     ),
     cell: ({ row }) => {
       const asset = row.original
@@ -149,6 +198,62 @@ export const assetsColumns: ColumnDef<Asset>[] = [
             })}
           </span>
           <span className='text-muted-foreground ml-1'>{currency}</span>
+        </div>
+      )
+    },
+    meta: { tdClassName: 'py-2' },
+  },
+  {
+    id: 'gainLoss',
+    accessorFn: (row) => {
+      if (!row.quantity || !row.purchasePrice || !row.price) return null
+      const purchaseValue = row.quantity * row.purchasePrice
+      const currentValue = row.quantity * row.price
+      return currentValue - purchaseValue
+    },
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title='Ganancia/Pérdida' />
+    ),
+    cell: ({ row }) => {
+      const asset = row.original
+      if (!asset.quantity || !asset.purchasePrice || !asset.price) {
+        return <span className='text-muted-foreground text-xs'>-</span>
+      }
+      
+      const purchaseValue = asset.quantity * asset.purchasePrice
+      const currentValue = asset.quantity * asset.price
+      const amount = currentValue - purchaseValue
+      const percentage = (amount / purchaseValue) * 100
+      const currency = asset.currency || 'EUR'
+      const isPositive = amount >= 0
+      
+      return (
+        <div className='flex items-center gap-1.5'>
+          {isPositive ? (
+            <TrendingUp className='h-3 w-3 text-green-600' />
+          ) : (
+            <TrendingDown className='h-3 w-3 text-red-600' />
+          )}
+          <div className='text-xs'>
+            <div className={cn(
+              'font-semibold',
+              isPositive ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'
+            )}>
+              {isPositive ? '+' : ''}
+              {amount.toLocaleString('es-ES', { 
+                minimumFractionDigits: 2, 
+                maximumFractionDigits: 2 
+              })}
+              <span className='text-muted-foreground ml-1'>{currency}</span>
+            </div>
+            <div className={cn(
+              'text-[10px]',
+              isPositive ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'
+            )}>
+              {isPositive ? '+' : ''}
+              {percentage.toFixed(2)}%
+            </div>
+          </div>
         </div>
       )
     },
