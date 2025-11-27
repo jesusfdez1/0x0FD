@@ -43,18 +43,11 @@ export const realEstateColumns: ColumnDef<Asset>[] = [
       const symbol = getAssetSymbol(asset)
       
       return (
-        <div className='flex items-center gap-2'>
-          <div className='h-8 w-8 flex items-center justify-center rounded bg-muted/40'>
-            <span className='text-[10px] font-semibold'>
-              {asset.name.charAt(0).toUpperCase()}
-            </span>
-          </div>
-          <div className='min-w-0 flex-1'>
-            <div className='font-semibold text-sm leading-tight'>{asset.name}</div>
-            {asset.type === AssetType.REAL_ESTATE && 'location' in asset && asset.location && (
-              <div className='text-muted-foreground text-xs leading-tight'>{asset.location}</div>
-            )}
-          </div>
+        <div className='min-w-0'>
+          <div className='font-semibold text-sm leading-tight'>{asset.name}</div>
+          {asset.type === AssetType.REAL_ESTATE && 'location' in asset && asset.location && (
+            <div className='text-muted-foreground text-xs leading-tight'>{asset.location}</div>
+          )}
         </div>
       )
     },

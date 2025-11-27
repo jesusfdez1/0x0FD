@@ -260,11 +260,21 @@ function SingleTable({
 
           const handleBulkDelete = () => {
             const assetWord = selectedAssets.length === 1 ? t('assets.table.assetSingular') : t('assets.table.assetPlural')
-            if (confirm(`${t('assets.table.deleteConfirmPrefix')} ${selectedAssets.length} ${assetWord}?`)) {
-              toast.success(`${selectedAssets.length} ${assetWord} ${selectedAssets.length === 1 ? t('assets.table.deletedSingular') : t('assets.table.deletedPlural')}`)
-              table.resetRowSelection()
-              queryClient.invalidateQueries({ queryKey: ['assets'] })
+            if (!confirm(`${t('assets.table.deleteConfirmPrefix')} ${selectedAssets.length} ${assetWord}?`)) {
+              return
             }
+
+            const idsToRemove = new Set(selectedAssets.map((asset) => asset.id))
+            queryClient.setQueryData<Asset[]>(['assets'], (old = []) =>
+              old.filter((asset) => !idsToRemove.has(asset.id))
+            )
+
+            toast.success(
+              `${selectedAssets.length} ${assetWord} ${
+                selectedAssets.length === 1 ? t('assets.table.deletedSingular') : t('assets.table.deletedPlural')
+              }`
+            )
+            table.resetRowSelection()
           }
 
           return (

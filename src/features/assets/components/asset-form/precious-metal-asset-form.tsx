@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { AssetType } from '../../types'
+import { type Asset, AssetType, type PreciousMetalAsset } from '../../types'
 import { useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
 import { useLanguage } from '@/context/language-provider'
@@ -29,33 +29,52 @@ type PreciousMetalFormData = z.infer<typeof preciousMetalSchema>
 interface PreciousMetalAssetFormProps {
   onSuccess?: () => void
   onCancel?: () => void
+  asset?: PreciousMetalAsset
 }
 
-export function PreciousMetalAssetForm({ onSuccess, onCancel }: PreciousMetalAssetFormProps) {
+export function PreciousMetalAssetForm({ onSuccess, onCancel, asset }: PreciousMetalAssetFormProps) {
   const queryClient = useQueryClient()
   const { t } = useLanguage()
+  const isEditing = Boolean(asset)
 
   const form = useForm<PreciousMetalFormData>({
     resolver: zodResolver(preciousMetalSchema),
     defaultValues: {
-      name: '',
-      metalType: 'gold',
-      weight: 1,
-      unit: 'grams',
-      currency: 'EUR',
+      name: asset?.name ?? '',
+      metalType: (asset?.metalType as PreciousMetalFormData['metalType']) ?? 'gold',
+      weight: asset?.weight ?? 1,
+      unit: (asset?.unit as PreciousMetalFormData['unit']) ?? 'grams',
+      purity: asset?.purity,
+      purchasePrice: asset?.purchasePrice,
+      price: asset?.price,
+      storageLocation: asset?.storageLocation ?? '',
+      currency: asset?.currency ?? 'EUR',
+      description: asset?.description ?? '',
     },
   })
 
   const onSubmit = async (data: PreciousMetalFormData) => {
     try {
-      const newAsset = {
+      const baseAsset = asset ?? {
         id: `pm${Date.now()}`,
-        type: AssetType.PRECIOUS_METAL,
+        type: AssetType.PRECIOUS_METAL as const,
+      }
+
+      const updatedAsset: PreciousMetalAsset = {
+        ...baseAsset,
         ...data,
       }
 
-      queryClient.setQueryData(['assets'], (old: any[]) => [...(old || []), newAsset])
-      toast.success(t('assets.forms.preciousMetal.success'))
+      queryClient.setQueryData<Asset[]>(['assets'], (old = []) => {
+        if (isEditing && asset) {
+          return old.map((item) => (item.id === asset.id ? updatedAsset : item))
+        }
+        return [...old, updatedAsset]
+      })
+
+      toast.success(
+        isEditing ? t('assets.forms.common.updated') : t('assets.forms.preciousMetal.success')
+      )
       onSuccess?.()
     } catch (error) {
       toast.error(t('assets.forms.preciousMetal.error'))

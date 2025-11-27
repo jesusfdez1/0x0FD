@@ -18,6 +18,7 @@ import { PensionPlanAssetForm } from './pension-plan-asset-form'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Label } from '@/components/ui/label'
 import { useLanguage } from '@/context/language-provider'
+import { ASSET_TYPE_GROUPS, type AssetTypeGroup } from '../../constants/asset-type-groups'
 
 interface AssetFormDialogProps {
   onSuccess?: () => void
@@ -25,36 +26,11 @@ interface AssetFormDialogProps {
 
 export function AssetFormDialog({ onSuccess }: AssetFormDialogProps) {
   const [open, setOpen] = useState(false)
-  const [typeGroup, setTypeGroup] = useState<'quoted' | 'manual' | ''>('')
+  const [typeGroup, setTypeGroup] = useState<AssetTypeGroup | ''>('')
   const [selectedType, setSelectedType] = useState<AssetType | ''>('')
   const { t } = useLanguage()
 
-  const groupedTypes: Record<'quoted' | 'manual', AssetType[]> = {
-    quoted: [
-      AssetType.STOCK,
-      AssetType.ETF,
-      AssetType.FIXED_INCOME,
-      AssetType.GUARANTEED,
-      AssetType.CURRENCY,
-      AssetType.OPTION,
-      AssetType.MUTUAL_FUND,
-      AssetType.WARRANT,
-      AssetType.CRYPTO,
-      AssetType.FUTURES,
-      AssetType.STRUCTURED_PRODUCT,
-    ],
-    manual: [
-      AssetType.REAL_ESTATE,
-      AssetType.SAVINGS_ACCOUNT,
-      AssetType.TERM_DEPOSIT,
-      AssetType.CHECKING_ACCOUNT,
-      AssetType.PRECIOUS_METAL,
-      AssetType.COMMODITY,
-      AssetType.PENSION_PLAN,
-    ],
-  }
-
-  const typeOptions = typeGroup ? groupedTypes[typeGroup] : []
+  const typeOptions = typeGroup ? ASSET_TYPE_GROUPS[typeGroup] : []
 
   const handleSuccess = () => {
     setOpen(false)
@@ -95,7 +71,7 @@ export function AssetFormDialog({ onSuccess }: AssetFormDialogProps) {
               <Select
                 value={typeGroup}
                 onValueChange={(value) => {
-                  setTypeGroup(value as 'quoted' | 'manual')
+                  setTypeGroup(value as AssetTypeGroup)
                   setSelectedType('')
                 }}
               >

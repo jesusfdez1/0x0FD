@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
-import { AssetType } from '../../types'
+import { type Asset, AssetType, type RealEstateAsset } from '../../types'
 import { useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
 import { useLanguage } from '@/context/language-provider'
@@ -28,31 +28,51 @@ type RealEstateAssetFormData = z.infer<typeof realEstateAssetSchema>
 interface RealEstateAssetFormProps {
   onSuccess?: () => void
   onCancel?: () => void
+  asset?: RealEstateAsset
 }
 
-export function RealEstateAssetForm({ onSuccess, onCancel }: RealEstateAssetFormProps) {
+export function RealEstateAssetForm({ onSuccess, onCancel, asset }: RealEstateAssetFormProps) {
   const queryClient = useQueryClient()
   const { t } = useLanguage()
+  const isEditing = Boolean(asset)
 
   const form = useForm<RealEstateAssetFormData>({
     resolver: zodResolver(realEstateAssetSchema),
     defaultValues: {
-      name: '',
-      propertyType: 'residential',
-      currency: 'EUR',
+      name: asset?.name ?? '',
+      propertyType: (asset?.propertyType as RealEstateAssetFormData['propertyType']) ?? 'residential',
+      location: asset?.location ?? '',
+      purchasePrice: asset?.purchasePrice,
+      price: asset?.price,
+      rentalYield: asset?.rentalYield,
+      squareMeters: asset?.squareMeters,
+      currency: asset?.currency ?? 'EUR',
+      description: asset?.description ?? '',
     },
   })
 
   const onSubmit = async (data: RealEstateAssetFormData) => {
     try {
-      const newAsset = {
+      const baseAsset = asset ?? {
         id: `re${Date.now()}`,
-        type: AssetType.REAL_ESTATE,
+        type: AssetType.REAL_ESTATE as const,
+      }
+
+      const updatedAsset: RealEstateAsset = {
+        ...baseAsset,
         ...data,
       }
 
-      queryClient.setQueryData(['assets'], (old: any[]) => [...(old || []), newAsset])
-      toast.success(t('assets.forms.realEstate.success'))
+      queryClient.setQueryData<Asset[]>(['assets'], (old = []) => {
+        if (isEditing && asset) {
+          return old.map((item) => (item.id === asset.id ? updatedAsset : item))
+        }
+        return [...old, updatedAsset]
+      })
+
+      toast.success(
+        isEditing ? t('assets.forms.common.updated') : t('assets.forms.realEstate.success')
+      )
       onSuccess?.()
     } catch (error) {
       toast.error(t('assets.forms.realEstate.error'))

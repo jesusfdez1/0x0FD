@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
-import { AssetType } from '../../types'
+import { type Asset, AssetType, type PensionPlanAsset } from '../../types'
 import { useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
 import { useLanguage } from '@/context/language-provider'
@@ -28,31 +28,51 @@ type PensionPlanFormData = z.infer<typeof pensionPlanSchema>
 interface PensionPlanAssetFormProps {
   onSuccess?: () => void
   onCancel?: () => void
+  asset?: PensionPlanAsset
 }
 
-export function PensionPlanAssetForm({ onSuccess, onCancel }: PensionPlanAssetFormProps) {
+export function PensionPlanAssetForm({ onSuccess, onCancel, asset }: PensionPlanAssetFormProps) {
   const queryClient = useQueryClient()
   const { t } = useLanguage()
+  const isEditing = Boolean(asset)
 
   const form = useForm<PensionPlanFormData>({
     resolver: zodResolver(pensionPlanSchema),
     defaultValues: {
-      name: '',
-      planType: 'individual',
-      currency: 'EUR',
+      name: asset?.name ?? '',
+      planType: (asset?.planType as PensionPlanFormData['planType']) ?? 'individual',
+      provider: asset?.provider ?? '',
+      riskProfile: (asset?.riskProfile as PensionPlanFormData['riskProfile']) ?? undefined,
+      price: asset?.price,
+      annualContribution: asset?.annualContribution,
+      expectedReturn: asset?.expectedReturn,
+      currency: asset?.currency ?? 'EUR',
+      description: asset?.description ?? '',
     },
   })
 
   const onSubmit = async (data: PensionPlanFormData) => {
     try {
-      const newAsset = {
+      const baseAsset = asset ?? {
         id: `pp${Date.now()}`,
-        type: AssetType.PENSION_PLAN,
+        type: AssetType.PENSION_PLAN as const,
+      }
+
+      const updatedAsset: PensionPlanAsset = {
+        ...baseAsset,
         ...data,
       }
 
-      queryClient.setQueryData(['assets'], (old: any[]) => [...(old || []), newAsset])
-      toast.success(t('assets.forms.pensionPlan.success'))
+      queryClient.setQueryData<Asset[]>(['assets'], (old = []) => {
+        if (isEditing && asset) {
+          return old.map((item) => (item.id === asset.id ? updatedAsset : item))
+        }
+        return [...old, updatedAsset]
+      })
+
+      toast.success(
+        isEditing ? t('assets.forms.common.updated') : t('assets.forms.pensionPlan.success')
+      )
       onSuccess?.()
     } catch (error) {
       toast.error(t('assets.forms.pensionPlan.error'))

@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
-import { AssetType } from '../../types'
+import { type Asset, AssetType, type TermDepositAsset } from '../../types'
 import { useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
 import { useLanguage } from '@/context/language-provider'
@@ -27,36 +27,53 @@ type TermDepositFormData = z.infer<typeof termDepositSchema>
 interface TermDepositAssetFormProps {
   onSuccess?: () => void
   onCancel?: () => void
+  asset?: TermDepositAsset
 }
 
-export function TermDepositAssetForm({ onSuccess, onCancel }: TermDepositAssetFormProps) {
+export function TermDepositAssetForm({ onSuccess, onCancel, asset }: TermDepositAssetFormProps) {
   const queryClient = useQueryClient()
   const { t } = useLanguage()
+  const isEditing = Boolean(asset)
 
   const form = useForm<TermDepositFormData>({
     resolver: zodResolver(termDepositSchema),
     defaultValues: {
-      name: '',
-      bankName: '',
-      initialAmount: 0,
-      interestRate: 2,
-      maturityDate: '',
-      depositType: 'fixed',
-      currency: 'EUR',
+      name: asset?.name ?? '',
+      bankName: asset?.bankName ?? '',
+      initialAmount: asset?.initialAmount ?? 0,
+      interestRate: asset?.interestRate ?? 2,
+      maturityDate: asset?.maturityDate
+        ? new Date(asset.maturityDate).toISOString().split('T')[0]
+        : '',
+      depositType: (asset?.depositType as TermDepositFormData['depositType']) ?? 'fixed',
+      currency: asset?.currency ?? 'EUR',
+      description: asset?.description ?? '',
     },
   })
 
   const onSubmit = async (data: TermDepositFormData) => {
     try {
-      const newAsset = {
+      const baseAsset = asset ?? {
         id: `td${Date.now()}`,
-        type: AssetType.TERM_DEPOSIT,
+        type: AssetType.TERM_DEPOSIT as const,
+      }
+
+      const updatedAsset: TermDepositAsset = {
+        ...baseAsset,
         ...data,
         maturityDate: new Date(data.maturityDate),
       }
 
-      queryClient.setQueryData(['assets'], (old: any[]) => [...(old || []), newAsset])
-      toast.success(t('assets.forms.termDeposit.success'))
+      queryClient.setQueryData<Asset[]>(['assets'], (old = []) => {
+        if (isEditing && asset) {
+          return old.map((item) => (item.id === asset.id ? updatedAsset : item))
+        }
+        return [...old, updatedAsset]
+      })
+
+      toast.success(
+        isEditing ? t('assets.forms.common.updated') : t('assets.forms.termDeposit.success')
+      )
       onSuccess?.()
     } catch (error) {
       toast.error(t('assets.forms.termDeposit.error'))

@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
-import { AssetType } from '../../types'
+import { type Asset, AssetType, type CommodityAsset } from '../../types'
 import { useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
 import { useLanguage } from '@/context/language-provider'
@@ -28,33 +28,51 @@ type CommodityFormData = z.infer<typeof commoditySchema>
 interface CommodityAssetFormProps {
   onSuccess?: () => void
   onCancel?: () => void
+  asset?: CommodityAsset
 }
 
-export function CommodityAssetForm({ onSuccess, onCancel }: CommodityAssetFormProps) {
+export function CommodityAssetForm({ onSuccess, onCancel, asset }: CommodityAssetFormProps) {
   const queryClient = useQueryClient()
   const { t } = useLanguage()
+  const isEditing = Boolean(asset)
 
   const form = useForm<CommodityFormData>({
     resolver: zodResolver(commoditySchema),
     defaultValues: {
-      name: '',
-      commodityType: 'agricultural',
-      contractSize: 1,
-      unit: 't',
-      currency: 'EUR',
+      name: asset?.name ?? '',
+      commodityType: (asset?.commodityType as CommodityFormData['commodityType']) ?? 'agricultural',
+      contractSize: asset?.contractSize ?? 1,
+      unit: asset?.unit ?? 't',
+      storageLocation: asset?.storageLocation ?? '',
+      purchasePrice: asset?.purchasePrice,
+      price: asset?.price,
+      currency: asset?.currency ?? 'EUR',
+      description: asset?.description ?? '',
     },
   })
 
   const onSubmit = async (data: CommodityFormData) => {
     try {
-      const newAsset = {
+      const baseAsset = asset ?? {
         id: `cm${Date.now()}`,
-        type: AssetType.COMMODITY,
+        type: AssetType.COMMODITY as const,
+      }
+
+      const updatedAsset: CommodityAsset = {
+        ...baseAsset,
         ...data,
       }
 
-      queryClient.setQueryData(['assets'], (old: any[]) => [...(old || []), newAsset])
-      toast.success(t('assets.forms.commodity.success'))
+      queryClient.setQueryData<Asset[]>(['assets'], (old = []) => {
+        if (isEditing && asset) {
+          return old.map((item) => (item.id === asset.id ? updatedAsset : item))
+        }
+        return [...old, updatedAsset]
+      })
+
+      toast.success(
+        isEditing ? t('assets.forms.common.updated') : t('assets.forms.commodity.success')
+      )
       onSuccess?.()
     } catch (error) {
       toast.error(t('assets.forms.commodity.error'))

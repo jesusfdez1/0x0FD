@@ -246,6 +246,12 @@ export const es = {
         percentagePlaceholder: '0.0',
         notesLabel: 'Notas',
         notesPlaceholder: 'Notas adicionales...',
+        updated: 'Activo actualizado correctamente',
+      },
+      editDialog: {
+        title: 'Editar activo manual',
+        description: 'Actualiza la información de un activo sin datos externos.',
+        unsupported: 'Este tipo de activo aún no permite edición directa.',
       },
       realEstate: {
         nameLabel: 'Nombre de la propiedad',

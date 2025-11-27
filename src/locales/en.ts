@@ -245,6 +245,12 @@ export const en = {
         percentagePlaceholder: '0.0',
         notesLabel: 'Notes',
         notesPlaceholder: 'Additional notes...',
+        updated: 'Asset updated successfully',
+      },
+      editDialog: {
+        title: 'Edit manual asset',
+        description: 'Update the information for an offline/manual asset.',
+        unsupported: 'This asset type does not yet support inline editing.',
       },
       realEstate: {
         nameLabel: 'Property name',

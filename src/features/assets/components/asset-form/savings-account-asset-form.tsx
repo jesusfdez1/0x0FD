@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
-import { AssetType } from '../../types'
+import { type Asset, AssetType, type SavingsAccountAsset } from '../../types'
 import { useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
 import { useLanguage } from '@/context/language-provider'
@@ -25,31 +25,49 @@ type SavingsAccountFormData = z.infer<typeof savingsAccountSchema>
 interface SavingsAccountAssetFormProps {
   onSuccess?: () => void
   onCancel?: () => void
+  asset?: SavingsAccountAsset
 }
 
-export function SavingsAccountAssetForm({ onSuccess, onCancel }: SavingsAccountAssetFormProps) {
+export function SavingsAccountAssetForm({ onSuccess, onCancel, asset }: SavingsAccountAssetFormProps) {
   const queryClient = useQueryClient()
   const { t } = useLanguage()
+  const isEditing = Boolean(asset)
 
   const form = useForm<SavingsAccountFormData>({
     resolver: zodResolver(savingsAccountSchema),
     defaultValues: {
-      name: '',
-      bankName: '',
-      currency: 'EUR',
+      name: asset?.name ?? '',
+      bankName: asset?.bankName ?? '',
+      interestRate: asset?.interestRate,
+      initialAmount: asset?.initialAmount,
+      currency: asset?.currency ?? 'EUR',
+      accountNumber: asset?.accountNumber ?? '',
+      description: asset?.description ?? '',
     },
   })
 
   const onSubmit = async (data: SavingsAccountFormData) => {
     try {
-      const newAsset = {
+      const baseAsset = asset ?? {
         id: `sa${Date.now()}`,
-        type: AssetType.SAVINGS_ACCOUNT,
+        type: AssetType.SAVINGS_ACCOUNT as const,
+      }
+
+      const updatedAsset: SavingsAccountAsset = {
+        ...baseAsset,
         ...data,
       }
 
-      queryClient.setQueryData(['assets'], (old: any[]) => [...(old || []), newAsset])
-      toast.success(t('assets.forms.savingsAccount.success'))
+      queryClient.setQueryData<Asset[]>(['assets'], (old = []) => {
+        if (isEditing && asset) {
+          return old.map((item) => (item.id === asset.id ? updatedAsset : item))
+        }
+        return [...old, updatedAsset]
+      })
+
+      toast.success(
+        isEditing ? t('assets.forms.common.updated') : t('assets.forms.savingsAccount.success')
+      )
       onSuccess?.()
     } catch (error) {
       toast.error(t('assets.forms.savingsAccount.error'))
