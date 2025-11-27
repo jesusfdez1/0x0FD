@@ -29,7 +29,10 @@ export function PortfoliosTable({ data = samplePortfolios }: Props) {
               <h3 className='font-semibold'>{p.name}</h3>
             </div>
             <p className='line-clamp-2 text-muted-foreground'>{p.description}</p>
-            <div className='mt-4 text-sm text-muted-foreground'>{p.companies.length} companies</div>
+            <div className='mt-4 flex gap-4 text-sm text-muted-foreground'>
+              {p.companies.length > 0 && <span>{p.companies.length} empresas</span>}
+              {p.assets && p.assets.length > 0 && <span>{p.assets.length} activos</span>}
+            </div>
           </li>
         ))}
       </ul>

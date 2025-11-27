@@ -15,6 +15,7 @@ import {
   AudioWaveform,
   Command,
   GalleryVerticalEnd,
+  TrendingUp,
 } from 'lucide-react'
 import { type SidebarData } from '../types'
 
@@ -64,6 +65,11 @@ export const getSidebarData = (t: (key: string) => string): SidebarData => ({
           title: t('nav.companies'),
           url: '/companies',
           icon: Monitor,
+        },
+        {
+          title: t('nav.assets'),
+          url: '/assets',
+          icon: TrendingUp,
         },
         {
           title: t('nav.portfolios'),
