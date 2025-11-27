@@ -182,7 +182,7 @@ export function AssetsOverview({ assets }: AssetsOverviewProps) {
         </div>
 
         {/* Leyenda agrupada por categoría - varias categorías a la misma altura */}
-        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
+        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2'>
           {Object.entries(typesByCategory)
             .sort(([, a], [, b]) => {
               const totalA = a.reduce((sum, item) => sum + item.count, 0)
@@ -205,7 +205,7 @@ export function AssetsOverview({ assets }: AssetsOverviewProps) {
                   </div>
 
                   {/* Tipos dentro de la categoría - más columnas */}
-                  <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2'>
+                  <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-2'>
                     {types.map(({ type, count, percentage }) => {
                       const label = getAssetTypeLabel(type)
                       const color = getAssetTypeColor(type)
@@ -236,7 +236,7 @@ export function AssetsOverview({ assets }: AssetsOverviewProps) {
                           <div className={cn('w-3 h-3 rounded-full shrink-0', color)} />
                           {/* Información */}
                           <div className='min-w-0 flex-1'>
-                            <div className='text-xs font-medium text-foreground truncate'>{label}</div>
+                            <div className='text-xs font-medium text-foreground wrap-break-word leading-tight'>{label}</div>
                             <div className='flex items-center gap-1.5'>
                               <span className='text-[10px] font-semibold'>{count}</span>
                               <span className='text-[10px] text-muted-foreground'>({percentage.toFixed(1)}%)</span>
