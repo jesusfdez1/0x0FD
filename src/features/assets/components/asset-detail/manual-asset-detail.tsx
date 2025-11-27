@@ -103,7 +103,13 @@ const buildManualAssetMetrics = (asset: ManualAsset): ManualAssetMetrics => {
         ? savingsAsset.initialAmount 
         : (savingsAsset.price ?? 0)
       baseInvested = amount
-      currentValue = amount
+      // Para cuentas de ahorro, el valor actual incluye el interés acumulado
+      if (savingsAsset.interestRate && amount && years > 0) {
+        // Interés compuesto anual
+        currentValue = amount * Math.pow(1 + (savingsAsset.interestRate / 100), years)
+      } else {
+        currentValue = amount
+      }
       if (savingsAsset.interestRate && amount) {
         monthlyCashflow = (amount * savingsAsset.interestRate) / 100 / 12
       }
@@ -120,7 +126,12 @@ const buildManualAssetMetrics = (asset: ManualAsset): ManualAssetMetrics => {
             (asset.maturityDate.getTime() - Date.now()) / (1000 * 60 * 60 * 24 * 365)
           )
         : DEFAULT_YEARS
-      currentValue = baseAmount + (baseAmount * (asset.interestRate ?? 0) * yearsToMaturity) / 100
+      // Para depósitos a plazo, usar interés compuesto anual
+      if (asset.interestRate && baseAmount > 0 && yearsToMaturity > 0) {
+        currentValue = baseAmount * Math.pow(1 + (asset.interestRate / 100), yearsToMaturity)
+      } else {
+        currentValue = baseAmount
+      }
       monthlyCashflow = (baseAmount * (asset.interestRate ?? 0)) / 100 / 12
       years = yearsToMaturity
       riskLevel = 'low'
@@ -505,7 +516,7 @@ export function ManualAssetDetail({ asset, onExport, onExportReady }: { asset: M
       {
         label: t('assets.detail.manual.summary.inflationGap'),
         value: metrics.inflationGapPercent !== undefined 
-          ? `${formatPercent(metrics.inflationGapPercent)} (${formatPercent(metrics.inflationRate * 100)} objetivo)`
+          ? `${formatPercent(metrics.inflationGapPercent)} (${(metrics.inflationRate * 100).toFixed(2)}% objetivo)`
           : formatPercent(metrics.inflationGapPercent),
         helper: t('assets.detail.manual.summary.inflationHelper'),
         tone: (
