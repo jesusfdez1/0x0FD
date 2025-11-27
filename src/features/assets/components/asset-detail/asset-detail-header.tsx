@@ -1,50 +1,77 @@
-import { ArrowLeft } from 'lucide-react'
+import { ArrowLeft, Download, FileJson, FileText, ChevronDown } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useNavigate } from '@tanstack/react-router'
 import { AssetTypeBadge, getAssetSymbol } from '../../utils/asset-helpers'
 import { type Asset } from '../../types'
-import { AddToPortfolioDialog } from '../add-to-portfolio-dialog'
+import { useLanguage } from '@/context/language-provider'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
 
 interface AssetDetailHeaderProps {
   asset: Asset
+  onExportPDF?: () => void
+  onExportJSON?: () => void
 }
 
-export function AssetDetailHeader({ asset }: AssetDetailHeaderProps) {
+export function AssetDetailHeader({ asset, onExportPDF, onExportJSON }: AssetDetailHeaderProps) {
   const navigate = useNavigate()
+  const { t } = useLanguage()
   const symbol = getAssetSymbol(asset)
 
   return (
-    <div className='space-y-4'>
-      <Button
-        variant='ghost'
-        size='sm'
-        onClick={() => navigate({ to: '/assets' })}
-        className='-ml-2'
-      >
-        <ArrowLeft className='mr-2 h-4 w-4' />
-        Volver a activos
-      </Button>
-
-      <div className='flex items-start justify-between gap-4'>
-        <div className='space-y-2'>
-          <div className='flex items-center gap-3'>
-            <div className='flex h-16 w-16 items-center justify-center rounded-lg bg-muted/40 text-2xl font-bold'>
-              {asset.name.charAt(0).toUpperCase()}
-            </div>
-            <div>
-              <h1 className='text-3xl font-bold tracking-tight'>{asset.name}</h1>
-              <p className='text-muted-foreground mt-1'>{symbol}</p>
-            </div>
+    <div className='flex flex-wrap items-end justify-between gap-2'>
+      <div className='space-y-1'>
+        <div className='flex items-center gap-2'>
+          <Button
+            variant='ghost'
+            size='sm'
+            onClick={() => navigate({ to: '/assets' })}
+            className='-ml-2 h-8'
+          >
+            <ArrowLeft className='mr-2 h-3.5 w-3.5' />
+            {t('common.back') || 'Volver'}
+          </Button>
+        </div>
+        <div>
+          <h2 className='text-2xl font-bold tracking-tight'>{asset.name}</h2>
+          <div className='flex items-center gap-2 mt-0.5'>
+            <p className='text-sm text-muted-foreground'>{symbol}</p>
+            <AssetTypeBadge type={asset.type} />
           </div>
-          <AssetTypeBadge type={asset.type} />
-          {asset.description && (
-            <p className='text-muted-foreground max-w-2xl mt-2'>{asset.description}</p>
-          )}
         </div>
-        <div className='flex gap-2'>
-          <AddToPortfolioDialog asset={asset} />
-        </div>
+        {asset.description && (
+          <p className='text-sm text-muted-foreground max-w-2xl'>{asset.description}</p>
+        )}
       </div>
+      {(onExportPDF || onExportJSON) && (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant='outline' size='sm' className='h-8'>
+              <Download className='mr-2 h-3.5 w-3.5' />
+              {t('assets.detail.manual.export') || 'Exportar'}
+              <ChevronDown className='ml-2 h-3.5 w-3.5' />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align='end'>
+            {onExportPDF && (
+              <DropdownMenuItem onClick={onExportPDF}>
+                <FileText className='mr-2 h-4 w-4' />
+                Exportar como PDF
+              </DropdownMenuItem>
+            )}
+            {onExportJSON && (
+              <DropdownMenuItem onClick={onExportJSON}>
+                <FileJson className='mr-2 h-4 w-4' />
+                Exportar como JSON
+              </DropdownMenuItem>
+            )}
+          </DropdownMenuContent>
+        </DropdownMenu>
+      )}
     </div>
   )
 }

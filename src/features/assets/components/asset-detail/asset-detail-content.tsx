@@ -9,9 +9,11 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 
 interface AssetDetailContentProps {
   asset: Asset
+  onExport?: () => void
+  onExportReady?: (pdfHandler: () => void, jsonHandler: () => void) => void
 }
 
-export function AssetDetailContent({ asset }: AssetDetailContentProps) {
+export function AssetDetailContent({ asset, onExport, onExportReady }: AssetDetailContentProps) {
   switch (asset.type) {
     case AssetType.STOCK:
       return <StockDetail asset={asset} />
@@ -35,7 +37,7 @@ export function AssetDetailContent({ asset }: AssetDetailContentProps) {
     case AssetType.PRECIOUS_METAL:
     case AssetType.COMMODITY:
     case AssetType.PENSION_PLAN:
-      return <ManualAssetDetail asset={asset as ManualAsset} />
+      return <ManualAssetDetail asset={asset as ManualAsset} onExport={onExport} onExportReady={onExportReady} />
     
     case AssetType.GUARANTEED:
     case AssetType.MUTUAL_FUND:

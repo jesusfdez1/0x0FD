@@ -1,3 +1,4 @@
+import { useState, useCallback } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { useParams } from '@tanstack/react-router'
 import { Skeleton } from '@/components/ui/skeleton'
@@ -9,7 +10,9 @@ import { assets } from '../../data/assets'
 import type { Asset } from '../../types'
 
 export function AssetDetail() {
-  const { assetId } = useParams({ from: '/assets/$assetId' })
+  const { assetId } = useParams({ from: '/_authenticated/assets/$assetId' })
+  const [exportPDFHandler, setExportPDFHandler] = useState<(() => void) | null>(null)
+  const [exportJSONHandler, setExportJSONHandler] = useState<(() => void) | null>(null)
   
   const { data: asset, isLoading, isError } = useQuery<Asset | undefined>({
     queryKey: ['asset', assetId],
@@ -18,6 +21,11 @@ export function AssetDetail() {
       return assets.find(a => a.id === assetId)
     },
   })
+
+  const handleExportReady = useCallback((pdfHandler: () => void, jsonHandler: () => void) => {
+    setExportPDFHandler(() => pdfHandler)
+    setExportJSONHandler(() => jsonHandler)
+  }, [])
 
   if (isLoading) {
     return (
@@ -41,10 +49,14 @@ export function AssetDetail() {
   }
 
   return (
-    <div className='space-y-6'>
-      <AssetDetailHeader asset={asset} />
-      <AssetDetailContent asset={asset} />
-    </div>
+    <>
+      <AssetDetailHeader 
+        asset={asset} 
+        onExportPDF={exportPDFHandler || undefined}
+        onExportJSON={exportJSONHandler || undefined}
+      />
+      <AssetDetailContent asset={asset} onExportReady={handleExportReady} />
+    </>
   )
 }
 

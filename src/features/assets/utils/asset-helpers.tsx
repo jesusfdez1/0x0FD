@@ -19,10 +19,11 @@ import {
   Gem
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { useLanguage } from '@/context/language-provider'
 
-// Función para obtener el label del tipo de activo
-export const getAssetTypeLabel = (type: AssetType): string => {
-  const labels: Record<AssetType, string> = {
+// Función para obtener el label del tipo de activo (ahora usa traducciones)
+export const getAssetTypeLabel = (type: AssetType, t?: (key: string) => string): string => {
+  const defaultLabels: Record<AssetType, string> = {
     [AssetType.STOCK]: 'Acción',
     [AssetType.ETF]: 'ETF',
     [AssetType.FIXED_INCOME]: 'Renta fija',
@@ -42,7 +43,18 @@ export const getAssetTypeLabel = (type: AssetType): string => {
     [AssetType.CHECKING_ACCOUNT]: 'Cuenta corriente',
     [AssetType.PRECIOUS_METAL]: 'Metal precioso',
   }
-  return labels[type] || type
+  
+  if (t) {
+    // El enum ya tiene los valores en el formato correcto (stock, etf, etc.)
+    const translationKey = `assets.types.${type}`
+    const translated = t(translationKey)
+    // Si la traducción existe y no es igual a la clave, usarla
+    if (translated && translated !== translationKey) {
+      return translated
+    }
+  }
+  
+  return defaultLabels[type] || type
 }
 
 // Función para obtener el icono del tipo de activo
@@ -154,13 +166,25 @@ export const getAssetTypeBadgeVariant = (type: AssetType): {
 
 // Componente Badge para tipo de activo - simplificado, solo un badge
 export function AssetTypeBadge({ type, className }: { type: AssetType; className?: string }) {
+  const { t } = useLanguage()
   const Icon = getAssetTypeIcon(type)
-  const { variant, className: badgeClassName } = getAssetTypeBadgeVariant(type)
+  const { className: badgeClassName } = getAssetTypeBadgeVariant(type)
   
   return (
-    <Badge variant={variant} className={cn('gap-1.5', badgeClassName, className)}>
+    <Badge 
+      variant='outline' 
+      className={cn(
+        'gap-1.5',
+        badgeClassName || 'bg-muted/50 text-muted-foreground border-border',
+        className
+      )}
+      style={{
+        // Asegurar que los colores se apliquen incluso si hay conflictos
+        ...(badgeClassName?.includes('bg-') ? {} : {}),
+      }}
+    >
       <Icon className='size-3' />
-      {getAssetTypeLabel(type)}
+      {getAssetTypeLabel(type, t)}
     </Badge>
   )
 }

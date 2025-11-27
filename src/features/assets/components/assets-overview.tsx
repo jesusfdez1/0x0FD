@@ -37,6 +37,9 @@ export function AssetsOverview({ assets }: AssetsOverviewProps) {
   const { t } = useLanguage()
   const [hoveredType, setHoveredType] = useState<AssetType | null>(null)
   const [hoveredPosition, setHoveredPosition] = useState<{ left: number; center: number } | null>(null)
+  
+  // Helper para obtener labels traducidos
+  const getLabel = (type: AssetType) => getAssetTypeLabel(type, t)
 
   // Contar activos por tipo
   const assetsByType = assets.reduce((acc, asset) => {
@@ -236,7 +239,7 @@ export function AssetsOverview({ assets }: AssetsOverviewProps) {
               const width = percentage
               const left = accumulatedWidth
               const center = left + width / 2
-              const label = getAssetTypeLabel(type)
+              const label = getLabel(type)
               const isHovered = hoveredType === type
               
               accumulatedWidth += width
@@ -297,7 +300,7 @@ export function AssetsOverview({ assets }: AssetsOverviewProps) {
                   <div className='space-y-2'>
                     <div className='flex items-center gap-2'>
                       <div className={cn('w-3 h-3 rounded-full shrink-0', getAssetTypeColor(hoveredType))} />
-                      <div className='font-semibold text-sm'>{getAssetTypeLabel(hoveredType)}</div>
+                      <div className='font-semibold text-sm'>{getLabel(hoveredType)}</div>
                     </div>
                       <div className='text-xs text-muted-foreground border-t pt-2 space-y-1.5'>
                         <div className='flex items-center justify-between'>
@@ -350,7 +353,7 @@ export function AssetsOverview({ assets }: AssetsOverviewProps) {
 
                   <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-2'>
                     {types.map(({ type, count, percentage }) => {
-                      const label = getAssetTypeLabel(type)
+                      const label = getLabel(type)
                       const color = getAssetTypeColor(type)
                       const isHovered = hoveredType === type
                       
