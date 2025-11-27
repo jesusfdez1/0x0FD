@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { type Asset, AssetType } from '../types'
 import { getAssetTypeLabel, getAssetCategory } from '../utils/asset-helpers'
 import { cn } from '@/lib/utils'
+import { useLanguage } from '@/context/language-provider'
 
 interface AssetsOverviewProps {
   assets: Asset[]
@@ -33,6 +34,7 @@ const getAssetTypeColor = (type: AssetType): string => {
 }
 
 export function AssetsOverview({ assets }: AssetsOverviewProps) {
+  const { t } = useLanguage()
   const [hoveredType, setHoveredType] = useState<AssetType | null>(null)
   const [hoveredPosition, setHoveredPosition] = useState<{ left: number; center: number } | null>(null)
 
@@ -81,10 +83,22 @@ export function AssetsOverview({ assets }: AssetsOverviewProps) {
       }, 0)
     : 0
   const diversificationScorePercent = Math.round(diversificationScore * 100)
-  const diversificationLevel =
-    diversificationScorePercent >= 70 ? 'Alta' :
-    diversificationScorePercent >= 40 ? 'Media' :
-    'Baja'
+  type LevelKey = 'high' | 'medium' | 'low' | 'strong' | 'moderate' | 'limited'
+
+  const levelLabels: Record<LevelKey, string> = {
+    high: t('assets.overview.level.high'),
+    medium: t('assets.overview.level.medium'),
+    low: t('assets.overview.level.low'),
+    strong: t('assets.overview.level.strong'),
+    moderate: t('assets.overview.level.moderate'),
+    limited: t('assets.overview.level.limited'),
+  }
+
+  const diversificationLevelKey: LevelKey =
+    diversificationScorePercent >= 70 ? 'high' :
+    diversificationScorePercent >= 40 ? 'medium' :
+    'low'
+  const diversificationLevel = levelLabels[diversificationLevelKey]
 
   const riskyExposure = getCategoryPercentage([
     'Renta variable',
@@ -108,29 +122,28 @@ export function AssetsOverview({ assets }: AssetsOverviewProps) {
     'Criptoactivos',
   ])
 
-  const riskyLevel =
-    riskyExposure >= 60 ? 'Alta' :
-    riskyExposure >= 35 ? 'Media' :
-    'Baja'
+  const riskyLevelKey: LevelKey =
+    riskyExposure >= 60 ? 'high' :
+    riskyExposure >= 35 ? 'medium' :
+    'low'
+  const riskyLevel = levelLabels[riskyLevelKey]
 
-  const defensiveLevel =
-    defensiveCoverage >= 50 ? 'Sólida' :
-    defensiveCoverage >= 25 ? 'Moderada' :
-    'Limitada'
+  const defensiveLevelKey: LevelKey =
+    defensiveCoverage >= 50 ? 'strong' :
+    defensiveCoverage >= 25 ? 'moderate' :
+    'limited'
+  const defensiveLevel = levelLabels[defensiveLevelKey]
 
-  const indicatorBadgeClasses = (level: string) => {
+  const indicatorBadgeClasses = (level: LevelKey) => {
     switch (level) {
-      case 'Alta':
+      case 'high':
+      case 'strong':
         return 'text-emerald-600 bg-emerald-500/10 border border-emerald-500/20'
-      case 'Media':
+      case 'medium':
+      case 'moderate':
         return 'text-amber-600 bg-amber-500/10 border border-amber-500/20'
-      case 'Baja':
-        return 'text-red-600 bg-red-500/10 border border-red-500/20'
-      case 'Sólida':
-        return 'text-emerald-600 bg-emerald-500/10 border border-emerald-500/20'
-      case 'Moderada':
-        return 'text-amber-600 bg-amber-500/10 border border-amber-500/20'
-      case 'Limitada':
+      case 'low':
+      case 'limited':
         return 'text-red-600 bg-red-500/10 border border-red-500/20'
       default:
         return 'text-muted-foreground bg-muted border border-border/60'
@@ -145,11 +158,12 @@ export function AssetsOverview({ assets }: AssetsOverviewProps) {
       {/* Header con total a la derecha del título */}
       <div className='mb-6 border-b pb-4'>
         <div className='flex items-baseline gap-3 mb-1'>
-          <h2 className='text-xl font-semibold tracking-tight'>Distribución de activos</h2>
+          <h2 className='text-xl font-semibold tracking-tight'>{t('assets.overview.title')}</h2>
           <div className='text-2xl font-semibold tracking-tight'>{totalAssets}</div>
         </div>
         <p className='text-xs text-muted-foreground'>
-          {sortedTypes.length} {sortedTypes.length === 1 ? 'tipo' : 'tipos'} diferentes
+          {sortedTypes.length}{' '}
+          {sortedTypes.length === 1 ? t('assets.overview.typeLabelSingle') : t('assets.overview.typeLabelPlural')}
         </p>
       </div>
 
@@ -158,13 +172,13 @@ export function AssetsOverview({ assets }: AssetsOverviewProps) {
           <div className='rounded-md border bg-card/20 px-3 py-2 min-h-[70px]'>
             <div className='flex items-center justify-between gap-2'>
               <div>
-                <p className='text-[10px] text-muted-foreground uppercase tracking-[0.08em]'>Diversificación</p>
+                <p className='text-[10px] text-muted-foreground uppercase tracking-[0.08em]'>{t('assets.overview.indicators.diversification')}</p>
                 <div className='flex items-baseline gap-1 leading-none'>
                   <p className='text-base font-semibold'>{diversificationScorePercent}%</p>
-                  <span className='text-[10px] text-muted-foreground'>Cat: {uniqueCategories}</span>
+                  <span className='text-[10px] text-muted-foreground'>{t('assets.overview.indicators.categoriesLabel')} {uniqueCategories}</span>
                 </div>
               </div>
-              <span className={cn('text-[10px] px-2 py-0.5 rounded-full border leading-none', indicatorBadgeClasses(diversificationLevel))}>
+              <span className={cn('text-[10px] px-2 py-0.5 rounded-full border leading-none', indicatorBadgeClasses(diversificationLevelKey))}>
                 {diversificationLevel}
               </span>
             </div>
@@ -179,11 +193,11 @@ export function AssetsOverview({ assets }: AssetsOverviewProps) {
           <div className='rounded-md border bg-card/20 px-3 py-2 min-h-[70px]'>
             <div className='flex items-center justify-between gap-2'>
               <div>
-                <p className='text-[10px] text-muted-foreground uppercase tracking-[0.08em]'>Exposición riesgo</p>
+                <p className='text-[10px] text-muted-foreground uppercase tracking-[0.08em]'>{t('assets.overview.indicators.riskExposure')}</p>
                 <p className='text-base font-semibold leading-none'>{riskyExposure.toFixed(1)}%</p>
-                <p className='text-[10px] text-muted-foreground'>RV, Der, Cripto, Mat</p>
+                <p className='text-[10px] text-muted-foreground'>{t('assets.overview.indicators.riskHint')}</p>
               </div>
-              <span className={cn('text-[10px] px-2 py-0.5 rounded-full border leading-none', indicatorBadgeClasses(riskyLevel))}>
+              <span className={cn('text-[10px] px-2 py-0.5 rounded-full border leading-none', indicatorBadgeClasses(riskyLevelKey))}>
                 {riskyLevel}
               </span>
             </div>
@@ -192,24 +206,24 @@ export function AssetsOverview({ assets }: AssetsOverviewProps) {
           <div className='rounded-md border bg-card/20 px-3 py-2 min-h-[70px]'>
             <div className='flex items-center justify-between gap-2'>
               <div>
-                <p className='text-[10px] text-muted-foreground uppercase tracking-[0.08em]'>Cobertura defensiva</p>
+                <p className='text-[10px] text-muted-foreground uppercase tracking-[0.08em]'>{t('assets.overview.indicators.defensiveCoverage')}</p>
                 <p className='text-base font-semibold leading-none'>{defensiveCoverage.toFixed(1)}%</p>
-                <p className='text-[10px] text-muted-foreground'>RF, efectivo, pensiones</p>
+                <p className='text-[10px] text-muted-foreground'>{t('assets.overview.indicators.defensiveHint')}</p>
               </div>
-              <span className={cn('text-[10px] px-2 py-0.5 rounded-full border leading-none', indicatorBadgeClasses(defensiveLevel))}>
+              <span className={cn('text-[10px] px-2 py-0.5 rounded-full border leading-none', indicatorBadgeClasses(defensiveLevelKey))}>
                 {defensiveLevel}
               </span>
             </div>
           </div>
           <div className='rounded-md border bg-card/20 px-3 py-2 min-h-[70px]'>
-            <p className='text-[10px] text-muted-foreground uppercase tracking-[0.08em]'>Liquidez inmediata</p>
+            <p className='text-[10px] text-muted-foreground uppercase tracking-[0.08em]'>{t('assets.overview.indicators.liquidity')}</p>
             <p className='text-sm font-semibold leading-none mt-1'>{liquidityShare.toFixed(1)}%</p>
-            <p className='text-[10px] text-muted-foreground'>Efectivo y divisas</p>
+            <p className='text-[10px] text-muted-foreground'>{t('assets.overview.indicators.liquidityHint')}</p>
           </div>
           <div className='rounded-md border bg-card/20 px-3 py-2 min-h-[70px]'>
-            <p className='text-[10px] text-muted-foreground uppercase tracking-[0.08em]'>Foco crecimiento</p>
+            <p className='text-[10px] text-muted-foreground uppercase tracking-[0.08em]'>{t('assets.overview.indicators.growth')}</p>
             <p className='text-sm font-semibold leading-none mt-1'>{growthShare.toFixed(1)}%</p>
-            <p className='text-[10px] text-muted-foreground'>RV, fondos, cripto</p>
+            <p className='text-[10px] text-muted-foreground'>{t('assets.overview.indicators.growthHint')}</p>
           </div>
         </div>
       </div>
@@ -228,28 +242,28 @@ export function AssetsOverview({ assets }: AssetsOverviewProps) {
               accumulatedWidth += width
 
                 return (
-                <div
-                  key={type}
-                  className={cn(
+                  <div
+                    key={type}
+                    className={cn(
                       'h-full absolute top-0 transition-all duration-300 ease-out cursor-pointer border border-white/50 dark:border-black/40 box-border',
-                    color,
-                    isHovered && 'ring-2 ring-offset-2 ring-foreground/20 z-10 scale-y-110'
-                  )}
-                  style={{
-                    left: `${left}%`,
-                    width: `${width}%`,
-                  }}
-                  onMouseEnter={() => {
-                    setHoveredType(type)
-                    setHoveredPosition({ left, center })
-                  }}
-                  onMouseLeave={() => {
-                    setHoveredType(null)
-                    setHoveredPosition(null)
-                  }}
-                  title={`${label}: ${assetsByType[type]} activos (${percentage.toFixed(1)}%)`}
-                />
-              )
+                      color,
+                      isHovered && 'ring-2 ring-offset-2 ring-foreground/20 z-10 scale-y-110'
+                    )}
+                    style={{
+                      left: `${left}%`,
+                      width: `${width}%`,
+                    }}
+                    onMouseEnter={() => {
+                      setHoveredType(type)
+                      setHoveredPosition({ left, center })
+                    }}
+                    onMouseLeave={() => {
+                      setHoveredType(null)
+                      setHoveredPosition(null)
+                    }}
+                    title={`${label}: ${assetsByType[type]} ${t('assets.table.assetPlural')} (${percentage.toFixed(1)}%)`}
+                  />
+                )
             })}
           </div>
 
@@ -285,20 +299,20 @@ export function AssetsOverview({ assets }: AssetsOverviewProps) {
                       <div className={cn('w-3 h-3 rounded-full shrink-0', getAssetTypeColor(hoveredType))} />
                       <div className='font-semibold text-sm'>{getAssetTypeLabel(hoveredType)}</div>
                     </div>
-                    <div className='text-xs text-muted-foreground border-t pt-2 space-y-1.5'>
-                      <div className='flex items-center justify-between'>
-                        <span>Categoría:</span>
-                        <span className='font-medium'>{category}</span>
+                      <div className='text-xs text-muted-foreground border-t pt-2 space-y-1.5'>
+                        <div className='flex items-center justify-between'>
+                          <span>{t('assets.overview.tooltip.category')}:</span>
+                          <span className='font-medium'>{category}</span>
+                        </div>
+                        <div className='flex items-center justify-between'>
+                          <span>{t('assets.overview.tooltip.total')}:</span>
+                          <span className='font-semibold'>{count}</span>
+                        </div>
+                        <div className='flex items-center justify-between'>
+                          <span>{t('assets.overview.tooltip.percentage')}:</span>
+                          <span className='font-semibold'>{percentage.toFixed(1)}%</span>
+                        </div>
                       </div>
-                      <div className='flex items-center justify-between'>
-                        <span>Total de activos:</span>
-                        <span className='font-semibold'>{count}</span>
-                      </div>
-                      <div className='flex items-center justify-between'>
-                        <span>Porcentaje:</span>
-                        <span className='font-semibold'>{percentage.toFixed(1)}%</span>
-                      </div>
-                    </div>
                   </div>
                 </div>
               </div>

@@ -38,6 +38,7 @@ import { investmentColumns } from './assets-columns-investment'
 import { accountsColumns } from './assets-columns-accounts'
 import { realEstateColumns } from './assets-columns-real-estate'
 import { derivativesColumns } from './assets-columns-derivatives'
+import { useLanguage } from '@/context/language-provider'
 
 type DataTableProps = {
   data: Asset[]
@@ -61,6 +62,7 @@ function SingleTable({
   title?: string
 }) {
   const queryClient = useQueryClient()
+  const { t } = useLanguage()
   const [rowSelection, setRowSelection] = useState({})
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
   const [sorting, setSorting] = useState<SortingState>([])
@@ -110,48 +112,52 @@ function SingleTable({
     return null
   }
 
-  const assetTypes = Array.from(new Set(data.map(d => d.type)))
-    .map(type => {
-      const labels: Record<AssetType, string> = {
-        [AssetType.STOCK]: 'Acción',
-        [AssetType.ETF]: 'ETF',
-        [AssetType.FIXED_INCOME]: 'Renta Fija',
-        [AssetType.GUARANTEED]: 'Garantizado',
-        [AssetType.CURRENCY]: 'Divisa',
-        [AssetType.OPTION]: 'Opción',
-        [AssetType.MUTUAL_FUND]: 'Fondo',
-        [AssetType.PENSION_PLAN]: 'Plan Pensiones',
-        [AssetType.WARRANT]: 'Warrant',
-        [AssetType.REAL_ESTATE]: 'Propiedad',
-        [AssetType.CRYPTO]: 'Criptomoneda',
-        [AssetType.COMMODITY]: 'Materia Prima',
-        [AssetType.FUTURES]: 'Futuro',
-        [AssetType.STRUCTURED_PRODUCT]: 'Producto Estructurado',
-        [AssetType.SAVINGS_ACCOUNT]: 'Cuenta Remunerada',
-        [AssetType.TERM_DEPOSIT]: 'Depósito a Plazo',
-        [AssetType.CHECKING_ACCOUNT]: 'Cuenta Corriente',
-        [AssetType.PRECIOUS_METAL]: 'Metal Precioso',
-      }
-      return { label: labels[type] || type, value: type }
-    })
+  const assetTypeLabels: Record<AssetType, string> = {
+    [AssetType.STOCK]: t('assets.types.stock'),
+    [AssetType.ETF]: t('assets.types.etf'),
+    [AssetType.FIXED_INCOME]: t('assets.types.fixed_income'),
+    [AssetType.GUARANTEED]: t('assets.types.guaranteed'),
+    [AssetType.CURRENCY]: t('assets.types.currency'),
+    [AssetType.OPTION]: t('assets.types.option'),
+    [AssetType.MUTUAL_FUND]: t('assets.types.mutual_fund'),
+    [AssetType.PENSION_PLAN]: t('assets.types.pension_plan'),
+    [AssetType.WARRANT]: t('assets.types.warrant'),
+    [AssetType.REAL_ESTATE]: t('assets.types.real_estate'),
+    [AssetType.CRYPTO]: t('assets.types.crypto'),
+    [AssetType.COMMODITY]: t('assets.types.commodity'),
+    [AssetType.FUTURES]: t('assets.types.futures'),
+    [AssetType.STRUCTURED_PRODUCT]: t('assets.types.structured_product'),
+    [AssetType.SAVINGS_ACCOUNT]: t('assets.types.savings_account'),
+    [AssetType.TERM_DEPOSIT]: t('assets.types.term_deposit'),
+    [AssetType.CHECKING_ACCOUNT]: t('assets.types.checking_account'),
+    [AssetType.PRECIOUS_METAL]: t('assets.types.precious_metal'),
+  }
+
+  const assetTypes = Array.from(new Set(data.map(d => d.type))).map(type => ({
+    label: assetTypeLabels[type] || type,
+    value: type,
+  }))
 
   return (
     <div className={cn('max-sm:has-[div[role="toolbar"]]:mb-16', 'flex flex-1 flex-col gap-4')}>
       {title && (
         <div className='mb-2'>
           <h3 className='text-lg font-semibold'>{title}</h3>
-          <p className='text-sm text-muted-foreground'>{data.length} activo{data.length > 1 ? 's' : ''}</p>
+          <p className='text-sm text-muted-foreground'>
+            {data.length}{' '}
+            {data.length === 1 ? t('assets.table.assetSingular') : t('assets.table.assetPlural')}
+          </p>
         </div>
       )}
       
       <DataTableToolbar 
         table={table} 
-        searchPlaceholder='Buscar por nombre, ticker, símbolo...' 
+        searchPlaceholder={t('assets.table.searchPlaceholder')} 
         searchKey='name' 
         filters={[
           {
             columnId: 'type',
-            title: 'Tipo de Activo',
+            title: t('assets.table.typeFilter'),
             options: assetTypes,
           },
         ]} 
@@ -186,7 +192,7 @@ function SingleTable({
             ) : (
               <TableRow>
                 <TableCell colSpan={columns.length} className='h-24 text-center'>
-                  No se encontraron resultados.
+                  {t('assets.table.noResults')}
                 </TableCell>
               </TableRow>
             )}
@@ -194,15 +200,22 @@ function SingleTable({
         </Table>
       </div>
       <DataTablePagination table={table} className='mt-auto' />
-      <DataTableBulkActions table={table} entityName='activo'>
+      <DataTableBulkActions table={table} entityName={t('assets.table.entityName')}>
         {(() => {
           const selectedRows = table.getFilteredSelectedRowModel().rows
           const selectedAssets = selectedRows.map((row) => row.original as Asset)
 
+          const csvHeaders = [
+            t('assets.table.csvHeaders.name'),
+            t('assets.table.csvHeaders.type'),
+            t('assets.table.csvHeaders.symbol'),
+            t('assets.table.csvHeaders.quantity'),
+            t('assets.table.csvHeaders.price'),
+            t('assets.table.csvHeaders.total'),
+          ]
+
           const handleBulkExport = () => {
             try {
-              // Convertir activos a CSV
-              const headers = ['Nombre', 'Tipo', 'Símbolo', 'Cantidad', 'Precio', 'Valor Total']
               const rows = selectedAssets.map(asset => {
                 const symbol = 'ticker' in asset ? asset.ticker : 
                               'symbol' in asset ? asset.symbol : 
@@ -223,7 +236,7 @@ function SingleTable({
               })
 
               const csvContent = [
-                headers.join(','),
+                csvHeaders.join(','),
                 ...rows
               ].join('\n')
 
@@ -231,22 +244,24 @@ function SingleTable({
               const url = URL.createObjectURL(blob)
               const link = document.createElement('a')
               link.href = url
-              link.download = `activos-exportados-${new Date().toISOString().split('T')[0]}.csv`
+              link.download = `${t('assets.table.exportFileName')}-${new Date().toISOString().split('T')[0]}.csv`
               link.click()
               URL.revokeObjectURL(url)
 
-              toast.success(`${selectedAssets.length} activo${selectedAssets.length > 1 ? 's' : ''} exportado${selectedAssets.length > 1 ? 's' : ''} correctamente`)
+              const assetWord = selectedAssets.length === 1 ? t('assets.table.assetSingular') : t('assets.table.assetPlural')
+              const exportedWord = selectedAssets.length === 1 ? t('assets.table.exportedSingular') : t('assets.table.exportedPlural')
+              toast.success(`${selectedAssets.length} ${assetWord} ${exportedWord}`)
               table.resetRowSelection()
             } catch (error) {
-              toast.error('Error al exportar los activos')
+              toast.error(t('assets.table.exportError'))
               console.error('Error exporting assets:', error)
             }
           }
 
           const handleBulkDelete = () => {
-            if (confirm(`¿Estás seguro de que deseas eliminar ${selectedAssets.length} activo${selectedAssets.length > 1 ? 's' : ''}?`)) {
-              // Aquí iría la lógica para eliminar los activos
-              toast.success(`${selectedAssets.length} activo${selectedAssets.length > 1 ? 's' : ''} eliminado${selectedAssets.length > 1 ? 's' : ''} correctamente`)
+            const assetWord = selectedAssets.length === 1 ? t('assets.table.assetSingular') : t('assets.table.assetPlural')
+            if (confirm(`${t('assets.table.deleteConfirmPrefix')} ${selectedAssets.length} ${assetWord}?`)) {
+              toast.success(`${selectedAssets.length} ${assetWord} ${selectedAssets.length === 1 ? t('assets.table.deletedSingular') : t('assets.table.deletedPlural')}`)
               table.resetRowSelection()
               queryClient.invalidateQueries({ queryKey: ['assets'] })
             }
@@ -261,15 +276,15 @@ function SingleTable({
                     size='icon'
                     onClick={handleBulkExport}
                     className='size-8'
-                    aria-label='Exportar activos seleccionados'
-                    title='Exportar activos seleccionados'
+                    aria-label={t('assets.table.exportSelected')}
+                    title={t('assets.table.exportSelected')}
                   >
                     <Download className='h-4 w-4' />
-                    <span className='sr-only'>Exportar activos seleccionados</span>
+                    <span className='sr-only'>{t('assets.table.exportSelected')}</span>
                   </Button>
                 </TooltipTrigger>
                 <TooltipContent>
-                  <p>Exportar activos seleccionados</p>
+                  <p>{t('assets.table.exportSelected')}</p>
                 </TooltipContent>
               </Tooltip>
 
@@ -280,15 +295,15 @@ function SingleTable({
                     size='icon'
                     onClick={handleBulkDelete}
                     className='size-8 text-destructive hover:text-destructive'
-                    aria-label='Eliminar activos seleccionados'
-                    title='Eliminar activos seleccionados'
+                    aria-label={t('assets.table.deleteSelected')}
+                    title={t('assets.table.deleteSelected')}
                   >
                     <Trash2 className='h-4 w-4' />
-                    <span className='sr-only'>Eliminar activos seleccionados</span>
+                    <span className='sr-only'>{t('assets.table.deleteSelected')}</span>
                   </Button>
                 </TooltipTrigger>
                 <TooltipContent>
-                  <p>Eliminar activos seleccionados</p>
+                  <p>{t('assets.table.deleteSelected')}</p>
                 </TooltipContent>
               </Tooltip>
             </>
@@ -300,6 +315,7 @@ function SingleTable({
 }
 
 export function AssetsTable({ data, search, navigate }: DataTableProps) {
+  const { t } = useLanguage()
   // Agrupar activos por tipo
   const investmentAssets: Asset[] = []
   const realEstateAssets: Asset[] = []
@@ -328,7 +344,7 @@ export function AssetsTable({ data, search, navigate }: DataTableProps) {
             columns={investmentColumns}
             search={search}
             navigate={navigate}
-            title='Activos de Inversión'
+            title={t('assets.table.sections.investments')}
           />
         </div>
       )}
@@ -340,7 +356,7 @@ export function AssetsTable({ data, search, navigate }: DataTableProps) {
             columns={realEstateColumns}
             search={search}
             navigate={navigate}
-            title='Inmobiliario'
+            title={t('assets.table.sections.realEstate')}
           />
         </div>
       )}
@@ -352,7 +368,7 @@ export function AssetsTable({ data, search, navigate }: DataTableProps) {
             columns={derivativesColumns}
             search={search}
             navigate={navigate}
-            title='Derivados'
+            title={t('assets.table.sections.derivatives')}
           />
         </div>
       )}
@@ -364,14 +380,14 @@ export function AssetsTable({ data, search, navigate }: DataTableProps) {
             columns={accountsColumns}
             search={search}
             navigate={navigate}
-            title='Efectivo, Depósitos y Planes de Pensiones'
+            title={t('assets.table.sections.cash')}
           />
         </div>
       )}
       
       {investmentAssets.length === 0 && realEstateAssets.length === 0 && derivativesAssets.length === 0 && accountsAssets.length === 0 && (
         <div className='text-center py-12 text-muted-foreground'>
-          No hay activos para mostrar.
+          {t('assets.table.emptyState')}
         </div>
       )}
     </div>
