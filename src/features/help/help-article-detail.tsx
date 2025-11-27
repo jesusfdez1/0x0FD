@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { ArrowLeft, Clock, BookOpen, ExternalLink, Key } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -19,6 +20,11 @@ export function HelpArticleDetail({
   onSelectArticle,
   allContents,
 }: HelpArticleDetailProps) {
+  // Scroll al inicio cuando se monta el componente
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }, [article.Id])
+
   // Procesar el HTML del body
   const processBody = (body: string) => {
     if (!body.trim()) return null

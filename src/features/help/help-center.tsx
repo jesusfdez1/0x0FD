@@ -47,7 +47,10 @@ export function HelpCenter() {
       <HelpArticleDetail
         article={selectedArticle}
         onBack={() => setSelectedArticle(null)}
-        onSelectArticle={setSelectedArticle}
+        onSelectArticle={(article) => {
+          setSelectedArticle(article)
+          window.scrollTo({ top: 0, behavior: 'smooth' })
+        }}
         allContents={contents}
       />
     )
@@ -161,9 +164,14 @@ function ArticleCard({
   content: HelpContent
   onClick: () => void
 }) {
+  const handleClick = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+    onClick()
+  }
+
   return (
     <button
-      onClick={onClick}
+      onClick={handleClick}
       className='group relative text-left w-full rounded-lg border bg-card/50 p-3.5 transition-all hover:border-primary/50 hover:bg-card hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-primary/20 active:scale-[0.98]'
     >
       <div className='flex items-start justify-between gap-3'>
