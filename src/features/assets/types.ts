@@ -182,6 +182,8 @@ export interface PensionPlanAsset extends BaseAsset {
   planType: 'individual' | 'employment' | 'associated'
   riskProfile?: string
   annualContribution?: number
+  provider?: string
+  expectedReturn?: number
 }
 
 export interface WarrantAsset extends BaseAsset {
@@ -220,6 +222,7 @@ export interface CommodityAsset extends BaseAsset {
   commodityType?: 'precious_metals' | 'energy' | 'agricultural' | 'industrial_metals'
   unit?: string
   contractSize?: number
+  storageLocation?: string
 }
 
 // Futuros
@@ -277,6 +280,7 @@ export interface PreciousMetalAsset extends BaseAsset {
   unit: 'grams' | 'ounces' | 'kilograms'
   purity?: number
   form?: 'bar' | 'coin' | 'jewelry'
+  storageLocation?: string
 }
 
 // Tipo unión para todos los activos

@@ -1,6 +1,4 @@
 import { useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
 import { Plus } from 'lucide-react'
@@ -10,8 +8,16 @@ import { ETFAssetForm } from './etf-asset-form'
 import { FixedIncomeAssetForm } from './fixed-income-asset-form'
 import { CurrencyAssetForm } from './currency-asset-form'
 import { OptionAssetForm } from './option-asset-form'
+import { RealEstateAssetForm } from './real-estate-asset-form'
+import { SavingsAccountAssetForm } from './savings-account-asset-form'
+import { TermDepositAssetForm } from './term-deposit-asset-form'
+import { CheckingAccountAssetForm } from './checking-account-asset-form'
+import { PreciousMetalAssetForm } from './precious-metal-asset-form'
+import { CommodityAssetForm } from './commodity-asset-form'
+import { PensionPlanAssetForm } from './pension-plan-asset-form'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Label } from '@/components/ui/label'
+import { useLanguage } from '@/context/language-provider'
 
 interface AssetFormDialogProps {
   onSuccess?: () => void
@@ -19,58 +25,109 @@ interface AssetFormDialogProps {
 
 export function AssetFormDialog({ onSuccess }: AssetFormDialogProps) {
   const [open, setOpen] = useState(false)
+  const [typeGroup, setTypeGroup] = useState<'quoted' | 'manual' | ''>('')
   const [selectedType, setSelectedType] = useState<AssetType | ''>('')
+  const { t } = useLanguage()
+
+  const groupedTypes: Record<'quoted' | 'manual', AssetType[]> = {
+    quoted: [
+      AssetType.STOCK,
+      AssetType.ETF,
+      AssetType.FIXED_INCOME,
+      AssetType.GUARANTEED,
+      AssetType.CURRENCY,
+      AssetType.OPTION,
+      AssetType.MUTUAL_FUND,
+      AssetType.WARRANT,
+      AssetType.CRYPTO,
+      AssetType.FUTURES,
+      AssetType.STRUCTURED_PRODUCT,
+    ],
+    manual: [
+      AssetType.REAL_ESTATE,
+      AssetType.SAVINGS_ACCOUNT,
+      AssetType.TERM_DEPOSIT,
+      AssetType.CHECKING_ACCOUNT,
+      AssetType.PRECIOUS_METAL,
+      AssetType.COMMODITY,
+      AssetType.PENSION_PLAN,
+    ],
+  }
+
+  const typeOptions = typeGroup ? groupedTypes[typeGroup] : []
 
   const handleSuccess = () => {
     setOpen(false)
+    setTypeGroup('')
     setSelectedType('')
     onSuccess?.()
   }
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog
+      open={open}
+      onOpenChange={(value) => {
+        setOpen(value)
+        if (!value) {
+          setTypeGroup('')
+          setSelectedType('')
+        }
+      }}
+    >
       <DialogTrigger asChild>
         <Button>
           <Plus className='mr-2 h-4 w-4' />
-          Agregar Activo
+          {t('assets.addAsset')}
         </Button>
       </DialogTrigger>
       <DialogContent className='max-w-2xl max-h-[90vh] overflow-y-auto'>
         <DialogHeader>
-          <DialogTitle>Agregar Nuevo Activo</DialogTitle>
+          <DialogTitle>{t('assets.forms.dialog.title')}</DialogTitle>
           <DialogDescription>
-            Selecciona el tipo de activo que deseas agregar
+            {t('assets.forms.dialog.description')}
           </DialogDescription>
         </DialogHeader>
         
         <div className='space-y-4 py-4'>
-          <div className='space-y-2'>
-            <Label>Tipo de Activo</Label>
-            <Select value={selectedType} onValueChange={(value) => setSelectedType(value as AssetType)}>
-              <SelectTrigger>
-                <SelectValue placeholder='Selecciona un tipo de activo' />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value={AssetType.STOCK}>Acción</SelectItem>
-                <SelectItem value={AssetType.ETF}>ETF</SelectItem>
-                <SelectItem value={AssetType.FIXED_INCOME}>Renta Fija</SelectItem>
-                <SelectItem value={AssetType.GUARANTEED}>Garantizado</SelectItem>
-                <SelectItem value={AssetType.CURRENCY}>Divisa</SelectItem>
-                <SelectItem value={AssetType.OPTION}>Opción</SelectItem>
-                <SelectItem value={AssetType.MUTUAL_FUND}>Fondo de Inversión</SelectItem>
-                <SelectItem value={AssetType.PENSION_PLAN}>Plan de Pensiones</SelectItem>
-                <SelectItem value={AssetType.WARRANT}>Warrant</SelectItem>
-                <SelectItem value={AssetType.REAL_ESTATE}>Propiedad</SelectItem>
-                <SelectItem value={AssetType.CRYPTO}>Criptomoneda</SelectItem>
-                <SelectItem value={AssetType.COMMODITY}>Materia Prima</SelectItem>
-                <SelectItem value={AssetType.FUTURES}>Futuro</SelectItem>
-                <SelectItem value={AssetType.STRUCTURED_PRODUCT}>Producto Estructurado</SelectItem>
-                <SelectItem value={AssetType.SAVINGS_ACCOUNT}>Cuenta Remunerada</SelectItem>
-                <SelectItem value={AssetType.TERM_DEPOSIT}>Depósito a Plazo</SelectItem>
-                <SelectItem value={AssetType.CHECKING_ACCOUNT}>Cuenta Corriente</SelectItem>
-                <SelectItem value={AssetType.PRECIOUS_METAL}>Metal Precioso</SelectItem>
-              </SelectContent>
-            </Select>
+          <div className='grid grid-cols-1 gap-4 sm:grid-cols-2'>
+            <div className='space-y-2'>
+              <Label>{t('assets.forms.dialog.groupLabel')}</Label>
+              <Select
+                value={typeGroup}
+                onValueChange={(value) => {
+                  setTypeGroup(value as 'quoted' | 'manual')
+                  setSelectedType('')
+                }}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder={t('assets.forms.dialog.groupPlaceholder')} />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value='quoted'>{t('assets.forms.dialog.groups.quoted')}</SelectItem>
+                  <SelectItem value='manual'>{t('assets.forms.dialog.groups.manual')}</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className='space-y-2'>
+              <Label>{t('assets.forms.dialog.typeLabel')}</Label>
+              <Select
+                value={selectedType}
+                onValueChange={(value) => setSelectedType(value as AssetType)}
+                disabled={!typeGroup}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder={t('assets.forms.dialog.placeholder')} />
+                </SelectTrigger>
+                <SelectContent>
+                  {typeOptions.map((type) => (
+                    <SelectItem key={type} value={type}>
+                      {t(`assets.types.${type}` as const)}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
           </div>
 
           {selectedType === AssetType.STOCK && (
@@ -87,6 +144,27 @@ export function AssetFormDialog({ onSuccess }: AssetFormDialogProps) {
           )}
           {selectedType === AssetType.OPTION && (
             <OptionAssetForm onSuccess={handleSuccess} onCancel={() => setOpen(false)} />
+          )}
+          {selectedType === AssetType.PENSION_PLAN && (
+            <PensionPlanAssetForm onSuccess={handleSuccess} onCancel={() => setOpen(false)} />
+          )}
+          {selectedType === AssetType.REAL_ESTATE && (
+            <RealEstateAssetForm onSuccess={handleSuccess} onCancel={() => setOpen(false)} />
+          )}
+          {selectedType === AssetType.SAVINGS_ACCOUNT && (
+            <SavingsAccountAssetForm onSuccess={handleSuccess} onCancel={() => setOpen(false)} />
+          )}
+          {selectedType === AssetType.TERM_DEPOSIT && (
+            <TermDepositAssetForm onSuccess={handleSuccess} onCancel={() => setOpen(false)} />
+          )}
+          {selectedType === AssetType.CHECKING_ACCOUNT && (
+            <CheckingAccountAssetForm onSuccess={handleSuccess} onCancel={() => setOpen(false)} />
+          )}
+          {selectedType === AssetType.PRECIOUS_METAL && (
+            <PreciousMetalAssetForm onSuccess={handleSuccess} onCancel={() => setOpen(false)} />
+          )}
+          {selectedType === AssetType.COMMODITY && (
+            <CommodityAssetForm onSuccess={handleSuccess} onCancel={() => setOpen(false)} />
           )}
         </div>
       </DialogContent>
