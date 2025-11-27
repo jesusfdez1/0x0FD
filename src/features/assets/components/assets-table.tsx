@@ -37,6 +37,7 @@ import { getAssetSymbol, getAssetCategory } from '../utils/asset-helpers'
 import { investmentColumns } from './assets-columns-investment'
 import { accountsColumns } from './assets-columns-accounts'
 import { realEstateColumns } from './assets-columns-real-estate'
+import { derivativesColumns } from './assets-columns-derivatives'
 
 type DataTableProps = {
   data: Asset[]
@@ -299,15 +300,18 @@ function SingleTable({
 }
 
 export function AssetsTable({ data, search, navigate }: DataTableProps) {
-  // Agrupar activos por tipo: inversiones, inmobiliario, cuentas/depósitos
+  // Agrupar activos por tipo
   const investmentAssets: Asset[] = []
   const realEstateAssets: Asset[] = []
+  const derivativesAssets: Asset[] = []
   const accountsAssets: Asset[] = []
 
   data.forEach(asset => {
     const category = getAssetCategory(asset.type)
     if (category === 'Efectivo y depósitos' || category === 'Planes de pensiones') {
       accountsAssets.push(asset)
+    } else if (category === 'Derivados') {
+      derivativesAssets.push(asset)
     } else if (category === 'Inmobiliario') {
       realEstateAssets.push(asset)
     } else {
@@ -336,6 +340,16 @@ export function AssetsTable({ data, search, navigate }: DataTableProps) {
           title='Inmobiliario'
         />
       )}
+
+      {derivativesAssets.length > 0 && (
+        <SingleTable
+          data={derivativesAssets}
+          columns={derivativesColumns}
+          search={search}
+          navigate={navigate}
+          title='Derivados'
+        />
+      )}
       
       {accountsAssets.length > 0 && (
         <SingleTable
@@ -347,7 +361,7 @@ export function AssetsTable({ data, search, navigate }: DataTableProps) {
         />
       )}
       
-      {investmentAssets.length === 0 && realEstateAssets.length === 0 && accountsAssets.length === 0 && (
+      {investmentAssets.length === 0 && realEstateAssets.length === 0 && derivativesAssets.length === 0 && accountsAssets.length === 0 && (
         <div className='text-center py-12 text-muted-foreground'>
           No hay activos para mostrar.
         </div>
