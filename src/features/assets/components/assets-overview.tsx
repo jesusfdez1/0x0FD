@@ -184,7 +184,17 @@ export function AssetsOverview({ assets }: AssetsOverviewProps) {
         {/* Leyenda agrupada por categoría - varias categorías a la misma altura */}
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2'>
           {Object.entries(typesByCategory)
-            .sort(([, a], [, b]) => {
+            .sort(([categoryA, a], [categoryB, b]) => {
+              // Categorías que deben ir al final (más a la derecha)
+              const categoriesToEnd = ['Renta fija', 'Renta variable', 'Criptoactivos', 'Planes de pensiones']
+              const aShouldEnd = categoriesToEnd.includes(categoryA)
+              const bShouldEnd = categoriesToEnd.includes(categoryB)
+              
+              // Si una debe ir al final y la otra no, la que debe ir al final va después
+              if (aShouldEnd && !bShouldEnd) return 1
+              if (!aShouldEnd && bShouldEnd) return -1
+              
+              // Si ambas van al final o ninguna, ordenar por cantidad
               const totalA = a.reduce((sum, item) => sum + item.count, 0)
               const totalB = b.reduce((sum, item) => sum + item.count, 0)
               return totalB - totalA
