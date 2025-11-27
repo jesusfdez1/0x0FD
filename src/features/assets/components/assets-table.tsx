@@ -322,43 +322,51 @@ export function AssetsTable({ data, search, navigate }: DataTableProps) {
   return (
     <div className='space-y-8'>
       {investmentAssets.length > 0 && (
-        <SingleTable
-          data={investmentAssets}
-          columns={investmentColumns}
-          search={search}
-          navigate={navigate}
-          title='Activos de Inversión'
-        />
+        <div className='rounded-2xl border bg-card p-4 shadow-sm'>
+          <SingleTable
+            data={investmentAssets}
+            columns={investmentColumns}
+            search={search}
+            navigate={navigate}
+            title='Activos de Inversión'
+          />
+        </div>
       )}
       
       {realEstateAssets.length > 0 && (
-        <SingleTable
-          data={realEstateAssets}
-          columns={realEstateColumns}
-          search={search}
-          navigate={navigate}
-          title='Inmobiliario'
-        />
+        <div className='rounded-2xl border bg-card p-4 shadow-sm'>
+          <SingleTable
+            data={realEstateAssets}
+            columns={realEstateColumns}
+            search={search}
+            navigate={navigate}
+            title='Inmobiliario'
+          />
+        </div>
       )}
 
       {derivativesAssets.length > 0 && (
-        <SingleTable
-          data={derivativesAssets}
-          columns={derivativesColumns}
-          search={search}
-          navigate={navigate}
-          title='Derivados'
-        />
+        <div className='rounded-2xl border bg-card p-4 shadow-sm'>
+          <SingleTable
+            data={derivativesAssets}
+            columns={derivativesColumns}
+            search={search}
+            navigate={navigate}
+            title='Derivados'
+          />
+        </div>
       )}
-      
+
       {accountsAssets.length > 0 && (
-        <SingleTable
-          data={accountsAssets}
-          columns={accountsColumns}
-          search={search}
-          navigate={navigate}
-          title='Efectivo, Depósitos y Planes de Pensiones'
-        />
+        <div className='rounded-2xl border bg-card p-4 shadow-sm'>
+          <SingleTable
+            data={accountsAssets}
+            columns={accountsColumns}
+            search={search}
+            navigate={navigate}
+            title='Efectivo, Depósitos y Planes de Pensiones'
+          />
+        </div>
       )}
       
       {investmentAssets.length === 0 && realEstateAssets.length === 0 && derivativesAssets.length === 0 && accountsAssets.length === 0 && (
