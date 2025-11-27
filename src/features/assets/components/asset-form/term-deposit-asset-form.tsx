@@ -10,6 +10,7 @@ import { type Asset, AssetType, type TermDepositAsset } from '../../types'
 import { useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
 import { useLanguage } from '@/context/language-provider'
+import { InitialExpensesField } from './initial-expenses-field'
 
 const termDepositSchema = z.object({
   name: z.string().min(1, 'El nombre es obligatorio'),
@@ -20,6 +21,14 @@ const termDepositSchema = z.object({
   depositType: z.enum(['fixed', 'variable']).optional(),
   currency: z.string().optional(),
   description: z.string().optional(),
+  initialExpenses: z
+    .array(
+      z.object({
+        label: z.string().min(1, 'Requerido'),
+        amount: z.number().min(0, 'Requerido'),
+      })
+    )
+    .optional(),
 })
 
 type TermDepositFormData = z.infer<typeof termDepositSchema>
@@ -48,6 +57,7 @@ export function TermDepositAssetForm({ onSuccess, onCancel, asset }: TermDeposit
       depositType: (asset?.depositType as TermDepositFormData['depositType']) ?? 'fixed',
       currency: asset?.currency ?? 'EUR',
       description: asset?.description ?? '',
+      initialExpenses: asset?.initialExpenses ?? [],
     },
   })
 
@@ -191,6 +201,8 @@ export function TermDepositAssetForm({ onSuccess, onCancel, asset }: TermDeposit
             )}
           />
         </div>
+
+        <InitialExpensesField control={form.control} register={form.register} />
 
         <FormField
           control={form.control}

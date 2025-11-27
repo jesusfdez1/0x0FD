@@ -9,6 +9,7 @@ import { type Asset, AssetType, type SavingsAccountAsset } from '../../types'
 import { useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
 import { useLanguage } from '@/context/language-provider'
+import { InitialExpensesField } from './initial-expenses-field'
 
 const savingsAccountSchema = z.object({
   name: z.string().min(1, 'El nombre es obligatorio'),
@@ -18,6 +19,14 @@ const savingsAccountSchema = z.object({
   currency: z.string().optional(),
   accountNumber: z.string().optional(),
   description: z.string().optional(),
+  initialExpenses: z
+    .array(
+      z.object({
+        label: z.string().min(1, 'Requerido'),
+        amount: z.number().min(0, 'Requerido'),
+      })
+    )
+    .optional(),
 })
 
 type SavingsAccountFormData = z.infer<typeof savingsAccountSchema>
@@ -43,6 +52,7 @@ export function SavingsAccountAssetForm({ onSuccess, onCancel, asset }: SavingsA
       currency: asset?.currency ?? 'EUR',
       accountNumber: asset?.accountNumber ?? '',
       description: asset?.description ?? '',
+      initialExpenses: asset?.initialExpenses ?? [],
     },
   })
 
@@ -121,6 +131,8 @@ export function SavingsAccountAssetForm({ onSuccess, onCancel, asset }: SavingsA
             )}
           />
         </div>
+
+        <InitialExpensesField control={form.control} register={form.register} />
 
         <div className='grid grid-cols-1 sm:grid-cols-3 gap-4'>
           <FormField

@@ -10,6 +10,7 @@ import { type Asset, AssetType, type PreciousMetalAsset } from '../../types'
 import { useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
 import { useLanguage } from '@/context/language-provider'
+import { InitialExpensesField } from './initial-expenses-field'
 
 const preciousMetalSchema = z.object({
   name: z.string().min(1),
@@ -22,6 +23,14 @@ const preciousMetalSchema = z.object({
   storageLocation: z.string().optional(),
   currency: z.string().optional(),
   description: z.string().optional(),
+  initialExpenses: z
+    .array(
+      z.object({
+        label: z.string().min(1, 'Requerido'),
+        amount: z.number().min(0, 'Requerido'),
+      })
+    )
+    .optional(),
 })
 
 type PreciousMetalFormData = z.infer<typeof preciousMetalSchema>
@@ -50,6 +59,7 @@ export function PreciousMetalAssetForm({ onSuccess, onCancel, asset }: PreciousM
       storageLocation: asset?.storageLocation ?? '',
       currency: asset?.currency ?? 'EUR',
       description: asset?.description ?? '',
+      initialExpenses: asset?.initialExpenses ?? [],
     },
   })
 
@@ -259,6 +269,8 @@ export function PreciousMetalAssetForm({ onSuccess, onCancel, asset }: PreciousM
             )}
           />
         </div>
+
+        <InitialExpensesField control={form.control} register={form.register} />
 
         <FormField
           control={form.control}

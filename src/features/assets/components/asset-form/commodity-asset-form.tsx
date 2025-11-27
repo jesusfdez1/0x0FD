@@ -10,6 +10,7 @@ import { type Asset, AssetType, type CommodityAsset } from '../../types'
 import { useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
 import { useLanguage } from '@/context/language-provider'
+import { InitialExpensesField } from './initial-expenses-field'
 
 const commoditySchema = z.object({
   name: z.string().min(1),
@@ -21,6 +22,14 @@ const commoditySchema = z.object({
   price: z.number().min(0).optional(),
   currency: z.string().optional(),
   description: z.string().optional(),
+  initialExpenses: z
+    .array(
+      z.object({
+        label: z.string().min(1, 'Requerido'),
+        amount: z.number().min(0, 'Requerido'),
+      })
+    )
+    .optional(),
 })
 
 type CommodityFormData = z.infer<typeof commoditySchema>
@@ -48,6 +57,7 @@ export function CommodityAssetForm({ onSuccess, onCancel, asset }: CommodityAsse
       price: asset?.price,
       currency: asset?.currency ?? 'EUR',
       description: asset?.description ?? '',
+      initialExpenses: asset?.initialExpenses ?? [],
     },
   })
 
@@ -156,6 +166,8 @@ export function CommodityAssetForm({ onSuccess, onCancel, asset }: CommodityAsse
             )}
           />
         </div>
+
+        <InitialExpensesField control={form.control} register={form.register} />
 
         <div className='grid grid-cols-1 sm:grid-cols-3 gap-4'>
           <FormField

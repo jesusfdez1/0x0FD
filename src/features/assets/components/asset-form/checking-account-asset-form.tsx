@@ -9,6 +9,7 @@ import { type Asset, AssetType, type CheckingAccountAsset } from '../../types'
 import { useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
 import { useLanguage } from '@/context/language-provider'
+import { InitialExpensesField } from './initial-expenses-field'
 
 const checkingAccountSchema = z.object({
   name: z.string().min(1, 'El nombre es obligatorio'),
@@ -17,6 +18,14 @@ const checkingAccountSchema = z.object({
   currency: z.string().optional(),
   accountNumber: z.string().optional(),
   description: z.string().optional(),
+  initialExpenses: z
+    .array(
+      z.object({
+        label: z.string().min(1, 'Requerido'),
+        amount: z.number().min(0, 'Requerido'),
+      })
+    )
+    .optional(),
 })
 
 type CheckingAccountFormData = z.infer<typeof checkingAccountSchema>
@@ -41,6 +50,7 @@ export function CheckingAccountAssetForm({ onSuccess, onCancel, asset }: Checkin
       currency: asset?.currency ?? 'EUR',
       accountNumber: asset?.accountNumber ?? '',
       description: asset?.description ?? '',
+      initialExpenses: asset?.initialExpenses ?? [],
     },
   })
 
@@ -119,6 +129,8 @@ export function CheckingAccountAssetForm({ onSuccess, onCancel, asset }: Checkin
             )}
           />
         </div>
+
+        <InitialExpensesField control={form.control} register={form.register} />
 
         <div className='grid grid-cols-1 sm:grid-cols-2 gap-4'>
           <FormField

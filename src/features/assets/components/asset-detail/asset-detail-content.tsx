@@ -4,6 +4,7 @@ import { ETFDetail } from './etf-detail'
 import { FixedIncomeDetail } from './fixed-income-detail'
 import { CurrencyDetail } from './currency-detail'
 import { OptionDetail } from './option-detail'
+import { ManualAssetDetail, type ManualAsset } from './manual-asset-detail'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 
 interface AssetDetailContentProps {
@@ -27,9 +28,17 @@ export function AssetDetailContent({ asset }: AssetDetailContentProps) {
     case AssetType.OPTION:
       return <OptionDetail asset={asset} />
     
+    case AssetType.REAL_ESTATE:
+    case AssetType.SAVINGS_ACCOUNT:
+    case AssetType.TERM_DEPOSIT:
+    case AssetType.CHECKING_ACCOUNT:
+    case AssetType.PRECIOUS_METAL:
+    case AssetType.COMMODITY:
+    case AssetType.PENSION_PLAN:
+      return <ManualAssetDetail asset={asset as ManualAsset} />
+    
     case AssetType.GUARANTEED:
     case AssetType.MUTUAL_FUND:
-    case AssetType.PENSION_PLAN:
     case AssetType.WARRANT:
     default:
       return (

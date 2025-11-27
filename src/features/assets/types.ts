@@ -22,6 +22,11 @@ export enum AssetType {
 
 // Estructura normalizada pensando en BBDD
 // Base común para todos los activos
+export interface ExpenseEntry {
+  label: string
+  amount: number
+}
+
 export interface BaseAsset {
   id: string
   name: string
@@ -43,6 +48,7 @@ export interface BaseAsset {
   // Metadatos
   createdAt?: Date
   updatedAt?: Date
+  initialExpenses?: ExpenseEntry[]
 }
 
 // Campos específicos por tipo (en BBDD serían tablas relacionadas)

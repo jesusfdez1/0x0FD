@@ -1,6 +1,16 @@
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { useLanguage } from '@/context/language-provider'
-import { AssetType, type Asset } from '../types'
+import {
+  AssetType,
+  type Asset,
+  type RealEstateAsset,
+  type SavingsAccountAsset,
+  type TermDepositAsset,
+  type CheckingAccountAsset,
+  type PreciousMetalAsset,
+  type CommodityAsset,
+  type PensionPlanAsset,
+} from '../types'
 import { RealEstateAssetForm } from './asset-form/real-estate-asset-form'
 import { SavingsAccountAssetForm } from './asset-form/savings-account-asset-form'
 import { TermDepositAssetForm } from './asset-form/term-deposit-asset-form'
@@ -22,8 +32,7 @@ export function ManualAssetEditDialog({ asset, open, onOpenChange }: ManualAsset
     return null
   }
 
-  const commonProps = {
-    asset,
+  const baseProps = {
     onSuccess: () => onOpenChange(false),
     onCancel: () => onOpenChange(false),
   }
@@ -31,25 +40,25 @@ export function ManualAssetEditDialog({ asset, open, onOpenChange }: ManualAsset
   let form = null
   switch (asset.type) {
     case AssetType.REAL_ESTATE:
-      form = <RealEstateAssetForm {...commonProps} />
+      form = <RealEstateAssetForm {...baseProps} asset={asset as RealEstateAsset} />
       break
     case AssetType.SAVINGS_ACCOUNT:
-      form = <SavingsAccountAssetForm {...commonProps} />
+      form = <SavingsAccountAssetForm {...baseProps} asset={asset as SavingsAccountAsset} />
       break
     case AssetType.TERM_DEPOSIT:
-      form = <TermDepositAssetForm {...commonProps} />
+      form = <TermDepositAssetForm {...baseProps} asset={asset as TermDepositAsset} />
       break
     case AssetType.CHECKING_ACCOUNT:
-      form = <CheckingAccountAssetForm {...commonProps} />
+      form = <CheckingAccountAssetForm {...baseProps} asset={asset as CheckingAccountAsset} />
       break
     case AssetType.PRECIOUS_METAL:
-      form = <PreciousMetalAssetForm {...commonProps} />
+      form = <PreciousMetalAssetForm {...baseProps} asset={asset as PreciousMetalAsset} />
       break
     case AssetType.COMMODITY:
-      form = <CommodityAssetForm {...commonProps} />
+      form = <CommodityAssetForm {...baseProps} asset={asset as CommodityAsset} />
       break
     case AssetType.PENSION_PLAN:
-      form = <PensionPlanAssetForm {...commonProps} />
+      form = <PensionPlanAssetForm {...baseProps} asset={asset as PensionPlanAsset} />
       break
     default:
       form = (

@@ -10,6 +10,7 @@ import { type Asset, AssetType, type PensionPlanAsset } from '../../types'
 import { useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
 import { useLanguage } from '@/context/language-provider'
+import { InitialExpensesField } from './initial-expenses-field'
 
 const pensionPlanSchema = z.object({
   name: z.string().min(1),
@@ -21,6 +22,14 @@ const pensionPlanSchema = z.object({
   expectedReturn: z.number().min(0).max(100).optional(),
   currency: z.string().optional(),
   description: z.string().optional(),
+  initialExpenses: z
+    .array(
+      z.object({
+        label: z.string().min(1, 'Requerido'),
+        amount: z.number().min(0, 'Requerido'),
+      })
+    )
+    .optional(),
 })
 
 type PensionPlanFormData = z.infer<typeof pensionPlanSchema>
@@ -48,6 +57,7 @@ export function PensionPlanAssetForm({ onSuccess, onCancel, asset }: PensionPlan
       expectedReturn: asset?.expectedReturn,
       currency: asset?.currency ?? 'EUR',
       description: asset?.description ?? '',
+      initialExpenses: asset?.initialExpenses ?? [],
     },
   })
 
@@ -220,6 +230,8 @@ export function PensionPlanAssetForm({ onSuccess, onCancel, asset }: PensionPlan
             )}
           />
         </div>
+
+        <InitialExpensesField control={form.control} register={form.register} />
 
         <FormField
           control={form.control}

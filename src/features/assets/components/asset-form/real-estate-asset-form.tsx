@@ -10,6 +10,7 @@ import { type Asset, AssetType, type RealEstateAsset } from '../../types'
 import { useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
 import { useLanguage } from '@/context/language-provider'
+import { InitialExpensesField } from './initial-expenses-field'
 
 const realEstateAssetSchema = z.object({
   name: z.string().min(1, 'El nombre es requerido'),
@@ -21,6 +22,14 @@ const realEstateAssetSchema = z.object({
   squareMeters: z.number().min(0).optional(),
   currency: z.string().optional(),
   description: z.string().optional(),
+  initialExpenses: z
+    .array(
+      z.object({
+        label: z.string().min(1, 'Requerido'),
+        amount: z.number().min(0, 'Requerido'),
+      })
+    )
+    .optional(),
 })
 
 type RealEstateAssetFormData = z.infer<typeof realEstateAssetSchema>
@@ -48,6 +57,7 @@ export function RealEstateAssetForm({ onSuccess, onCancel, asset }: RealEstateAs
       squareMeters: asset?.squareMeters,
       currency: asset?.currency ?? 'EUR',
       description: asset?.description ?? '',
+      initialExpenses: asset?.initialExpenses ?? [],
     },
   })
 
@@ -243,6 +253,8 @@ export function RealEstateAssetForm({ onSuccess, onCancel, asset }: RealEstateAs
             )}
           />
         </div>
+
+        <InitialExpensesField control={form.control} register={form.register} />
 
         <FormField
           control={form.control}
