@@ -66,6 +66,11 @@ function SingleTable({
   const [rowSelection, setRowSelection] = useState({})
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
   const [sorting, setSorting] = useState<SortingState>([])
+  const tableSlug =
+    (title ?? 'table')
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '') || 'table'
 
   const {
     columnFilters,
@@ -76,7 +81,12 @@ function SingleTable({
   } = useTableUrlState({
     search: { ...search, tableGroup: title },
     navigate,
-    pagination: { defaultPage: 1, defaultPageSize: 10 },
+    pagination: {
+      defaultPage: 1,
+      defaultPageSize: 10,
+      pageKey: `${tableSlug}Page`,
+      pageSizeKey: `${tableSlug}PageSize`,
+    },
     globalFilter: { enabled: false },
   })
 
