@@ -1,7 +1,6 @@
 import { ArrowLeft, Download, FileJson, FileText, ChevronDown } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useNavigate } from '@tanstack/react-router'
-import { AssetTypeBadge, getAssetSymbol } from '../../utils/asset-helpers'
 import { type Asset } from '../../types'
 import { useLanguage } from '@/context/language-provider'
 import {
@@ -20,7 +19,6 @@ interface AssetDetailHeaderProps {
 export function AssetDetailHeader({ asset, onExportPDF, onExportJSON }: AssetDetailHeaderProps) {
   const navigate = useNavigate()
   const { t } = useLanguage()
-  const symbol = getAssetSymbol(asset)
 
   return (
     <div className='flex flex-wrap items-end justify-between gap-2'>
@@ -37,14 +35,10 @@ export function AssetDetailHeader({ asset, onExportPDF, onExportJSON }: AssetDet
           </Button>
         </div>
         <div>
-          <h2 className='text-2xl font-bold tracking-tight'>{asset.name}</h2>
-          <div className='flex items-center gap-2 mt-0.5'>
-            <p className='text-sm text-muted-foreground'>{symbol}</p>
-            <AssetTypeBadge type={asset.type} />
-          </div>
+          <h2 className='text-3xl font-bold tracking-tight'>{asset.name}</h2>
         </div>
         {asset.description && (
-          <p className='text-sm text-muted-foreground max-w-2xl'>{asset.description}</p>
+          <p className='text-sm text-muted-foreground max-w-2xl mt-2'>{asset.description}</p>
         )}
       </div>
       {(onExportPDF || onExportJSON) && (
