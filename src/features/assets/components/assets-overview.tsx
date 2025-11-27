@@ -63,6 +63,80 @@ export function AssetsOverview({ assets }: AssetsOverviewProps) {
     return acc
   }, {} as Record<string, Array<{ type: AssetType; count: number; percentage: number }>>)
 
+  const categoryTotals = Object.entries(typesByCategory).reduce((acc, [category, types]) => {
+    acc[category] = types.reduce((sum, item) => sum + item.count, 0)
+    return acc
+  }, {} as Record<string, number>)
+
+  const getCategoryPercentage = (categoriesList: string[]) => {
+    const total = categoriesList.reduce((sum, category) => sum + (categoryTotals[category] || 0), 0)
+    return totalAssets > 0 ? (total / totalAssets) * 100 : 0
+  }
+
+  const uniqueCategories = Object.keys(categoryTotals).length
+  const diversificationScore = totalAssets > 0
+    ? 1 - Object.values(categoryTotals).reduce((sum, count) => {
+        const weight = count / totalAssets
+        return sum + weight * weight
+      }, 0)
+    : 0
+  const diversificationScorePercent = Math.round(diversificationScore * 100)
+  const diversificationLevel =
+    diversificationScorePercent >= 70 ? 'Alta' :
+    diversificationScorePercent >= 40 ? 'Media' :
+    'Baja'
+
+  const riskyExposure = getCategoryPercentage([
+    'Renta variable',
+    'Derivados',
+    'Criptoactivos',
+    'Materias primas',
+  ])
+  const defensiveCoverage = getCategoryPercentage([
+    'Renta fija',
+    'Efectivo y depósitos',
+    'Planes de pensiones',
+    'Productos estructurados',
+  ])
+  const liquidityShare = getCategoryPercentage([
+    'Efectivo y depósitos',
+    'Divisas',
+  ])
+  const growthShare = getCategoryPercentage([
+    'Renta variable',
+    'Fondos',
+    'Criptoactivos',
+  ])
+
+  const riskyLevel =
+    riskyExposure >= 60 ? 'Alta' :
+    riskyExposure >= 35 ? 'Media' :
+    'Baja'
+
+  const defensiveLevel =
+    defensiveCoverage >= 50 ? 'Sólida' :
+    defensiveCoverage >= 25 ? 'Moderada' :
+    'Limitada'
+
+  const indicatorBadgeClasses = (level: string) => {
+    switch (level) {
+      case 'Alta':
+        return 'text-emerald-600 bg-emerald-500/10 border border-emerald-500/20'
+      case 'Media':
+        return 'text-amber-600 bg-amber-500/10 border border-amber-500/20'
+      case 'Baja':
+        return 'text-red-600 bg-red-500/10 border border-red-500/20'
+      case 'Sólida':
+        return 'text-emerald-600 bg-emerald-500/10 border border-emerald-500/20'
+      case 'Moderada':
+        return 'text-amber-600 bg-amber-500/10 border border-amber-500/20'
+      case 'Limitada':
+        return 'text-red-600 bg-red-500/10 border border-red-500/20'
+      default:
+        return 'text-muted-foreground bg-muted border border-border/60'
+    }
+  }
+
   // Calcular posiciones acumuladas para los segmentos
   let accumulatedWidth = 0
 
@@ -79,11 +153,69 @@ export function AssetsOverview({ assets }: AssetsOverviewProps) {
         </p>
       </div>
 
-      {/* Barra cilíndrica horizontal única - Interactiva */}
+      <div className='space-y-2 mb-3'>
+        <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-2'>
+          <div className='rounded-md border bg-card/20 px-3 py-2 min-h-[70px]'>
+            <div className='flex items-center justify-between gap-2'>
+              <div>
+                <p className='text-[10px] text-muted-foreground uppercase tracking-[0.08em]'>Diversificación</p>
+                <div className='flex items-baseline gap-1 leading-none'>
+                  <p className='text-base font-semibold'>{diversificationScorePercent}%</p>
+                  <span className='text-[10px] text-muted-foreground'>Cat: {uniqueCategories}</span>
+                </div>
+              </div>
+              <span className={cn('text-[10px] px-2 py-0.5 rounded-full border leading-none', indicatorBadgeClasses(diversificationLevel))}>
+                {diversificationLevel}
+              </span>
+            </div>
+            <div className='h-1 w-full rounded-full bg-muted mt-1'>
+              <div
+                className='h-full rounded-full bg-primary transition-all'
+                style={{ width: `${diversificationScorePercent}%` }}
+              />
+            </div>
+          </div>
+
+          <div className='rounded-md border bg-card/20 px-3 py-2 min-h-[70px]'>
+            <div className='flex items-center justify-between gap-2'>
+              <div>
+                <p className='text-[10px] text-muted-foreground uppercase tracking-[0.08em]'>Exposición riesgo</p>
+                <p className='text-base font-semibold leading-none'>{riskyExposure.toFixed(1)}%</p>
+                <p className='text-[10px] text-muted-foreground'>RV, Der, Cripto, Mat</p>
+              </div>
+              <span className={cn('text-[10px] px-2 py-0.5 rounded-full border leading-none', indicatorBadgeClasses(riskyLevel))}>
+                {riskyLevel}
+              </span>
+            </div>
+          </div>
+
+          <div className='rounded-md border bg-card/20 px-3 py-2 min-h-[70px]'>
+            <div className='flex items-center justify-between gap-2'>
+              <div>
+                <p className='text-[10px] text-muted-foreground uppercase tracking-[0.08em]'>Cobertura defensiva</p>
+                <p className='text-base font-semibold leading-none'>{defensiveCoverage.toFixed(1)}%</p>
+                <p className='text-[10px] text-muted-foreground'>RF, efectivo, pensiones</p>
+              </div>
+              <span className={cn('text-[10px] px-2 py-0.5 rounded-full border leading-none', indicatorBadgeClasses(defensiveLevel))}>
+                {defensiveLevel}
+              </span>
+            </div>
+          </div>
+          <div className='rounded-md border bg-card/20 px-3 py-2 min-h-[70px]'>
+            <p className='text-[10px] text-muted-foreground uppercase tracking-[0.08em]'>Liquidez inmediata</p>
+            <p className='text-sm font-semibold leading-none mt-1'>{liquidityShare.toFixed(1)}%</p>
+            <p className='text-[10px] text-muted-foreground'>Efectivo y divisas</p>
+          </div>
+          <div className='rounded-md border bg-card/20 px-3 py-2 min-h-[70px]'>
+            <p className='text-[10px] text-muted-foreground uppercase tracking-[0.08em]'>Foco crecimiento</p>
+            <p className='text-sm font-semibold leading-none mt-1'>{growthShare.toFixed(1)}%</p>
+            <p className='text-[10px] text-muted-foreground'>RV, fondos, cripto</p>
+          </div>
+        </div>
+      </div>
+
       <div className='space-y-4'>
-        {/* Contenedor de la barra */}
         <div className='relative group'>
-          {/* Barra horizontal completa */}
           <div className='w-full h-12 bg-muted/50 rounded-full overflow-hidden relative border border-border/50 shadow-inner'>
             {sortedTypes.map(({ type, percentage }) => {
               const color = getAssetTypeColor(type)
@@ -93,14 +225,13 @@ export function AssetsOverview({ assets }: AssetsOverviewProps) {
               const label = getAssetTypeLabel(type)
               const isHovered = hoveredType === type
               
-              // Actualizar acumulado para el siguiente segmento
               accumulatedWidth += width
 
-              return (
+                return (
                 <div
                   key={type}
                   className={cn(
-                    'h-full absolute top-0 transition-all duration-300 ease-out cursor-pointer',
+                      'h-full absolute top-0 transition-all duration-300 ease-out cursor-pointer border border-white/50 dark:border-black/40 box-border',
                     color,
                     isHovered && 'ring-2 ring-offset-2 ring-foreground/20 z-10 scale-y-110'
                   )}
@@ -122,26 +253,20 @@ export function AssetsOverview({ assets }: AssetsOverviewProps) {
             })}
           </div>
 
-          {/* Tooltip al hacer hover - posicionado sobre el segmento */}
           {hoveredType && hoveredPosition && (() => {
             const hoveredData = sortedTypes.find(t => t.type === hoveredType)
             const category = getAssetCategory(hoveredType)
             const count = assetsByType[hoveredType]
             const percentage = hoveredData?.percentage || 0
             
-            // Calcular posición para evitar que se salga de pantalla
-            // Aproximadamente 280px = ~15% en pantallas normales
             const leftPercent = hoveredPosition.center
             let transform = 'translateX(-50%)'
             let left = `${leftPercent}%`
             
-            // Si está muy cerca del borde izquierdo (< 10%), alinear a la izquierda
             if (leftPercent < 10) {
               transform = 'translateX(0)'
               left = '0%'
-            } 
-            // Si está muy cerca del borde derecho (> 90%), alinear a la derecha
-            else if (leftPercent > 90) {
+            } else if (leftPercent > 90) {
               transform = 'translateX(-100%)'
               left = '100%'
             }
@@ -181,20 +306,16 @@ export function AssetsOverview({ assets }: AssetsOverviewProps) {
           })()}
         </div>
 
-        {/* Leyenda agrupada por categoría - varias categorías a la misma altura */}
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2'>
           {Object.entries(typesByCategory)
             .sort(([categoryA, a], [categoryB, b]) => {
-              // Categorías que deben ir al final (más a la derecha)
               const categoriesToEnd = ['Renta fija', 'Renta variable', 'Criptoactivos', 'Planes de pensiones']
               const aShouldEnd = categoriesToEnd.includes(categoryA)
               const bShouldEnd = categoriesToEnd.includes(categoryB)
               
-              // Si una debe ir al final y la otra no, la que debe ir al final va después
               if (aShouldEnd && !bShouldEnd) return 1
               if (!aShouldEnd && bShouldEnd) return -1
               
-              // Si ambas van al final o ninguna, ordenar por cantidad
               const totalA = a.reduce((sum, item) => sum + item.count, 0)
               const totalB = b.reduce((sum, item) => sum + item.count, 0)
               return totalB - totalA
@@ -205,7 +326,6 @@ export function AssetsOverview({ assets }: AssetsOverviewProps) {
 
               return (
                 <div key={category} className='space-y-2'>
-                  {/* Header de categoría */}
                   <div className='flex items-baseline gap-2 pb-1'>
                     <h3 className='text-sm font-bold text-foreground'>{category}</h3>
                     <div className='flex items-center gap-1.5 text-xs text-muted-foreground'>
@@ -214,14 +334,12 @@ export function AssetsOverview({ assets }: AssetsOverviewProps) {
                     </div>
                   </div>
 
-                  {/* Tipos dentro de la categoría - más columnas */}
                   <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-2'>
                     {types.map(({ type, count, percentage }) => {
                       const label = getAssetTypeLabel(type)
                       const color = getAssetTypeColor(type)
                       const isHovered = hoveredType === type
                       
-                      // Calcular posición del tipo en la barra
                       const typeIndex = sortedTypes.findIndex(t => t.type === type)
                       const typeLeft = sortedTypes.slice(0, typeIndex).reduce((sum, t) => sum + t.percentage, 0)
                       const typeCenter = typeLeft + percentage / 2
@@ -242,9 +360,7 @@ export function AssetsOverview({ assets }: AssetsOverviewProps) {
                             setHoveredPosition(null)
                           }}
                         >
-                          {/* Indicador de color */}
                           <div className={cn('w-3 h-3 rounded-full shrink-0', color)} />
-                          {/* Información */}
                           <div className='min-w-0 flex-1'>
                             <div className='text-xs font-medium text-foreground wrap-break-word leading-tight'>{label}</div>
                             <div className='flex items-center gap-1.5'>
