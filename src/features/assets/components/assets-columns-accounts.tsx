@@ -91,10 +91,13 @@ export const accountsColumns: ColumnDef<Asset>[] = [
       if (row.type === AssetType.SAVINGS_ACCOUNT || row.type === AssetType.TERM_DEPOSIT) {
         return 'initialAmount' in row ? row.initialAmount : null
       }
+      if (row.type === AssetType.PENSION_PLAN) {
+        return row.price || null // Valor actual del plan
+      }
       return null
     },
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Saldo/Importe' />
+      <DataTableColumnHeader column={column} title='Saldo/Valor' />
     ),
     cell: ({ row }) => {
       const asset = row.original
@@ -105,6 +108,8 @@ export const accountsColumns: ColumnDef<Asset>[] = [
         amount = asset.balance
       } else if ((asset.type === AssetType.SAVINGS_ACCOUNT || asset.type === AssetType.TERM_DEPOSIT) && 'initialAmount' in asset) {
         amount = asset.initialAmount
+      } else if (asset.type === AssetType.PENSION_PLAN) {
+        amount = asset.price // Valor actual del plan
       }
       
       if (amount === undefined) {
@@ -175,6 +180,70 @@ export const accountsColumns: ColumnDef<Asset>[] = [
           </div>
         )
       }
+      return <span className='text-muted-foreground text-xs'>-</span>
+    },
+    meta: { tdClassName: 'py-2' },
+  },
+  {
+    id: 'monthlyBenefit',
+    accessorFn: (row) => {
+      if (row.type === AssetType.SAVINGS_ACCOUNT || row.type === AssetType.TERM_DEPOSIT) {
+        const interestRate = 'interestRate' in row ? row.interestRate : undefined
+        const amount = row.type === AssetType.SAVINGS_ACCOUNT || row.type === AssetType.TERM_DEPOSIT
+          ? ('initialAmount' in row ? row.initialAmount : undefined)
+          : undefined
+        if (interestRate && amount) {
+          return (amount * interestRate / 100) / 12 // Beneficio mensual
+        }
+      }
+      if (row.type === AssetType.PENSION_PLAN && 'annualContribution' in row && row.annualContribution) {
+        return row.annualContribution / 12 // Contribución mensual
+      }
+      return null
+    },
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title='Beneficio/Contribución Mensual' />
+    ),
+    cell: ({ row }) => {
+      const asset = row.original
+      const currency = asset.currency || 'EUR'
+      
+      if (asset.type === AssetType.SAVINGS_ACCOUNT || asset.type === AssetType.TERM_DEPOSIT) {
+        const interestRate = 'interestRate' in asset ? asset.interestRate : undefined
+        const amount = 'initialAmount' in asset ? asset.initialAmount : undefined
+        
+        if (interestRate && amount) {
+          const monthlyBenefit = (amount * interestRate / 100) / 12
+          return (
+            <div className='text-xs'>
+              <span className='font-semibold text-green-600 dark:text-green-400'>
+                +{monthlyBenefit.toLocaleString('es-ES', { 
+                  minimumFractionDigits: 2, 
+                  maximumFractionDigits: 2 
+                })}
+              </span>
+              <span className='text-muted-foreground ml-1'>{currency}</span>
+            </div>
+          )
+        }
+      }
+      
+      if (asset.type === AssetType.PENSION_PLAN && 'annualContribution' in asset && asset.annualContribution) {
+        const monthlyContribution = asset.annualContribution / 12
+        return (
+          <div className='text-xs'>
+            <span className='font-semibold text-blue-600 dark:text-blue-400'>
+              {monthlyContribution.toLocaleString('es-ES', { 
+                minimumFractionDigits: 2, 
+                maximumFractionDigits: 2 
+              })}
+            </span>
+            <span className='text-muted-foreground ml-1'>{currency}</span>
+            <div className='text-[10px] text-muted-foreground mt-0.5'>Contribución</div>
+          </div>
+        )
+      }
+      
       return <span className='text-muted-foreground text-xs'>-</span>
     },
     meta: { tdClassName: 'py-2' },

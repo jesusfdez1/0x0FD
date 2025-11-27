@@ -36,6 +36,7 @@ import { type Asset, AssetType } from '../types'
 import { getAssetSymbol, getAssetCategory } from '../utils/asset-helpers'
 import { investmentColumns } from './assets-columns-investment'
 import { accountsColumns } from './assets-columns-accounts'
+import { realEstateColumns } from './assets-columns-real-estate'
 
 type DataTableProps = {
   data: Asset[]
@@ -298,14 +299,17 @@ function SingleTable({
 }
 
 export function AssetsTable({ data, search, navigate }: DataTableProps) {
-  // Agrupar activos por tipo: inversiones vs cuentas/depósitos
+  // Agrupar activos por tipo: inversiones, inmobiliario, cuentas/depósitos
   const investmentAssets: Asset[] = []
+  const realEstateAssets: Asset[] = []
   const accountsAssets: Asset[] = []
 
   data.forEach(asset => {
     const category = getAssetCategory(asset.type)
-    if (category === 'Efectivo y depósitos') {
+    if (category === 'Efectivo y depósitos' || category === 'Planes de pensiones') {
       accountsAssets.push(asset)
+    } else if (category === 'Inmobiliario') {
+      realEstateAssets.push(asset)
     } else {
       investmentAssets.push(asset)
     }
@@ -323,17 +327,27 @@ export function AssetsTable({ data, search, navigate }: DataTableProps) {
         />
       )}
       
+      {realEstateAssets.length > 0 && (
+        <SingleTable
+          data={realEstateAssets}
+          columns={realEstateColumns}
+          search={search}
+          navigate={navigate}
+          title='Inmobiliario'
+        />
+      )}
+      
       {accountsAssets.length > 0 && (
         <SingleTable
           data={accountsAssets}
           columns={accountsColumns}
           search={search}
           navigate={navigate}
-          title='Efectivo y Depósitos'
+          title='Efectivo, Depósitos y Planes de Pensiones'
         />
       )}
       
-      {investmentAssets.length === 0 && accountsAssets.length === 0 && (
+      {investmentAssets.length === 0 && realEstateAssets.length === 0 && accountsAssets.length === 0 && (
         <div className='text-center py-12 text-muted-foreground'>
           No hay activos para mostrar.
         </div>

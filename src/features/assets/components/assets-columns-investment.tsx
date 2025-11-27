@@ -83,6 +83,7 @@ export const investmentColumns: ColumnDef<Asset>[] = [
     filterFn: (row, id, value) => {
       return value.includes(row.getValue(id))
     },
+    enableHiding: true,
   },
   {
     id: 'quantity',
@@ -119,18 +120,17 @@ export const investmentColumns: ColumnDef<Asset>[] = [
       }
       
       return (
-        <div className='text-xs'>
-          <span className='font-medium'>
-            {purchasePrice.toLocaleString('es-ES', { 
-              minimumFractionDigits: 2, 
-              maximumFractionDigits: 2 
-            })}
-          </span>
-          <span className='text-muted-foreground ml-1'>{currency}</span>
+        <div className='text-xs text-muted-foreground'>
+          {purchasePrice.toLocaleString('es-ES', { 
+            minimumFractionDigits: 2, 
+            maximumFractionDigits: 2 
+          })}
+          <span className='ml-1'>{currency}</span>
         </div>
       )
     },
     meta: { tdClassName: 'py-2' },
+    enableHiding: true,
   },
   {
     id: 'price',
@@ -141,21 +141,37 @@ export const investmentColumns: ColumnDef<Asset>[] = [
     cell: ({ row }) => {
       const asset = row.original
       const price = asset.price
+      const purchasePrice = asset.purchasePrice
       const currency = asset.currency || 'EUR'
       
       if (price === undefined) {
         return <span className='text-muted-foreground text-xs'>-</span>
       }
       
+      // Calcular cambio porcentual del precio
+      let priceChange: number | null = null
+      if (purchasePrice && purchasePrice > 0) {
+        priceChange = ((price - purchasePrice) / purchasePrice) * 100
+      }
+      
       return (
         <div className='text-xs'>
-          <span className='font-medium'>
+          <div className='font-medium'>
             {price.toLocaleString('es-ES', { 
               minimumFractionDigits: 2, 
               maximumFractionDigits: 2 
             })}
-          </span>
-          <span className='text-muted-foreground ml-1'>{currency}</span>
+            <span className='text-muted-foreground ml-1'>{currency}</span>
+          </div>
+          {priceChange !== null && (
+            <div className={cn(
+              'text-[10px] mt-0.5',
+              priceChange >= 0 ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'
+            )}>
+              {priceChange >= 0 ? '+' : ''}
+              {priceChange.toFixed(2)}%
+            </div>
+          )}
         </div>
       )
     },
@@ -174,6 +190,7 @@ export const investmentColumns: ColumnDef<Asset>[] = [
       const asset = row.original
       const quantity = asset.quantity
       const price = asset.price
+      const purchasePrice = asset.purchasePrice
       const currency = asset.currency || 'EUR'
       
       if (quantity === undefined || price === undefined) {
@@ -181,16 +198,25 @@ export const investmentColumns: ColumnDef<Asset>[] = [
       }
       
       const total = quantity * price
+      const purchaseTotal = purchasePrice && quantity ? quantity * purchasePrice : null
       
       return (
         <div className='text-xs'>
-          <span className='font-semibold'>
+          <div className='font-semibold'>
             {total.toLocaleString('es-ES', { 
               minimumFractionDigits: 2, 
               maximumFractionDigits: 2 
             })}
-          </span>
-          <span className='text-muted-foreground ml-1'>{currency}</span>
+            <span className='text-muted-foreground ml-1'>{currency}</span>
+          </div>
+          {purchaseTotal && (
+            <div className='text-[10px] text-muted-foreground mt-0.5'>
+              Inv: {purchaseTotal.toLocaleString('es-ES', { 
+                minimumFractionDigits: 2, 
+                maximumFractionDigits: 2 
+              })}
+            </div>
+          )}
         </div>
       )
     },
