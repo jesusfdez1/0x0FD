@@ -106,3 +106,4 @@ export function FixedIncomeDetail({ asset }: FixedIncomeDetailProps) {
   )
 }
 
+

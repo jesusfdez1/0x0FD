@@ -210,3 +210,4 @@ export function CurrencyAssetForm({ onSuccess, onCancel }: CurrencyAssetFormProp
   )
 }
 
+
