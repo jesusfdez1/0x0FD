@@ -805,6 +805,7 @@ export const es = {
       sentiment: "Este es el medidor de Sentimiento del Mercado. Indica si en el mercado predomina el Miedo o la Codicia.",
       insights: "Aquí encontrarás análisis impulsados por IA. Procesamos millones de datos para detectar oportunidades para ti.",
       screener: "Utiliza el Buscador de Oportunidades para encontrar los mejores activos basados en nuestra Puntuación Inteligente.",
+      help: "Si necesitas ayuda, pulsa sobre mi icono en la esquina inferior derecha para volver a activar el tutorial. ¡Buena suerte!",
       next: "Siguiente",
       prev: "Anterior",
       close: "Cerrar",

@@ -15,6 +15,7 @@ export function InvestmentGuide() {
   const [isMoving, setIsMoving] = useState(false)
   const [direction, setDirection] = useState<'left' | 'right'>('right')
   const prevPosRef = useRef<{ top: number, left: number } | null>(null)
+  const [minimizedState, setMinimizedState] = useState<'idle' | 'thinking' | 'waving' | 'sleeping' | 'happy'>('idle')
 
   const steps = [
     {
@@ -33,7 +34,22 @@ export function InvestmentGuide() {
       key: 'screener',
       target: 'opportunity-screener',
     },
+    {
+      key: 'help',
+      target: null, // Final help message
+    },
   ]
+
+  // Random state for minimized character
+  useEffect(() => {
+    if (!isMinimized) return;
+    const states: ('idle' | 'thinking' | 'waving' | 'sleeping' | 'happy')[] = ['idle', 'thinking', 'waving', 'sleeping', 'happy'];
+    const interval = setInterval(() => {
+        const randomState = states[Math.floor(Math.random() * states.length)];
+        setMinimizedState(randomState);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, [isMinimized]);
 
   // Helper to calculate position
   const calculatePosition = (targetId: string | null) => {
@@ -125,8 +141,8 @@ export function InvestmentGuide() {
             setCharacterPos(null)
         }
     } else {
-        if (step === 0) {
-            // Center for welcome step
+        if (step === 0 || steps[step].key === 'help') {
+            // Center for welcome step AND help step
             const charLeft = (window.innerWidth - 300) / 2
             const charTop = (window.innerHeight - 400) / 2
             setCharacterPos({ top: charTop, left: charLeft })
@@ -149,7 +165,7 @@ export function InvestmentGuide() {
                       // We update character pos too to keep it anchored to the element
                       setCharacterPos(result.charPos) 
                   }
-              } else if (step === 0) {
+              } else if (step === 0 || steps[step].key === 'help') {
                   // Update center position on resize
                   const charLeft = (window.innerWidth - 300) / 2
                   const charTop = (window.innerHeight - 400) / 2 
@@ -258,29 +274,29 @@ export function InvestmentGuide() {
         )}
 
         {/* Welcome Backdrop (Shadow Method for consistency) */}
-        {isOpen && !isMinimized && step === 0 && (
+        {isOpen && !isMinimized && (step === 0 || steps[step].key === 'help') && (
              <div className="fixed top-1/2 left-1/2 w-0 h-0 z-40 shadow-[0_0_0_9999px_rgba(0,0,0,0.5)]" />
         )}
 
-        {!isOpen && !isMinimized && (
-            <Button 
-                variant="outline" 
-                size="sm" 
-                className="fixed bottom-4 right-4 rounded-full shadow-lg z-50"
-                onClick={handleRestart}
-            >
-                <Play className="w-4 h-4 mr-2" />
-                {t('investmentLab.guide.start')}
-            </Button>
-        )}
-
-        {isMinimized && (
+        {(isMinimized || !isOpen) && (
             <div 
                 className="fixed bottom-4 right-4 z-50 cursor-pointer transition-transform hover:scale-110"
-                onClick={() => setIsMinimized(false)}
+                onClick={() => {
+                    if (!isOpen) {
+                        handleRestart()
+                    } else {
+                        setIsMinimized(false)
+                    }
+                }}
             >
-                <div className="w-12 h-12 rounded-full bg-primary border-2 border-white shadow-lg overflow-hidden flex items-center justify-center">
-                    <PixelCharacter className="w-8 h-8" />
+                <div className="w-24 h-24 bg-card border-2 border-black dark:border-white rounded-xl shadow-lg overflow-hidden flex items-center justify-center relative">
+                    {/* Window Header */}
+                    <div className="absolute top-0 left-0 w-full h-5 bg-accent border-b border-black dark:border-white flex items-center px-2 gap-1.5">
+                        <div className="w-2.5 h-2.5 rounded-full bg-red-500 border border-black/20"></div>
+                        <div className="w-2.5 h-2.5 rounded-full bg-yellow-500 border border-black/20"></div>
+                        <div className="w-2.5 h-2.5 rounded-full bg-green-500 border border-black/20"></div>
+                    </div>
+                    <PixelCharacter className="w-16 h-16 mt-3" state={minimizedState} />
                 </div>
             </div>
         )}
@@ -326,7 +342,7 @@ export function InvestmentGuide() {
                 <div className="relative w-24 h-24">
                     <PixelCharacter 
                         className="w-full h-full drop-shadow-2xl" 
-                        state={isMoving ? 'walking' : (steps[step].target ? 'reading' : 'waving')}
+                        state={isMoving ? 'walking' : (steps[step].key === 'help' ? 'victory' : (steps[step].target ? 'reading' : 'waving'))}
                         direction={direction}
                     />
                 </div>
