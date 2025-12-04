@@ -1,5 +1,6 @@
 'use client'
 
+import { useMemo } from 'react'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -24,74 +25,92 @@ import {
 import { Input } from '@/components/ui/input'
 import { PasswordInput } from '@/components/password-input'
 import { SelectDropdown } from '@/components/select-dropdown'
+import { useLanguage } from '@/context/language-provider'
 import { roles } from '../data/data'
 import { type User } from '../data/schema'
 
-const formSchema = z
-  .object({
-    firstName: z.string().min(1, 'First Name is required.'),
-    lastName: z.string().min(1, 'Last Name is required.'),
-    username: z.string().min(1, 'Username is required.'),
-    phoneNumber: z.string().min(1, 'Phone number is required.'),
-    email: z.email({
-      error: (iss) => (iss.input === '' ? 'Email is required.' : undefined),
-    }),
-    password: z.string().transform((pwd) => pwd.trim()),
-    role: z.string().min(1, 'Role is required.'),
-    confirmPassword: z.string().transform((pwd) => pwd.trim()),
-    isEdit: z.boolean(),
-  })
-  .refine(
-    (data) => {
-      if (data.isEdit && !data.password) return true
-      return data.password.length > 0
-    },
-    {
-      message: 'Password is required.',
-      path: ['password'],
-    }
-  )
-  .refine(
-    ({ isEdit, password }) => {
-      if (isEdit && !password) return true
-      return password.length >= 8
-    },
-    {
-      message: 'Password must be at least 8 characters long.',
-      path: ['password'],
-    }
-  )
-  .refine(
-    ({ isEdit, password }) => {
-      if (isEdit && !password) return true
-      return /[a-z]/.test(password)
-    },
-    {
-      message: 'Password must contain at least one lowercase letter.',
-      path: ['password'],
-    }
-  )
-  .refine(
-    ({ isEdit, password }) => {
-      if (isEdit && !password) return true
-      return /\d/.test(password)
-    },
-    {
-      message: 'Password must contain at least one number.',
-      path: ['password'],
-    }
-  )
-  .refine(
-    ({ isEdit, password, confirmPassword }) => {
-      if (isEdit && !password) return true
-      return password === confirmPassword
-    },
-    {
-      message: "Passwords don't match.",
-      path: ['confirmPassword'],
-    }
-  )
-type UserForm = z.infer<typeof formSchema>
+type Translate = (key: string) => string
+
+const createFormSchema = (t: Translate) =>
+  z
+    .object({
+      firstName: z
+        .string()
+        .trim()
+        .min(1, { message: t('users.validation.firstNameRequired') }),
+      lastName: z
+        .string()
+        .trim()
+        .min(1, { message: t('users.validation.lastNameRequired') }),
+      username: z
+        .string()
+        .trim()
+        .min(1, { message: t('users.validation.usernameRequired') }),
+      phoneNumber: z
+        .string()
+        .trim()
+        .min(1, { message: t('users.validation.phoneRequired') }),
+      email: z
+        .string()
+        .trim()
+        .min(1, { message: t('users.validation.emailRequired') })
+        .email({ message: t('users.validation.emailInvalid') }),
+      password: z.string().trim(),
+      role: z
+        .string()
+        .trim()
+        .min(1, { message: t('users.validation.roleRequired') }),
+      confirmPassword: z.string().trim(),
+      isEdit: z.boolean(),
+    })
+    .superRefine(({ isEdit, password, confirmPassword }, ctx) => {
+      if (isEdit && password.length === 0) {
+        return
+      }
+
+      if (password.length === 0) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: t('users.validation.passwordRequired'),
+          path: ['password'],
+        })
+        return
+      }
+
+      if (password.length < 8) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: t('users.validation.passwordMinLength'),
+          path: ['password'],
+        })
+      }
+
+      if (!/[a-z]/.test(password)) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: t('users.validation.passwordLowercase'),
+          path: ['password'],
+        })
+      }
+
+      if (!/\d/.test(password)) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: t('users.validation.passwordNumber'),
+          path: ['password'],
+        })
+      }
+
+      if (password !== confirmPassword) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: t('users.validation.passwordMismatch'),
+          path: ['confirmPassword'],
+        })
+      }
+    })
+
+type UserForm = z.infer<ReturnType<typeof createFormSchema>>
 
 type UserActionDialogProps = {
   currentRow?: User
@@ -104,7 +123,9 @@ export function UsersActionDialog({
   open,
   onOpenChange,
 }: UserActionDialogProps) {
+  const { t } = useLanguage()
   const isEdit = !!currentRow
+  const formSchema = useMemo(() => createFormSchema(t), [t])
   const form = useForm<UserForm>({
     resolver: zodResolver(formSchema),
     defaultValues: isEdit
@@ -145,10 +166,15 @@ export function UsersActionDialog({
     >
       <DialogContent className='sm:max-w-lg'>
         <DialogHeader className='text-start'>
-          <DialogTitle>{isEdit ? 'Edit User' : 'Add New User'}</DialogTitle>
+          <DialogTitle>
+            {isEdit
+              ? t('users.forms.action.editTitle')
+              : t('users.forms.action.addTitle')}
+          </DialogTitle>
           <DialogDescription>
-            {isEdit ? 'Update the user here. ' : 'Create new user here. '}
-            Click save when you&apos;re done.
+            {isEdit
+              ? t('users.forms.action.editDescription')
+              : t('users.forms.action.addDescription')}
           </DialogDescription>
         </DialogHeader>
         <div className='h-[26.25rem] w-[calc(100%+0.75rem)] overflow-y-auto py-1 pe-3'>
@@ -164,11 +190,11 @@ export function UsersActionDialog({
                 render={({ field }) => (
                   <FormItem className='grid grid-cols-6 items-center space-y-0 gap-x-4 gap-y-1'>
                     <FormLabel className='col-span-2 text-end'>
-                      First Name
+                      {t('users.forms.action.firstNameLabel')}
                     </FormLabel>
                     <FormControl>
                       <Input
-                        placeholder='John'
+                        placeholder={t('users.forms.action.firstNamePlaceholder')}
                         className='col-span-4'
                         autoComplete='off'
                         {...field}
@@ -184,11 +210,11 @@ export function UsersActionDialog({
                 render={({ field }) => (
                   <FormItem className='grid grid-cols-6 items-center space-y-0 gap-x-4 gap-y-1'>
                     <FormLabel className='col-span-2 text-end'>
-                      Last Name
+                      {t('users.forms.action.lastNameLabel')}
                     </FormLabel>
                     <FormControl>
                       <Input
-                        placeholder='Doe'
+                        placeholder={t('users.forms.action.lastNamePlaceholder')}
                         className='col-span-4'
                         autoComplete='off'
                         {...field}
@@ -204,11 +230,11 @@ export function UsersActionDialog({
                 render={({ field }) => (
                   <FormItem className='grid grid-cols-6 items-center space-y-0 gap-x-4 gap-y-1'>
                     <FormLabel className='col-span-2 text-end'>
-                      Username
+                      {t('users.forms.action.usernameLabel')}
                     </FormLabel>
                     <FormControl>
                       <Input
-                        placeholder='john_doe'
+                        placeholder={t('users.forms.action.usernamePlaceholder')}
                         className='col-span-4'
                         {...field}
                       />
@@ -222,10 +248,12 @@ export function UsersActionDialog({
                 name='email'
                 render={({ field }) => (
                   <FormItem className='grid grid-cols-6 items-center space-y-0 gap-x-4 gap-y-1'>
-                    <FormLabel className='col-span-2 text-end'>Email</FormLabel>
+                    <FormLabel className='col-span-2 text-end'>
+                      {t('users.forms.action.emailLabel')}
+                    </FormLabel>
                     <FormControl>
                       <Input
-                        placeholder='john.doe@gmail.com'
+                        placeholder={t('users.forms.action.emailPlaceholder')}
                         className='col-span-4'
                         {...field}
                       />
@@ -240,11 +268,11 @@ export function UsersActionDialog({
                 render={({ field }) => (
                   <FormItem className='grid grid-cols-6 items-center space-y-0 gap-x-4 gap-y-1'>
                     <FormLabel className='col-span-2 text-end'>
-                      Phone Number
+                      {t('users.forms.action.phoneLabel')}
                     </FormLabel>
                     <FormControl>
                       <Input
-                        placeholder='+123456789'
+                        placeholder={t('users.forms.action.phonePlaceholder')}
                         className='col-span-4'
                         {...field}
                       />
@@ -258,14 +286,16 @@ export function UsersActionDialog({
                 name='role'
                 render={({ field }) => (
                   <FormItem className='grid grid-cols-6 items-center space-y-0 gap-x-4 gap-y-1'>
-                    <FormLabel className='col-span-2 text-end'>Role</FormLabel>
+                    <FormLabel className='col-span-2 text-end'>
+                      {t('users.forms.action.roleLabel')}
+                    </FormLabel>
                     <SelectDropdown
                       defaultValue={field.value}
                       onValueChange={field.onChange}
-                      placeholder='Select a role'
+                      placeholder={t('users.forms.action.rolePlaceholder')}
                       className='col-span-4'
-                      items={roles.map(({ label, value }) => ({
-                        label,
+                      items={roles.map(({ labelKey, value }) => ({
+                        label: t(labelKey),
                         value,
                       }))}
                     />
@@ -279,11 +309,11 @@ export function UsersActionDialog({
                 render={({ field }) => (
                   <FormItem className='grid grid-cols-6 items-center space-y-0 gap-x-4 gap-y-1'>
                     <FormLabel className='col-span-2 text-end'>
-                      Password
+                      {t('users.forms.action.passwordLabel')}
                     </FormLabel>
                     <FormControl>
                       <PasswordInput
-                        placeholder='e.g., S3cur3P@ssw0rd'
+                        placeholder={t('users.forms.action.passwordPlaceholder')}
                         className='col-span-4'
                         {...field}
                       />
@@ -298,12 +328,12 @@ export function UsersActionDialog({
                 render={({ field }) => (
                   <FormItem className='grid grid-cols-6 items-center space-y-0 gap-x-4 gap-y-1'>
                     <FormLabel className='col-span-2 text-end'>
-                      Confirm Password
+                      {t('users.forms.action.confirmPasswordLabel')}
                     </FormLabel>
                     <FormControl>
                       <PasswordInput
                         disabled={!isPasswordTouched}
-                        placeholder='e.g., S3cur3P@ssw0rd'
+                        placeholder={t('users.forms.action.confirmPasswordPlaceholder')}
                         className='col-span-4'
                         {...field}
                       />
@@ -317,7 +347,7 @@ export function UsersActionDialog({
         </div>
         <DialogFooter>
           <Button type='submit' form='user-form'>
-            Save changes
+            {t('users.forms.action.save')}
           </Button>
         </DialogFooter>
       </DialogContent>

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import {
   type SortingState,
   type VisibilityState,
@@ -13,6 +13,7 @@ import {
 } from '@tanstack/react-table'
 import type { UseNavigateResult } from '@tanstack/react-router'
 import { cn } from '@/lib/utils'
+import { useLanguage } from '@/context/language-provider'
 import { useTableUrlState } from '@/hooks/use-table-url-state'
 import {
   Table,
@@ -26,7 +27,7 @@ import { DataTablePagination, DataTableToolbar } from '@/components/data-table'
 import { roles } from '../data/data'
 import { type User } from '../data/schema'
 import { DataTableBulkActions } from './data-table-bulk-actions'
-import { usersColumns as columns } from './users-columns'
+import { getUsersColumns } from './users-columns'
 
 type DataTableProps = {
   data: User[]
@@ -36,10 +37,13 @@ type DataTableProps = {
 }
 
 export function UsersTable({ data, search, navigate }: DataTableProps) {
+  const { t } = useLanguage()
   // Local UI-only states
   const [rowSelection, setRowSelection] = useState({})
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
   const [sorting, setSorting] = useState<SortingState>([])
+
+  const columns = useMemo(() => getUsersColumns(t), [t])
 
   // Local state management for table (uncomment to use local-only state, not synced with URL)
   // const [columnFilters, onColumnFiltersChange] = useState<ColumnFiltersState>([])
@@ -103,23 +107,27 @@ export function UsersTable({ data, search, navigate }: DataTableProps) {
     >
       <DataTableToolbar
         table={table}
-        searchPlaceholder='Filter users...'
+        searchPlaceholder={t('users.filterPlaceholder')}
         searchKey='username'
         filters={[
           {
             columnId: 'status',
-            title: 'Status',
+            title: t('users.filters.status'),
             options: [
-              { label: 'Active', value: 'active' },
-              { label: 'Inactive', value: 'inactive' },
-              { label: 'Invited', value: 'invited' },
-              { label: 'Suspended', value: 'suspended' },
+              { label: t('users.active'), value: 'active' },
+              { label: t('users.inactive'), value: 'inactive' },
+              { label: t('users.invited'), value: 'invited' },
+              { label: t('users.suspended'), value: 'suspended' },
             ],
           },
           {
             columnId: 'role',
-            title: 'Role',
-            options: roles.map((role) => ({ ...role })),
+            title: t('users.filters.role'),
+            options: roles.map(({ labelKey, value, icon }) => ({
+              label: t(labelKey),
+              value,
+              icon,
+            })),
           },
         ]}
       />
@@ -182,7 +190,7 @@ export function UsersTable({ data, search, navigate }: DataTableProps) {
                   colSpan={columns.length}
                   className='h-24 text-center'
                 >
-                  No results.
+                  {t('common.noResults')}
                 </TableCell>
               </TableRow>
             )}

@@ -103,7 +103,9 @@ export const companiesColumns: ColumnDef<Company>[] = [
       <DataTableColumnHeader column={column} title='Region' />
     ),
     cell: ({ row }) => (
-      <Badge variant='outline'>{row.getValue('region')}</Badge>
+      <Badge variant='outline' className='w-32 justify-center'>
+        {row.getValue('region')}
+      </Badge>
     ),
   },
   {

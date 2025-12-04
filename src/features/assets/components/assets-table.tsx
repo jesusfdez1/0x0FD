@@ -210,7 +210,14 @@ function SingleTable({
         </Table>
       </div>
       <DataTablePagination table={table} className='mt-auto' />
-      <DataTableBulkActions table={table} entityName={t('assets.table.entityName')}>
+      <DataTableBulkActions
+        table={table}
+        entityName={t('assets.table.entityName')}
+        entityLabel={{
+          singular: t('assets.table.assetSingular'),
+          plural: t('assets.table.assetPlural'),
+        }}
+      >
         {(() => {
           const selectedRows = table.getFilteredSelectedRowModel().rows
           const selectedAssets = selectedRows.map((row) => row.original as Asset)

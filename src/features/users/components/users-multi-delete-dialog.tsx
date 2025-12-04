@@ -9,6 +9,7 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { ConfirmDialog } from '@/components/confirm-dialog'
+import { useLanguage } from '@/context/language-provider'
 
 type UserMultiDeleteDialogProps<TData> = {
   open: boolean
@@ -16,34 +17,42 @@ type UserMultiDeleteDialogProps<TData> = {
   table: Table<TData>
 }
 
-const CONFIRM_WORD = 'DELETE'
-
 export function UsersMultiDeleteDialog<TData>({
   open,
   onOpenChange,
   table,
 }: UserMultiDeleteDialogProps<TData>) {
   const [value, setValue] = useState('')
+  const { t } = useLanguage()
 
   const selectedRows = table.getFilteredSelectedRowModel().rows
+  const count = selectedRows.length
+  const entityName =
+    count === 1 ? t('users.entity.singular') : t('users.entity.plural')
+  const confirmWord = t('users.dialogs.multiDelete.confirmWord')
 
   const handleDelete = () => {
-    if (value.trim() !== CONFIRM_WORD) {
-      toast.error(`Please type "${CONFIRM_WORD}" to confirm.`)
+    if (value.trim() !== confirmWord) {
+      toast.error(
+        t('users.dialogs.multiDelete.confirmError').replace(
+          '{word}',
+          confirmWord
+        )
+      )
       return
     }
 
     onOpenChange(false)
 
     toast.promise(sleep(2000), {
-      loading: 'Deleting users...',
+      loading: t('common.deletingUsersLoading'),
       success: () => {
         table.resetRowSelection()
-        return `Deleted ${selectedRows.length} ${
-          selectedRows.length > 1 ? 'users' : 'user'
-        }`
+        return t('users.dialogs.multiDelete.toastSuccess')
+          .replace('{count}', `${count}`)
+          .replace('{entityName}', entityName)
       },
-      error: 'Error',
+      error: t('common.deleteUsersError'),
     })
   }
 
@@ -52,42 +61,48 @@ export function UsersMultiDeleteDialog<TData>({
       open={open}
       onOpenChange={onOpenChange}
       handleConfirm={handleDelete}
-      disabled={value.trim() !== CONFIRM_WORD}
+      disabled={value.trim() !== confirmWord}
       title={
         <span className='text-destructive'>
           <AlertTriangle
             className='stroke-destructive me-1 inline-block'
             size={18}
           />{' '}
-          Delete {selectedRows.length}{' '}
-          {selectedRows.length > 1 ? 'users' : 'user'}
+          {t('users.dialogs.multiDelete.title')
+            .replace('{count}', `${count}`)
+            .replace('{entityName}', entityName)}
         </span>
       }
       desc={
         <div className='space-y-4'>
-          <p className='mb-2'>
-            Are you sure you want to delete the selected users? <br />
-            This action cannot be undone.
-          </p>
+          <p className='mb-2'>{t('users.dialogs.multiDelete.description')}</p>
 
           <Label className='my-4 flex flex-col items-start gap-1.5'>
-            <span className=''>Confirm by typing "{CONFIRM_WORD}":</span>
+            <span>
+              {t('users.dialogs.multiDelete.inputLabel').replace(
+                '{word}',
+                confirmWord
+              )}
+            </span>
             <Input
               value={value}
               onChange={(e) => setValue(e.target.value)}
-              placeholder={`Type "${CONFIRM_WORD}" to confirm.`}
+              placeholder={t('users.dialogs.multiDelete.inputPlaceholder').replace(
+                '{word}',
+                confirmWord
+              )}
             />
           </Label>
 
           <Alert variant='destructive'>
-            <AlertTitle>Warning!</AlertTitle>
+            <AlertTitle>{t('common.warning')}</AlertTitle>
             <AlertDescription>
-              Please be careful, this operation can not be rolled back.
+              {t('users.dialogs.delete.warningDescription')}
             </AlertDescription>
           </Alert>
         </div>
       }
-      confirmText='Delete'
+      confirmText={t('common.delete')}
       destructive
     />
   )

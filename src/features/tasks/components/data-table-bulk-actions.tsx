@@ -77,7 +77,14 @@ export function DataTableBulkActions<TData>({
 
   return (
     <>
-      <BulkActionsToolbar table={table} entityName='task'>
+      <BulkActionsToolbar
+        table={table}
+        entityName='task'
+        entityLabel={{
+          singular: t('tasks.entity.singular'),
+          plural: t('tasks.entity.plural'),
+        }}
+      >
         <DropdownMenu>
           <Tooltip>
             <TooltipTrigger asChild>

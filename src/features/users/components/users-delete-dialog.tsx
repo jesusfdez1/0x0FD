@@ -7,6 +7,7 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { ConfirmDialog } from '@/components/confirm-dialog'
+import { useLanguage } from '@/context/language-provider'
 import { type User } from '../data/schema'
 
 type UserDeleteDialogProps = {
@@ -21,12 +22,20 @@ export function UsersDeleteDialog({
   currentRow,
 }: UserDeleteDialogProps) {
   const [value, setValue] = useState('')
+  const { t } = useLanguage()
+  const roleLabel = t(`users.roles.${currentRow.role}`)
+  const descriptionTemplate = t('users.dialogs.delete.description')
+  const [beforeUsername, afterUsernamePlaceholder = ''] = descriptionTemplate.split('{username}')
+  const [betweenUsernameAndRole, afterRolePlaceholder = ''] = afterUsernamePlaceholder.split('{role}')
 
   const handleDelete = () => {
     if (value.trim() !== currentRow.username) return
 
     onOpenChange(false)
-    showSubmittedData(currentRow, 'The following user has been deleted:')
+    showSubmittedData(
+      currentRow,
+      t('users.dialogs.delete.toastMessage')
+    )
   }
 
   return (
@@ -41,40 +50,37 @@ export function UsersDeleteDialog({
             className='stroke-destructive me-1 inline-block'
             size={18}
           />{' '}
-          Delete User
+          {t('users.dialogs.delete.title')}
         </span>
       }
       desc={
         <div className='space-y-4'>
           <p className='mb-2'>
-            Are you sure you want to delete{' '}
-            <span className='font-bold'>{currentRow.username}</span>?
-            <br />
-            This action will permanently remove the user with the role of{' '}
-            <span className='font-bold'>
-              {currentRow.role.toUpperCase()}
-            </span>{' '}
-            from the system. This cannot be undone.
+            {beforeUsername}
+            <span className='font-bold'>{currentRow.username}</span>
+            {betweenUsernameAndRole}
+            <span className='font-bold'>{roleLabel}</span>
+            {afterRolePlaceholder}
           </p>
 
           <Label className='my-2'>
-            Username:
+            {t('users.dialogs.delete.usernameLabel')}
             <Input
               value={value}
               onChange={(e) => setValue(e.target.value)}
-              placeholder='Enter username to confirm deletion.'
+              placeholder={t('users.dialogs.delete.usernamePlaceholder')}
             />
           </Label>
 
           <Alert variant='destructive'>
-            <AlertTitle>Warning!</AlertTitle>
+            <AlertTitle>{t('common.warning')}</AlertTitle>
             <AlertDescription>
-              Please be careful, this operation can not be rolled back.
+              {t('users.dialogs.delete.warningDescription')}
             </AlertDescription>
           </Alert>
         </div>
       }
-      confirmText='Delete'
+      confirmText={t('common.delete')}
       destructive
     />
   )

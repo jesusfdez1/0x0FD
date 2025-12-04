@@ -53,7 +53,14 @@ export function DataTableBulkActions<TData>({
 
   return (
     <>
-      <BulkActionsToolbar table={table} entityName='user'>
+      <BulkActionsToolbar
+        table={table}
+        entityName='user'
+        entityLabel={{
+          singular: t('users.entity.singular'),
+          plural: t('users.entity.plural'),
+        }}
+      >
         <Tooltip>
           <TooltipTrigger asChild>
             <Button
@@ -61,16 +68,16 @@ export function DataTableBulkActions<TData>({
               size='icon'
               onClick={handleBulkInvite}
               className='size-8'
-              aria-label='Invite selected users'
-              title='Invite selected users'
+              aria-label={t('common.inviteSelected')}
+              title={t('common.inviteSelected')}
             >
               <Mail />
-              <span className='sr-only'>Invite selected users</span>
+              <span className='sr-only'>{t('common.inviteSelected')}</span>
             </Button>
           </TooltipTrigger>
-              <TooltipContent>
-                <p>{t('common.inviteSelected')}</p>
-              </TooltipContent>
+          <TooltipContent>
+            <p>{t('common.inviteSelected')}</p>
+          </TooltipContent>
         </Tooltip>
 
         <Tooltip>
@@ -80,11 +87,11 @@ export function DataTableBulkActions<TData>({
               size='icon'
               onClick={() => handleBulkStatusChange('active')}
               className='size-8'
-                aria-label={t('common.activateSelected')}
-                title={t('common.activateSelected')}
+              aria-label={t('common.activateSelected')}
+              title={t('common.activateSelected')}
             >
               <UserCheck />
-              <span className='sr-only'>Activate selected users</span>
+              <span className='sr-only'>{t('common.activateSelected')}</span>
             </Button>
           </TooltipTrigger>
           <TooltipContent>
@@ -99,11 +106,11 @@ export function DataTableBulkActions<TData>({
               size='icon'
               onClick={() => handleBulkStatusChange('inactive')}
               className='size-8'
-                aria-label={t('common.deactivateSelected')}
-                title={t('common.deactivateSelected')}
+              aria-label={t('common.deactivateSelected')}
+              title={t('common.deactivateSelected')}
             >
               <UserX />
-              <span className='sr-only'>Deactivate selected users</span>
+              <span className='sr-only'>{t('common.deactivateSelected')}</span>
             </Button>
           </TooltipTrigger>
           <TooltipContent>
@@ -118,11 +125,11 @@ export function DataTableBulkActions<TData>({
               size='icon'
               onClick={() => setShowDeleteConfirm(true)}
               className='size-8'
-                aria-label={t('common.deleteSelectedUsers')}
-                title={t('common.deleteSelectedUsers')}
+              aria-label={t('common.deleteSelectedUsers')}
+              title={t('common.deleteSelectedUsers')}
             >
               <Trash2 />
-              <span className='sr-only'>Delete selected users</span>
+              <span className='sr-only'>{t('common.deleteSelectedUsers')}</span>
             </Button>
           </TooltipTrigger>
           <TooltipContent>

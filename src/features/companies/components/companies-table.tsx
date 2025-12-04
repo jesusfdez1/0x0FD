@@ -14,6 +14,7 @@ import {
 import type { UseNavigateResult } from '@tanstack/react-router'
 import { cn } from '@/lib/utils'
 import { useTableUrlState } from '@/hooks/use-table-url-state'
+import { useLanguage } from '@/context/language-provider'
 import {
   Table,
   TableBody,
@@ -36,6 +37,7 @@ type DataTableProps = {
 }
 
 export function CompaniesTable({ data, search, navigate }: DataTableProps) {
+  const { t } = useLanguage()
   // Local UI-only states
   const [rowSelection, setRowSelection] = useState({})
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
@@ -84,18 +86,29 @@ export function CompaniesTable({ data, search, navigate }: DataTableProps) {
 
   return (
     <div className={cn('max-sm:has-[div[role="toolbar"]]:mb-16', 'flex flex-1 flex-col gap-4')}>
-      <DataTableToolbar table={table} searchPlaceholder='Filter companies...' searchKey='name' filters={[
-        {
-          columnId: 'region',
-          title: 'Region',
-          options: Array.from(new Set(data.map(d => d.region))).map(r => ({ label: r, value: r })),
-        },
-        {
-          columnId: 'market',
-          title: 'Market',
-          options: Array.from(new Set(data.map(d => d.market))).map(m => ({ label: m, value: m })),
-        }
-      ]} />
+      <DataTableToolbar
+        table={table}
+        searchPlaceholder={t('companies.filterPlaceholder')}
+        searchKey='name'
+        filters={[
+          {
+            columnId: 'region',
+            title: t('companies.filters.region'),
+            options: Array.from(new Set(data.map((d) => d.region))).map((region) => ({
+              label: region,
+              value: region,
+            })),
+          },
+          {
+            columnId: 'market',
+            title: t('companies.filters.market'),
+            options: Array.from(new Set(data.map((d) => d.market))).map((market) => ({
+              label: market,
+              value: market,
+            })),
+          },
+        ]}
+      />
 
       <div className='overflow-hidden rounded-md border'>
         <Table>
@@ -126,7 +139,7 @@ export function CompaniesTable({ data, search, navigate }: DataTableProps) {
             ) : (
               <TableRow>
                 <TableCell colSpan={columns.length} className='h-24 text-center'>
-                  No results.
+                  {t('common.noResults')}
                 </TableCell>
               </TableRow>
             )}
@@ -134,8 +147,21 @@ export function CompaniesTable({ data, search, navigate }: DataTableProps) {
         </Table>
       </div>
       <DataTablePagination table={table} className='mt-auto' />
-      <DataTableBulkActions table={table} entityName='company'>
-        <Button variant='outline' size='icon' onClick={() => {}}>
+      <DataTableBulkActions
+        table={table}
+        entityName='company'
+        entityLabel={{
+          singular: t('companies.entity.singular'),
+          plural: t('companies.entity.plural'),
+        }}
+      >
+        <Button
+          variant='outline'
+          size='icon'
+          onClick={() => {}}
+          aria-label={t('common.add')}
+          title={t('common.add')}
+        >
           <Plus />
         </Button>
       </DataTableBulkActions>

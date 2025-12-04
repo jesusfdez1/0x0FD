@@ -68,7 +68,12 @@ export const accountsColumns: ColumnDef<Asset>[] = [
     ),
     cell: ({ row }) => {
       const type = row.getValue('type') as AssetType
-      return <AssetTypeBadge type={type} className='text-xs' />
+      return (
+        <AssetTypeBadge
+          type={type}
+          className='text-xs w-32 justify-center'
+        />
+      )
     },
     meta: { tdClassName: 'py-2' },
     filterFn: (row, id, value) => {

@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import { type Table } from '@tanstack/react-table'
 import { X } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { useLanguage } from '@/context/language-provider'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
@@ -14,6 +15,10 @@ import {
 type DataTableBulkActionsProps<TData> = {
   table: Table<TData>
   entityName: string
+  entityLabel?: {
+    singular: string
+    plural: string
+  }
   children: React.ReactNode
 }
 
@@ -30,17 +35,30 @@ type DataTableBulkActionsProps<TData> = {
 export function DataTableBulkActions<TData>({
   table,
   entityName,
+  entityLabel,
   children,
 }: DataTableBulkActionsProps<TData>): React.ReactNode | null {
+  const { t } = useLanguage()
   const selectedRows = table.getFilteredSelectedRowModel().rows
   const selectedCount = selectedRows.length
   const toolbarRef = useRef<HTMLDivElement>(null)
   const [announcement, setAnnouncement] = useState('')
 
+  const singularLabel = entityLabel?.singular ?? entityName
+  const pluralLabel = entityLabel?.plural ?? `${entityName}s`
+  const currentLabel = selectedCount === 1 ? singularLabel : pluralLabel
+  const selectionSummary = t('common.selectedCountLabel')
+    .replace('{count}', `${selectedCount}`)
+    .replace('{entityName}', currentLabel)
+  const ariaLabel = t('common.bulkActionsAriaLabel')
+    .replace('{count}', `${selectedCount}`)
+    .replace('{entityName}', currentLabel)
+  const bulkActionsHint = t('common.bulkActionsHint')
+
   // Announce selection changes to screen readers
   useEffect(() => {
     if (selectedCount > 0) {
-      const message = `${selectedCount} ${entityName}${selectedCount > 1 ? 's' : ''} seleccionado${selectedCount > 1 ? 's' : ''}. Barra de acciones en bloque disponible.`
+      const message = `${selectionSummary}. ${bulkActionsHint}`
 
       // Use queueMicrotask to defer state update and avoid cascading renders
       queueMicrotask(() => {
@@ -51,7 +69,7 @@ export function DataTableBulkActions<TData>({
       const timer = setTimeout(() => setAnnouncement(''), 3000)
       return () => clearTimeout(timer)
     }
-  }, [selectedCount, entityName])
+  }, [selectedCount, selectionSummary, bulkActionsHint])
 
   const handleClearSelection = () => {
     table.resetRowSelection()
@@ -137,8 +155,8 @@ export function DataTableBulkActions<TData>({
 
       <div
         ref={toolbarRef}
+        aria-label={ariaLabel}
         role='toolbar'
-        aria-label={`Acciones en bloque para ${selectedCount} ${entityName}${selectedCount > 1 ? 's' : ''} seleccionado${selectedCount > 1 ? 's' : ''}`}
         aria-describedby='bulk-actions-description'
         tabIndex={-1}
         onKeyDown={handleKeyDown}
@@ -163,15 +181,15 @@ export function DataTableBulkActions<TData>({
                 size='icon'
                 onClick={handleClearSelection}
                 className='size-6 rounded-full'
-                aria-label='Limpiar selección'
-                title='Limpiar selección (Escape)'
+                aria-label={t('common.clearSelection')}
+                title={t('common.clearSelectionShortcut')}
               >
                 <X />
-                <span className='sr-only'>Limpiar selección</span>
+                <span className='sr-only'>{t('common.clearSelection')}</span>
               </Button>
             </TooltipTrigger>
             <TooltipContent>
-              <p>Limpiar selección (Escape)</p>
+              <p>{t('common.clearSelectionShortcut')}</p>
             </TooltipContent>
           </Tooltip>
 
@@ -188,15 +206,11 @@ export function DataTableBulkActions<TData>({
             <Badge
               variant='default'
               className='min-w-8 rounded-lg'
-              aria-label={`${selectedCount} seleccionado${selectedCount > 1 ? 's' : ''}`}
+              aria-label={selectionSummary}
             >
               {selectedCount}
             </Badge>{' '}
-            <span className='hidden sm:inline'>
-              {entityName}
-              {selectedCount > 1 ? 's' : ''}
-            </span>{' '}
-            seleccionado{selectedCount > 1 ? 's' : ''}
+            <span>{selectionSummary}</span>
           </div>
 
           <Separator
