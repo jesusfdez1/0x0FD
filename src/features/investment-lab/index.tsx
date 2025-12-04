@@ -2,6 +2,7 @@ import { MarketSentiment } from './components/market-sentiment'
 import { AIInsights } from './components/ai-insights'
 import { OpportunityScreener } from './components/opportunity-screener'
 import { InvestmentGuide } from './components/investment-guide'
+import { InvestmentWizard } from './components/investment-wizard'
 import { Button } from '@/components/ui/button'
 import { Download, Filter } from 'lucide-react'
 import { useLanguage } from '@/context/language-provider'
@@ -10,6 +11,7 @@ export default function InvestmentLab() {
   const { t } = useLanguage()
   return (
     <div className="space-y-6 p-6 pb-16 relative">
+      <InvestmentWizard />
       <InvestmentGuide />
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
