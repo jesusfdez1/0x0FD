@@ -13,9 +13,10 @@ export function InvestmentGuide() {
   const [highlightStyle, setHighlightStyle] = useState<React.CSSProperties | null>(null)
   const [characterPos, setCharacterPos] = useState<{ top: number, left: number } | null>(null)
   const [isMoving, setIsMoving] = useState(false)
+  const [isTalking, setIsTalking] = useState(false)
   const [direction, setDirection] = useState<'left' | 'right'>('right')
   const prevPosRef = useRef<{ top: number, left: number } | null>(null)
-  const [minimizedState, setMinimizedState] = useState<'idle' | 'thinking' | 'waving' | 'sleeping' | 'happy'>('idle')
+  const [minimizedState, setMinimizedState] = useState<'idle' | 'thinking' | 'waving' | 'sleeping' | 'happy' | 'reading' | 'confused' | 'victory'>('idle')
 
   const steps = [
     {
@@ -40,16 +41,33 @@ export function InvestmentGuide() {
     },
   ]
 
+  // Talk when step changes
+  useEffect(() => {
+    if (isOpen && !isMinimized) {
+        // Solo hablar en el saludo (step 0), cuando hay un objetivo (leyendo) o en la ayuda final (victoria)
+        const shouldTalk = step === 0 || !!steps[step].target || steps[step].key === 'help';
+
+        if (shouldTalk) {
+            setIsTalking(true)
+            // Calculate duration based on text length roughly, or fixed time
+            const timer = setTimeout(() => setIsTalking(false), 4000) 
+            return () => clearTimeout(timer)
+        } else {
+            setIsTalking(false)
+        }
+    }
+  }, [step, isOpen, isMinimized])
+
   // Random state for minimized character
   useEffect(() => {
-    if (!isMinimized) return;
-    const states: ('idle' | 'thinking' | 'waving' | 'sleeping' | 'happy')[] = ['idle', 'thinking', 'waving', 'sleeping', 'happy'];
+    if (!isMinimized && isOpen) return;
+    const states: ('idle' | 'thinking' | 'waving' | 'sleeping' | 'happy' | 'reading' | 'confused' | 'victory')[] = ['idle', 'thinking', 'waving', 'sleeping', 'happy', 'reading', 'confused', 'victory'];
     const interval = setInterval(() => {
         const randomState = states[Math.floor(Math.random() * states.length)];
         setMinimizedState(randomState);
-    }, 4000);
+    }, 3000);
     return () => clearInterval(interval);
-  }, [isMinimized]);
+  }, [isMinimized, isOpen]);
 
   // Helper to calculate position
   const calculatePosition = (targetId: string | null) => {
@@ -280,7 +298,7 @@ export function InvestmentGuide() {
 
         {(isMinimized || !isOpen) && (
             <div 
-                className="fixed bottom-4 right-4 z-50 cursor-pointer transition-transform hover:scale-110"
+                className="fixed bottom-6 right-6 z-50 cursor-pointer group"
                 onClick={() => {
                     if (!isOpen) {
                         handleRestart()
@@ -289,14 +307,14 @@ export function InvestmentGuide() {
                     }
                 }}
             >
-                <div className="w-24 h-24 bg-card border-2 border-black dark:border-white rounded-xl shadow-lg overflow-hidden flex items-center justify-center relative">
-                    {/* Window Header */}
-                    <div className="absolute top-0 left-0 w-full h-5 bg-accent border-b border-black dark:border-white flex items-center px-2 gap-1.5">
-                        <div className="w-2.5 h-2.5 rounded-full bg-red-500 border border-black/20"></div>
-                        <div className="w-2.5 h-2.5 rounded-full bg-yellow-500 border border-black/20"></div>
-                        <div className="w-2.5 h-2.5 rounded-full bg-green-500 border border-black/20"></div>
-                    </div>
-                    <PixelCharacter className="w-16 h-16 mt-3" state={minimizedState} />
+                <div className="relative w-20 h-20 bg-gradient-to-b from-card to-muted/30 border-2 border-muted rounded-2xl shadow-xl flex items-center justify-center transition-all duration-300 group-hover:scale-105 group-hover:shadow-2xl group-hover:border-primary">
+                    <PixelCharacter className="w-12 h-12" state={minimizedState} />
+                    
+                    {/* Status indicator */}
+                    <span className="absolute top-2 right-2 flex h-2.5 w-2.5">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                        <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500"></span>
+                    </span>
                 </div>
             </div>
         )}
@@ -344,6 +362,7 @@ export function InvestmentGuide() {
                         className="w-full h-full drop-shadow-2xl" 
                         state={isMoving ? 'walking' : (steps[step].key === 'help' ? 'victory' : (steps[step].target ? 'reading' : 'waving'))}
                         direction={direction}
+                        isTalking={isTalking && !isMoving}
                     />
                 </div>
 
