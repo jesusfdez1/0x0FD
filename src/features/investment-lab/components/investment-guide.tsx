@@ -257,9 +257,9 @@ export function InvestmentGuide() {
             />
         )}
 
-        {/* Welcome Backdrop */}
+        {/* Welcome Backdrop (Shadow Method for consistency) */}
         {isOpen && !isMinimized && step === 0 && (
-             <div className="fixed inset-0 z-[60] bg-black/50 transition-opacity duration-300" />
+             <div className="fixed top-1/2 left-1/2 w-0 h-0 z-40 shadow-[0_0_0_9999px_rgba(0,0,0,0.5)]" />
         )}
 
         {!isOpen && !isMinimized && (

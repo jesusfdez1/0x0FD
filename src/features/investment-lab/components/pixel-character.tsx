@@ -143,36 +143,26 @@ export function PixelCharacter({ className, state = 'idle', direction = 'right' 
                 <rect x="12" y="5" width="2" height="2" fill="#FFCCAA" /> {/* Hand on head */}
             </g>
         ) : state === 'waving' ? (
-            // Waving Pose (Improved 4-frame animation)
+            // Waving Pose (Simpler, more natural)
             <g>
                 <rect x="3" y="12" width="1" height="4" fill="#FFCCAA" /> {/* Left Arm down */}
                 
-                {/* Right Arm Base (Shoulder) */}
-                <rect x="12" y="12" width="1" height="2" fill="#FFCCAA" />
+                {/* Right Arm Raised */}
+                <rect x="12" y="12" width="1" height="2" fill="#FFCCAA" /> {/* Shoulder */}
+                <rect x="13" y="10" width="1" height="2" fill="#FFCCAA" /> {/* Forearm */}
 
-                {/* Forearm/Hand Animation */}
-                {waveFrame === 0 && (
+                {/* Waving Hand */}
+                {waveFrame % 2 === 0 ? (
+                    // Hand Left
                     <g>
-                        <rect x="13" y="9" width="1" height="3" fill="#FFCCAA" /> {/* Vertical */}
-                        <rect x="12" y="7" width="3" height="2" fill="#FFCCAA" /> {/* Hand Open */}
+                        <rect x="12" y="7" width="2" height="3" fill="#FFCCAA" />
+                        <rect x="11" y="8" width="1" height="1" fill="#FFCCAA" /> {/* Thumb */}
                     </g>
-                )}
-                {waveFrame === 1 && (
+                ) : (
+                    // Hand Right
                     <g>
-                        <rect x="13" y="9" width="1" height="3" fill="#FFCCAA" />
-                        <rect x="13" y="7" width="3" height="2" fill="#FFCCAA" /> {/* Hand Right */}
-                    </g>
-                )}
-                {waveFrame === 2 && (
-                    <g>
-                        <rect x="13" y="9" width="1" height="3" fill="#FFCCAA" />
-                        <rect x="12" y="7" width="3" height="2" fill="#FFCCAA" /> {/* Hand Center */}
-                    </g>
-                )}
-                {waveFrame === 3 && (
-                    <g>
-                        <rect x="12" y="9" width="1" height="3" fill="#FFCCAA" /> {/* Tilted In */}
-                        <rect x="11" y="7" width="3" height="2" fill="#FFCCAA" /> {/* Hand Left */}
+                        <rect x="13" y="7" width="2" height="3" fill="#FFCCAA" />
+                        <rect x="12" y="8" width="1" height="1" fill="#FFCCAA" /> {/* Thumb */}
                     </g>
                 )}
             </g>
