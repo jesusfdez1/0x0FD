@@ -238,8 +238,8 @@ function SingleTable({
                               'symbol' in asset ? asset.symbol : 
                               'pair' in asset ? asset.pair : 
                               asset.name
-                const quantity = 'quantity' in asset ? asset.quantity : 1
-                const price = 'purchasePrice' in asset ? asset.purchasePrice : 0
+                const quantity = ('quantity' in asset && asset.quantity !== undefined) ? asset.quantity : 1
+                const price = ('purchasePrice' in asset && asset.purchasePrice !== undefined) ? asset.purchasePrice : 0
                 const total = quantity * price
                 
                 return [

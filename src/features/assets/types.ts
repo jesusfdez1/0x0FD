@@ -258,6 +258,7 @@ export interface SavingsAccountAsset extends BaseAsset {
   interestRate?: number
   accountNumber?: string
   minimumBalance?: number
+  initialAmount?: number
 }
 
 // Depósitos a Plazo

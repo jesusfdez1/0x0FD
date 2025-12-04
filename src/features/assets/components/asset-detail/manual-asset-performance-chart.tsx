@@ -138,7 +138,6 @@ export function ManualAssetPerformanceChart({
           lineWidth: 2,
           priceFormat: {
             type: 'custom',
-            precision: 2,
             formatter: (price: number) =>
               new Intl.NumberFormat('es-ES', {
                 style: 'currency',

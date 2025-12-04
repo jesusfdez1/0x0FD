@@ -16,6 +16,7 @@ import { Route as AuthenticatedUsersIndexRouteImport } from './routes/_authentic
 import { Route as AuthenticatedTasksIndexRouteImport } from './routes/_authenticated/tasks/index'
 import { Route as AuthenticatedSettingsIndexRouteImport } from './routes/_authenticated/settings/index'
 import { Route as AuthenticatedPortfoliosIndexRouteImport } from './routes/_authenticated/portfolios/index'
+import { Route as AuthenticatedInvestmentLabIndexRouteImport } from './routes/_authenticated/investment-lab/index'
 import { Route as AuthenticatedHelpCenterIndexRouteImport } from './routes/_authenticated/help-center/index'
 import { Route as AuthenticatedCompaniesIndexRouteImport } from './routes/_authenticated/companies/index'
 import { Route as AuthenticatedChatsIndexRouteImport } from './routes/_authenticated/chats/index'
@@ -62,6 +63,12 @@ const AuthenticatedPortfoliosIndexRoute =
   AuthenticatedPortfoliosIndexRouteImport.update({
     id: '/portfolios/',
     path: '/portfolios/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedInvestmentLabIndexRoute =
+  AuthenticatedInvestmentLabIndexRouteImport.update({
+    id: '/investment-lab/',
+    path: '/investment-lab/',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 const AuthenticatedHelpCenterIndexRoute =
@@ -136,6 +143,7 @@ export interface FileRoutesByFullPath {
   '/chats': typeof AuthenticatedChatsIndexRoute
   '/companies': typeof AuthenticatedCompaniesIndexRoute
   '/help-center': typeof AuthenticatedHelpCenterIndexRoute
+  '/investment-lab': typeof AuthenticatedInvestmentLabIndexRoute
   '/portfolios': typeof AuthenticatedPortfoliosIndexRoute
   '/settings/': typeof AuthenticatedSettingsIndexRoute
   '/tasks': typeof AuthenticatedTasksIndexRoute
@@ -153,6 +161,7 @@ export interface FileRoutesByTo {
   '/chats': typeof AuthenticatedChatsIndexRoute
   '/companies': typeof AuthenticatedCompaniesIndexRoute
   '/help-center': typeof AuthenticatedHelpCenterIndexRoute
+  '/investment-lab': typeof AuthenticatedInvestmentLabIndexRoute
   '/portfolios': typeof AuthenticatedPortfoliosIndexRoute
   '/settings': typeof AuthenticatedSettingsIndexRoute
   '/tasks': typeof AuthenticatedTasksIndexRoute
@@ -173,6 +182,7 @@ export interface FileRoutesById {
   '/_authenticated/chats/': typeof AuthenticatedChatsIndexRoute
   '/_authenticated/companies/': typeof AuthenticatedCompaniesIndexRoute
   '/_authenticated/help-center/': typeof AuthenticatedHelpCenterIndexRoute
+  '/_authenticated/investment-lab/': typeof AuthenticatedInvestmentLabIndexRoute
   '/_authenticated/portfolios/': typeof AuthenticatedPortfoliosIndexRoute
   '/_authenticated/settings/': typeof AuthenticatedSettingsIndexRoute
   '/_authenticated/tasks/': typeof AuthenticatedTasksIndexRoute
@@ -193,6 +203,7 @@ export interface FileRouteTypes {
     | '/chats'
     | '/companies'
     | '/help-center'
+    | '/investment-lab'
     | '/portfolios'
     | '/settings/'
     | '/tasks'
@@ -210,6 +221,7 @@ export interface FileRouteTypes {
     | '/chats'
     | '/companies'
     | '/help-center'
+    | '/investment-lab'
     | '/portfolios'
     | '/settings'
     | '/tasks'
@@ -229,6 +241,7 @@ export interface FileRouteTypes {
     | '/_authenticated/chats/'
     | '/_authenticated/companies/'
     | '/_authenticated/help-center/'
+    | '/_authenticated/investment-lab/'
     | '/_authenticated/portfolios/'
     | '/_authenticated/settings/'
     | '/_authenticated/tasks/'
@@ -288,6 +301,13 @@ declare module '@tanstack/react-router' {
       path: '/portfolios'
       fullPath: '/portfolios'
       preLoaderRoute: typeof AuthenticatedPortfoliosIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/investment-lab/': {
+      id: '/_authenticated/investment-lab/'
+      path: '/investment-lab'
+      fullPath: '/investment-lab'
+      preLoaderRoute: typeof AuthenticatedInvestmentLabIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/help-center/': {
@@ -395,6 +415,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedChatsIndexRoute: typeof AuthenticatedChatsIndexRoute
   AuthenticatedCompaniesIndexRoute: typeof AuthenticatedCompaniesIndexRoute
   AuthenticatedHelpCenterIndexRoute: typeof AuthenticatedHelpCenterIndexRoute
+  AuthenticatedInvestmentLabIndexRoute: typeof AuthenticatedInvestmentLabIndexRoute
   AuthenticatedPortfoliosIndexRoute: typeof AuthenticatedPortfoliosIndexRoute
   AuthenticatedTasksIndexRoute: typeof AuthenticatedTasksIndexRoute
   AuthenticatedUsersIndexRoute: typeof AuthenticatedUsersIndexRoute
@@ -409,6 +430,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedChatsIndexRoute: AuthenticatedChatsIndexRoute,
   AuthenticatedCompaniesIndexRoute: AuthenticatedCompaniesIndexRoute,
   AuthenticatedHelpCenterIndexRoute: AuthenticatedHelpCenterIndexRoute,
+  AuthenticatedInvestmentLabIndexRoute: AuthenticatedInvestmentLabIndexRoute,
   AuthenticatedPortfoliosIndexRoute: AuthenticatedPortfoliosIndexRoute,
   AuthenticatedTasksIndexRoute: AuthenticatedTasksIndexRoute,
   AuthenticatedUsersIndexRoute: AuthenticatedUsersIndexRoute,

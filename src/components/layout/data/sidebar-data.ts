@@ -16,6 +16,7 @@ import {
   Command,
   GalleryVerticalEnd,
   TrendingUp,
+  FlaskConical,
 } from 'lucide-react'
 import { type SidebarData } from '../types'
 
@@ -70,6 +71,11 @@ export const getSidebarData = (t: (key: string) => string): SidebarData => ({
           title: t('nav.assets'),
           url: '/assets',
           icon: TrendingUp,
+        },
+        {
+          title: t('nav.investmentLab'),
+          url: '/investment-lab',
+          icon: FlaskConical,
         },
         {
           title: t('nav.portfolios'),

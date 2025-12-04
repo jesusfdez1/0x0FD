@@ -8,6 +8,7 @@ export const es = {
     users: 'Usuarios',
     companies: 'Empresas',
     assets: 'Activos',
+    investmentLab: 'Laboratorio de Inversión',
     portfolios: 'Carteras',
     pages: 'Páginas',
     other: 'Otros',
@@ -796,6 +797,53 @@ export const es = {
     goBack: 'Volver',
     backToHome: 'Volver al inicio',
   },
-  // errors translations removed because error pages were removed from the route tree.
+  investmentLab: {
+    title: 'Laboratorio de Inversión',
+    description: 'Inteligencia de mercado avanzada y herramientas inteligentes para optimizar tu estrategia de cartera.',
+    guide: {
+      welcome: "¡Hola! Soy tu Asistente de Inversión. Estoy aquí para ayudarte a navegar por los mercados.",
+      sentiment: "Este es el medidor de Sentimiento del Mercado. Indica si en el mercado predomina el Miedo o la Codicia.",
+      insights: "Aquí encontrarás análisis impulsados por IA. Procesamos millones de datos para detectar oportunidades para ti.",
+      screener: "Utiliza el Buscador de Oportunidades para encontrar los mejores activos basados en nuestra Puntuación Inteligente.",
+      next: "Siguiente",
+      prev: "Anterior",
+      close: "Cerrar",
+      start: "Iniciar Recorrido",
+      skip: "Saltar"
+    },
+    sentiment: {
+      title: "Sentimiento del Mercado",
+      description: "Análisis de IA en tiempo real sobre la emoción del mercado global",
+      fear: "Miedo",
+      greed: "Codicia",
+      score: "Puntuación"
+    },
+    insights: {
+      title: "Análisis de Mercado con IA",
+      description: "Inteligencia diaria generada por nuestros modelos predictivos",
+      viewAll: "Ver todos los Análisis"
+    },
+    screener: {
+      title: "Buscador de Oportunidades Inteligente",
+      description: "Activos mejor valorados según nuestro modelo multifactorial patentado",
+      columns: {
+        asset: "Activo",
+        sector: "Sector",
+        price: "Precio",
+        smartScore: "Puntuación Inteligente",
+        primaryDriver: "Factor Principal",
+        action: "Acción"
+      },
+      tooltip: "Una puntuación compuesta (0-100) que combina análisis técnico, datos fundamentales y análisis de sentimiento.",
+      analyze: "Analizar"
+    },
+    dashboard: {
+      customize: "Personalizar Vista",
+      export: "Exportar Informe",
+      healthCheck: "Diagnóstico de Cartera",
+      connectText: "Conecta tu cartera para obtener un análisis de riesgo personalizado.",
+      connectButton: "Conectar Cartera"
+    }
+  }
 }
 
