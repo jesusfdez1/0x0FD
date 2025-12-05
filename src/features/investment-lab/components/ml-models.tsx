@@ -38,9 +38,9 @@ export function MLModels() {
                               <TooltipTrigger>
                                   <Info className="h-3 w-3 text-muted-foreground cursor-help" />
                               </TooltipTrigger>
-                              <TooltipContent>
-                                  <p className="max-w-xs text-xs">{item.description}</p>
-                              </TooltipContent>
+                                <TooltipContent>
+                                    <p className="max-w-xs text-xs whitespace-pre-line">{item.description}</p>
+                                </TooltipContent>
                           </Tooltip>
                       </TooltipProvider>
                   </div>

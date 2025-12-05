@@ -39,7 +39,7 @@ export function MarketHealth() {
                                     <Info className="h-3 w-3 text-muted-foreground cursor-help" />
                                 </TooltipTrigger>
                                 <TooltipContent>
-                                    <p className="max-w-xs text-xs">{item.description}</p>
+                                    <p className="max-w-xs text-xs whitespace-pre-line">{item.description}</p>
                                 </TooltipContent>
                             </Tooltip>
                         </TooltipProvider>
@@ -67,7 +67,7 @@ export function MarketHealth() {
                                     <Info className="h-3 w-3 text-muted-foreground cursor-help" />
                                 </TooltipTrigger>
                                 <TooltipContent>
-                                    <p className="max-w-xs text-xs">{item.description}</p>
+                                    <p className="max-w-xs text-xs whitespace-pre-line">{item.description}</p>
                                 </TooltipContent>
                             </Tooltip>
                         </TooltipProvider>
@@ -95,7 +95,7 @@ export function MarketHealth() {
                                     <Info className="h-3 w-3 text-muted-foreground cursor-help" />
                                 </TooltipTrigger>
                                 <TooltipContent>
-                                    <p className="max-w-xs text-xs">{item.description}</p>
+                                    <p className="max-w-xs text-xs whitespace-pre-line">{item.description}</p>
                                 </TooltipContent>
                             </Tooltip>
                         </TooltipProvider>

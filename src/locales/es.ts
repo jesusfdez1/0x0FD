@@ -999,60 +999,60 @@ export const es = {
       },
       marketHealth: {
         valuation: {
-          sp500pe: { description: 'Mide el precio pagado por cada dólar de ganancias futuras. >20x indica sobrevaloración (riesgo de corrección); <15x sugiere subvaloración (oportunidad).' },
-          erp: { description: 'Compensación extra por invertir en acciones vs bonos. <4% es bajo (riesgo alto para el retorno); >5% es atractivo.' },
-          shiller: { description: 'P/E ajustado por inflación de 10 años. >30x históricamente precede a rendimientos bajos en la próxima década.' },
-          buffett: { description: 'Cap. Mercado Total / PIB. >120% indica mercado muy caro; <80% indica mercado barato.' },
+          sp500pe: { description: 'Mide el precio pagado por cada dólar de ganancias futuras.\nSi el valor es:\n- >20x: Sobrevaloración (riesgo de corrección)\n- <15x: Subvaloración (oportunidad)' },
+          erp: { description: 'Compensación extra por invertir en acciones vs bonos.\nSi el valor es:\n- <4%: Bajo (riesgo alto para el retorno)\n- >5%: Atractivo' },
+          shiller: { description: 'P/E ajustado por inflación de 10 años.\nSi el valor es:\n- >30x: Históricamente precede a rendimientos bajos en la próxima década' },
+          buffett: { description: 'Cap. Mercado Total / PIB.\nSi el valor es:\n- >120%: Mercado muy caro\n- <80%: Mercado barato' },
         },
         sentiment: {
-          fng: { description: '0-25: Miedo Extremo (Compra); 75-100: Avaricia Extrema (Venta/Precaución). Mide la emoción del mercado.' },
-          aaii: { description: '% Alcistas menos % Bajistas. Valores muy negativos sugieren pánico (suelo de mercado); muy positivos sugieren euforia (techo).' },
-          vix: { description: 'Índice del miedo. >30: Pánico/Alta volatilidad; <15: Complacencia (riesgo de corrección repentina).' },
-          pcr: { description: 'Volumen Puts/Calls. >1.0: Bajista (miedo); <0.7: Alcista (avaricia). Úsalo como indicador contrarian.' },
+          fng: { description: 'Mide la emoción del mercado.\nSi el valor es:\n- 0-25: Miedo Extremo (Compra)\n- 75-100: Avaricia Extrema (Venta/Precaución)' },
+          aaii: { description: '% Alcistas menos % Bajistas.\nSi el valor es:\n- Muy negativo: Pánico (suelo de mercado)\n- Muy positivo: Euforia (techo)' },
+          vix: { description: 'Índice del miedo.\nSi el valor es:\n- >30: Pánico/Alta volatilidad\n- <15: Complacencia (riesgo de corrección repentina)' },
+          pcr: { description: 'Volumen Puts/Calls. Úsalo como indicador contrarian.\nSi el valor es:\n- >1.0: Bajista (miedo)\n- <0.7: Alcista (avaricia)' },
         },
         credit: {
-          spread: { description: 'Diferencia entre bonos 10Y y 2Y. Inversión (negativo) ha predicho todas las recesiones desde 1950.' },
-          yield: { description: 'Retorno del bono a 10 años. Si sube rápido, daña a las acciones tecnológicas y al sector inmobiliario.' },
-          realYield: { description: 'Rendimiento nominal menos inflación. >2% es restrictivo para la economía; <0% es estimulante.' },
-          hyOas: { description: 'Spread de bonos basura. Si se dispara (>500bps), indica estrés financiero y riesgo de impagos.' },
+          spread: { description: 'Diferencia entre bonos 10Y y 2Y.\nSi el valor es:\n- Negativo (Inversión): Ha predicho todas las recesiones desde 1950' },
+          yield: { description: 'Retorno del bono a 10 años.\nSi el valor es:\n- Sube rápido: Daña a las acciones tecnológicas y al sector inmobiliario' },
+          realYield: { description: 'Rendimiento nominal menos inflación.\nSi el valor es:\n- >2%: Restrictivo para la economía\n- <0%: Estimulante' },
+          hyOas: { description: 'Spread de bonos basura.\nSi el valor es:\n- >500bps: Estrés financiero y riesgo de impagos' },
         }
       },
       macro: {
         usa: {
-            gdp: { description: 'Crecimiento económico. >3%: Fuerte; <0%: Recesión. Mide la salud general de la economía.' },
-            unemployment: { description: '% de fuerza laboral sin trabajo. <4%: Pleno empleo (presión inflacionaria); >6%: Debilidad económica.' },
-            nfp: { description: 'Nuevos empleos creados. >200k: Fuerte; <100k: Debilidad. Mueve el mercado significativamente.' },
-            cpi: { description: 'Inflación al consumidor. Objetivo Fed: 2%. >3% obliga a mantener tasas altas.' },
+            gdp: { description: 'Crecimiento económico. Mide la salud general de la economía.\nSi el valor es:\n- >3%: Fuerte\n- <0%: Recesión' },
+            unemployment: { description: '% de fuerza laboral sin trabajo.\nSi el valor es:\n- <4%: Pleno empleo (presión inflacionaria)\n- >6%: Debilidad económica' },
+            nfp: { description: 'Nuevos empleos creados. Mueve el mercado significativamente.\nSi el valor es:\n- >200k: Fuerte\n- <100k: Debilidad' },
+            cpi: { description: 'Inflación al consumidor. Objetivo Fed: 2%.\nSi el valor es:\n- >3%: Obliga a mantener tasas altas' },
             pce: { description: 'Medida de inflación preferida por la Fed. Determina la política de tasas de interés.' },
-            fedRate: { description: 'Tasa de interés base. Tasas altas frenan la economía e inflación; bajas la estimulan.' },
-            ismMfg: { description: 'Actividad manufacturera. >50: Expansión; <50: Contracción. Indicador líder del ciclo.' },
-            ismServices: { description: 'Actividad de servicios (>70% economía). >50: Expansión. Mantiene la economía a flote.' },
+            fedRate: { description: 'Tasa de interés base.\nSi el valor es:\n- Alto: Frena la economía e inflación\n- Bajo: Estimula la economía' },
+            ismMfg: { description: 'Actividad manufacturera. Indicador líder del ciclo.\nSi el valor es:\n- >50: Expansión\n- <50: Contracción' },
+            ismServices: { description: 'Actividad de servicios (>70% economía).\nSi el valor es:\n- >50: Expansión (Mantiene la economía a flote)' },
         },
         eurozone: {
-            gdp: { description: 'Crecimiento Zona Euro. Estancamiento (0%) indica riesgo de recesión técnica.' },
+            gdp: { description: 'Crecimiento Zona Euro.\nSi el valor es:\n- 0%: Estancamiento (riesgo de recesión técnica)' },
             hicp: { description: 'Inflación armonizada europea. Clave para decisiones del BCE.' },
             ecbRate: { description: 'Tasa de depósito del BCE. Afecta al par EUR/USD y costos de préstamo en Europa.' },
             zew: { description: 'Sentimiento económico alemán. Indicador líder de la salud industrial de Europa.' },
-            pmi: { description: 'Índice de Gestores de Compras. <50 indica contracción en la actividad empresarial.' },
+            pmi: { description: 'Índice de Gestores de Compras.\nSi el valor es:\n- <50: Contracción en la actividad empresarial' },
         },
         china: {
-            gdp: { description: 'Crecimiento de China. <5% se considera débil para sus estándares históricos.' },
+            gdp: { description: 'Crecimiento de China.\nSi el valor es:\n- <5%: Débil para sus estándares históricos' },
             industrial: { description: 'Producción de fábricas. Clave para la demanda de materias primas globales.' },
             retail: { description: 'Consumo interno. Mide la transición de China hacia una economía de consumo.' },
-            cpi: { description: 'Inflación China. Riesgo de deflación si es negativo (<0%), indicando demanda débil.' },
+            cpi: { description: 'Inflación China.\nSi el valor es:\n- <0% (Negativo): Riesgo de deflación (demanda débil)' },
             lpr: { description: 'Tasa preferencial de préstamos. Recortes buscan estimular el sector inmobiliario.' },
         }
       },
       fundamental: {
         profitability: {
-            pe: { description: 'Precio/Beneficio. Mide cuánto pagas por ganancias. Alto: Crecimiento esperado; Bajo: Valor.' },
-            roe: { description: 'Retorno sobre Patrimonio. >15%: Gerencia eficiente creando valor para accionistas.' },
-            roa: { description: 'Retorno sobre Activos. Mide eficiencia usando recursos. >5% es generalmente bueno.' },
+            pe: { description: 'Precio/Beneficio. Mide cuánto pagas por ganancias.\nSi el valor es:\n- Alto: Crecimiento esperado\n- Bajo: Valor' },
+            roe: { description: 'Retorno sobre Patrimonio.\nSi el valor es:\n- >15%: Gerencia eficiente creando valor para accionistas' },
+            roa: { description: 'Retorno sobre Activos. Mide eficiencia usando recursos.\nSi el valor es:\n- >5%: Generalmente bueno' },
         },
         liquidity: {
-            currentRatio: { description: 'Activos/Pasivos Corrientes. >1.5: Buena liquidez; <1.0: Riesgo de impago a corto plazo.' },
-            quickRatio: { description: 'Liquidez inmediata (sin inventario). >1.0 es ideal para seguridad financiera.' },
-            solvencyRatio: { description: 'Capacidad de pago a largo plazo. >20% indica salud financiera sólida.' },
+            currentRatio: { description: 'Activos/Pasivos Corrientes.\nSi el valor es:\n- >1.5: Buena liquidez\n- <1.0: Riesgo de impago a corto plazo' },
+            quickRatio: { description: 'Liquidez inmediata (sin inventario).\nSi el valor es:\n- >1.0: Ideal para seguridad financiera' },
+            solvencyRatio: { description: 'Capacidad de pago a largo plazo.\nSi el valor es:\n- >20%: Salud financiera sólida' },
         },
         operating: {
             ebitda: { description: 'Beneficio antes de intereses, impuestos, dep. y amort. Mide rentabilidad operativa pura.' },
@@ -1061,15 +1061,15 @@ export const es = {
       },
       technical: {
         trend: {
-            sma50: { description: 'Media Móvil 50 días. Precio por encima = Tendencia alcista a corto plazo.' },
+            sma50: { description: 'Media Móvil 50 días.\nSi el precio está:\n- Por encima: Tendencia alcista a corto plazo' },
             ema200: { description: 'Media Móvil 200 días. La línea divisoria entre mercado alcista (arriba) y bajista (abajo).' },
-            macd: { description: 'Convergencia/Divergencia. Cruce por encima de 0 o línea de señal indica impulso alcista.' },
+            macd: { description: 'Convergencia/Divergencia.\nSi el cruce es:\n- Por encima de 0 o línea de señal: Impulso alcista' },
         },
         momentum: {
-            rsi: { description: 'Índice de Fuerza Relativa. >70: Sobrecompra (riesgo caída); <30: Sobreventa (oportunidad rebote).' },
+            rsi: { description: 'Índice de Fuerza Relativa.\nSi el valor es:\n- >70: Sobrecompra (riesgo caída)\n- <30: Sobreventa (oportunidad rebote)' },
         },
         volatility: {
-            bb: { description: 'Bandas de Bollinger. Precio tocando banda superior: Sobreextensión. Banda inferior: Soporte.' },
+            bb: { description: 'Bandas de Bollinger.\nSi el precio toca:\n- Banda superior: Sobreextensión\n- Banda inferior: Soporte' },
             fib: { description: 'Retroceso de Fibonacci. Niveles clave (38.2%, 61.8%) donde el precio suele rebotar.' },
         }
       },
@@ -1082,10 +1082,10 @@ export const es = {
       },
       gold: {
         correlations: {
-            usd: { description: 'Correlación inversa con Dólar. Si Dólar baja, Oro suele subir.' },
+            usd: { description: 'Correlación inversa con Dólar.\nSi el valor es:\n- Dólar baja: Oro suele subir' },
         },
         factors: {
-            rates: { description: 'Tipos de interés reales. Tipos altos son malos para el oro (costo de oportunidad).' },
+            rates: { description: 'Tipos de interés reales.\nSi el valor es:\n- Alto: Malo para el oro (costo de oportunidad)' },
             banks: { description: 'Compras de Bancos Centrales. Demanda estructural que sostiene el precio a largo plazo.' },
             risk: { description: 'Riesgo geopolítico. Guerras o crisis aumentan la demanda de oro como seguro.' },
         }
