@@ -999,107 +999,107 @@ export const es = {
       },
       marketHealth: {
         valuation: {
-          sp500pe: { description: 'Mide el precio pagado por cada dólar de ganancias futuras.\nSi el valor es:\n- >20x: Sobrevaloración (riesgo de corrección)\n- <15x: Subvaloración (oportunidad)' },
-          erp: { description: 'Compensación extra por invertir en acciones vs bonos.\nSi el valor es:\n- <4%: Bajo (riesgo alto para el retorno)\n- >5%: Atractivo' },
-          shiller: { description: 'P/E ajustado por inflación de 10 años.\nSi el valor es:\n- >30x: Históricamente precede a rendimientos bajos en la próxima década' },
-          buffett: { description: 'Cap. Mercado Total / PIB.\nSi el valor es:\n- >120%: Mercado muy caro\n- <80%: Mercado barato' },
+          sp500pe: { description: 'Ratio Precio-Beneficio (P/E) del S&P 500. Indica cuánto pagan los inversores por cada dólar de beneficios esperados.\n• >20x: Sobrevaloración (posible corrección).\n• <15x: Infravaloración (oportunidad de compra).' },
+          erp: { description: 'Prima de Riesgo de las Acciones (Equity Risk Premium). Mide el exceso de retorno esperado de las acciones sobre la tasa libre de riesgo.\n• <4%: Compensación insuficiente por el riesgo asumido.\n• >5%: Valoración atractiva para la renta variable.' },
+          shiller: { description: 'Ratio CAPE de Shiller. Ajusta el P/E utilizando la media de beneficios de los últimos 10 años ajustada por inflación.\n• >30x: Históricamente asociado a rendimientos bajos en la década siguiente.' },
+          buffett: { description: 'Indicador Buffett (Capitalización Total / PIB). Evalúa si el mercado de valores está caro o barato en relación con la economía real.\n• >120%: Mercado significativamente sobrevalorado.\n• <80%: Mercado infravalorado.' },
         },
         sentiment: {
-          fng: { description: 'Mide la emoción del mercado.\nSi el valor es:\n- 0-25: Miedo Extremo (Compra)\n- 75-100: Avaricia Extrema (Venta/Precaución)' },
-          aaii: { description: '% Alcistas menos % Bajistas.\nSi el valor es:\n- Muy negativo: Pánico (suelo de mercado)\n- Muy positivo: Euforia (techo)' },
-          vix: { description: 'Índice del miedo.\nSi el valor es:\n- >30: Pánico/Alta volatilidad\n- <15: Complacencia (riesgo de corrección repentina)' },
-          pcr: { description: 'Volumen Puts/Calls. Úsalo como indicador contrarian.\nSi el valor es:\n- >1.0: Bajista (miedo)\n- <0.7: Alcista (avaricia)' },
+          fng: { description: 'Índice de Miedo y Codicia (Fear & Greed). Agrega 7 indicadores para medir la emoción predominante en el mercado.\n• 0-25: Miedo Extremo (potencial suelo de mercado).\n• 75-100: Codicia Extrema (riesgo de techo de mercado).' },
+          aaii: { description: 'Encuesta de Sentimiento de Inversores Individuales (AAII). Diferencia entre alcistas y bajistas.\n• Muy negativo: Pesimismo extremo (señal contraria alcista).\n• Muy positivo: Euforia excesiva (señal contraria bajista).' },
+          vix: { description: 'Índice de Volatilidad del CBOE (VIX). Conocido como el "índice del miedo", mide la volatilidad implícita de las opciones del S&P 500.\n• >30: Pánico y alta incertidumbre.\n• <15: Complacencia y riesgo de reversión.' },
+          pcr: { description: 'Ratio Put/Call. Compara el volumen de opciones de venta (puts) frente a las de compra (calls).\n• >1.0: Sentimiento bajista predominante (posible rebote).\n• <0.7: Sentimiento alcista excesivo (posible corrección).' },
         },
         credit: {
-          spread: { description: 'Diferencia entre bonos 10Y y 2Y.\nSi el valor es:\n- Negativo (Inversión): Ha predicho todas las recesiones desde 1950' },
-          yield: { description: 'Retorno del bono a 10 años.\nSi el valor es:\n- Sube rápido: Daña a las acciones tecnológicas y al sector inmobiliario' },
-          realYield: { description: 'Rendimiento nominal menos inflación.\nSi el valor es:\n- >2%: Restrictivo para la economía\n- <0%: Estimulante' },
-          hyOas: { description: 'Spread de bonos basura.\nSi el valor es:\n- >500bps: Estrés financiero y riesgo de impagos' },
+          spread: { description: 'Curva de Tipos (10Y - 2Y). Diferencial entre el rendimiento de los bonos del Tesoro a 10 y 2 años.\n• Negativo (Inversión): Indicador fiable de recesión inminente en los próximos 12-18 meses.' },
+          yield: { description: 'Rendimiento del Bono a 10 Años (US10Y). Referencia clave para el coste del dinero y las hipotecas.\n• Subidas rápidas: Presionan a la baja las valoraciones de acciones tecnológicas e inmobiliarias.' },
+          realYield: { description: 'Rendimiento Real (TIPS). Tipo de interés nominal ajustado por las expectativas de inflación.\n• >2%: Política monetaria restrictiva (freno económico).\n• <0%: Política acomodaticia (estímulo).' },
+          hyOas: { description: 'Spread de Alto Rendimiento (High Yield OAS). Diferencial de crédito de los bonos corporativos de baja calificación.\n• >500bps: Estrés financiero y aumento del riesgo de impago corporativo.' },
         }
       },
       macro: {
         usa: {
-            gdp: { description: 'Crecimiento económico. Mide la salud general de la economía.\nSi el valor es:\n- >3%: Fuerte\n- <0%: Recesión' },
-            unemployment: { description: '% de fuerza laboral sin trabajo.\nSi el valor es:\n- <4%: Pleno empleo (presión inflacionaria)\n- >6%: Debilidad económica' },
-            nfp: { description: 'Nuevos empleos creados. Mueve el mercado significativamente.\nSi el valor es:\n- >200k: Fuerte\n- <100k: Debilidad' },
-            cpi: { description: 'Inflación al consumidor. Objetivo Fed: 2%.\nSi el valor es:\n- >3%: Obliga a mantener tasas altas' },
-            pce: { description: 'Medida de inflación preferida por la Fed. Determina la política de tasas de interés.' },
-            fedRate: { description: 'Tasa de interés base.\nSi el valor es:\n- Alto: Frena la economía e inflación\n- Bajo: Estimula la economía' },
-            ismMfg: { description: 'Actividad manufacturera. Indicador líder del ciclo.\nSi el valor es:\n- >50: Expansión\n- <50: Contracción' },
-            ismServices: { description: 'Actividad de servicios (>70% economía).\nSi el valor es:\n- >50: Expansión (Mantiene la economía a flote)' },
+            gdp: { description: 'Producto Interior Bruto (PIB). Medida principal de la producción económica y salud del país.\n• >3%: Crecimiento robusto.\n• <0%: Contracción económica (recesión).' },
+            unemployment: { description: 'Tasa de Desempleo. Porcentaje de la fuerza laboral activa que busca empleo.\n• <4%: Pleno empleo (presión al alza en salarios e inflación).\n• >6%: Debilidad en el mercado laboral.' },
+            nfp: { description: 'Nóminas No Agrícolas (Non-Farm Payrolls). Informe mensual clave sobre creación de empleo.\n• >200k: Mercado laboral fuerte.\n• <100k: Enfriamiento económico.' },
+            cpi: { description: 'Índice de Precios al Consumidor (IPC). Mide la inflación que enfrentan los hogares.\n• >3%: Inflación elevada, presión para mantener tipos altos.' },
+            pce: { description: 'Gasto en Consumo Personal (PCE). El indicador de inflación preferido por la Reserva Federal para definir su política monetaria.' },
+            fedRate: { description: 'Tasa de Fondos Federales. Tipo de interés de referencia fijado por la Fed.\n• Alto: Restringe la economía para bajar la inflación.\n• Bajo: Estimula el crecimiento y el crédito.' },
+            ismMfg: { description: 'ISM Manufacturero. Indicador adelantado de la actividad industrial.\n• >50: Expansión del sector.\n• <50: Contracción industrial.' },
+            ismServices: { description: 'ISM Servicios. Mide la actividad en el sector servicios (>70% de la economía de EE. UU.).\n• >50: Expansión (sostiene el crecimiento económico).' },
         },
         eurozone: {
-            gdp: { description: 'Crecimiento Zona Euro.\nSi el valor es:\n- 0%: Estancamiento (riesgo de recesión técnica)' },
-            hicp: { description: 'Inflación armonizada europea. Clave para decisiones del BCE.' },
-            ecbRate: { description: 'Tasa de depósito del BCE. Afecta al par EUR/USD y costos de préstamo en Europa.' },
-            zew: { description: 'Sentimiento económico alemán. Indicador líder de la salud industrial de Europa.' },
-            pmi: { description: 'Índice de Gestores de Compras.\nSi el valor es:\n- <50: Contracción en la actividad empresarial' },
+            gdp: { description: 'PIB de la Zona Euro. Indicador agregado del crecimiento económico en la región.\n• ~0%: Estancamiento económico o riesgo de recesión técnica.' },
+            hicp: { description: 'Índice de Precios de Consumo Armonizado (IPCA). Medida clave de inflación para el Banco Central Europeo (BCE).' },
+            ecbRate: { description: 'Tasa de Facilidad de Depósito del BCE. Determina el coste del dinero en Europa e influye en el par EUR/USD.' },
+            zew: { description: 'Índice ZEW de Sentimiento Económico (Alemania). Indicador adelantado de la confianza inversora en la mayor economía de Europa.' },
+            pmi: { description: 'PMI Compuesto (Índice de Gestores de Compras).\n• <50: Señal de contracción en la actividad empresarial privada.' },
         },
         china: {
-            gdp: { description: 'Crecimiento de China.\nSi el valor es:\n- <5%: Débil para sus estándares históricos' },
-            industrial: { description: 'Producción de fábricas. Clave para la demanda de materias primas globales.' },
-            retail: { description: 'Consumo interno. Mide la transición de China hacia una economía de consumo.' },
-            cpi: { description: 'Inflación China.\nSi el valor es:\n- <0% (Negativo): Riesgo de deflación (demanda débil)' },
-            lpr: { description: 'Tasa preferencial de préstamos. Recortes buscan estimular el sector inmobiliario.' },
+            gdp: { description: 'PIB de China. Termómetro del crecimiento en la segunda mayor economía mundial.\n• <5%: Crecimiento débil para los estándares históricos chinos.' },
+            industrial: { description: 'Producción Industrial. Mide la salida de las fábricas chinas, crucial para la demanda global de materias primas.' },
+            retail: { description: 'Ventas Minoristas. Indicador clave del consumo interno y la transición hacia una economía de servicios.' },
+            cpi: { description: 'IPC de China.\n• <0% (Negativo): Deflación, síntoma de demanda interna débil y exceso de capacidad.' },
+            lpr: { description: 'Tasa Preferencial de Préstamos (LPR). Tipo de interés de referencia para hipotecas y préstamos corporativos.' },
         }
       },
       fundamental: {
         profitability: {
-            pe: { description: 'Precio/Beneficio. Mide cuánto pagas por ganancias.\nSi el valor es:\n- Alto: Crecimiento esperado\n- Bajo: Valor' },
-            roe: { description: 'Retorno sobre Patrimonio.\nSi el valor es:\n- >15%: Gerencia eficiente creando valor para accionistas' },
-            roa: { description: 'Retorno sobre Activos. Mide eficiencia usando recursos.\nSi el valor es:\n- >5%: Generalmente bueno' },
+            pe: { description: 'Ratio Precio-Beneficio (P/E). Métrica de valoración relativa.\n• Alto: Expectativas de alto crecimiento futuro.\n• Bajo: Posible infravaloración o problemas estructurales.' },
+            roe: { description: 'Retorno sobre el Patrimonio (ROE). Mide la rentabilidad generada con el dinero de los accionistas.\n• >15%: Gestión eficiente y alta calidad del negocio.' },
+            roa: { description: 'Retorno sobre Activos (ROA). Indica cuán eficiente es la empresa utilizando sus activos para generar beneficios.\n• >5%: Buen uso de los recursos.' },
         },
         liquidity: {
-            currentRatio: { description: 'Activos/Pasivos Corrientes.\nSi el valor es:\n- >1.5: Buena liquidez\n- <1.0: Riesgo de impago a corto plazo' },
-            quickRatio: { description: 'Liquidez inmediata (sin inventario).\nSi el valor es:\n- >1.0: Ideal para seguridad financiera' },
-            solvencyRatio: { description: 'Capacidad de pago a largo plazo.\nSi el valor es:\n- >20%: Salud financiera sólida' },
+            currentRatio: { description: 'Ratio de Liquidez Corriente. Capacidad para cubrir deudas a corto plazo con activos corrientes.\n• >1.5: Posición financiera saludable.\n• <1.0: Posible tensión de liquidez.' },
+            quickRatio: { description: 'Ratio Ácido (Quick Ratio). Liquidez inmediata excluyendo inventarios.\n• >1.0: Capacidad sólida para afrontar obligaciones inmediatas.' },
+            solvencyRatio: { description: 'Ratio de Solvencia. Mide la viabilidad a largo plazo y la capacidad de cumplir con todas las obligaciones de deuda.\n• >20%: Estructura financiera robusta.' },
         },
         operating: {
-            ebitda: { description: 'Beneficio antes de intereses, impuestos, dep. y amort. Mide rentabilidad operativa pura.' },
-            fcf: { description: 'Flujo de Caja Libre. Dinero real disponible para dividendos o reinversión. Clave para valoración.' },
+            ebitda: { description: 'EBITDA. Beneficio operativo antes de intereses, impuestos, depreciaciones y amortizaciones. Aproximación al flujo de caja operativo bruto.' },
+            fcf: { description: 'Flujo de Caja Libre (Free Cash Flow). Efectivo real disponible para distribuir a accionistas o reinvertir tras cubrir gastos de capital (CapEx).' },
         }
       },
       technical: {
         trend: {
-            sma50: { description: 'Media Móvil 50 días.\nSi el precio está:\n- Por encima: Tendencia alcista a corto plazo' },
-            ema200: { description: 'Media Móvil 200 días. La línea divisoria entre mercado alcista (arriba) y bajista (abajo).' },
-            macd: { description: 'Convergencia/Divergencia.\nSi el cruce es:\n- Por encima de 0 o línea de señal: Impulso alcista' },
+            sma50: { description: 'Media Móvil Simple de 50 días (SMA 50). Indicador de tendencia a medio plazo.\n• Precio > SMA 50: Sesgo alcista.' },
+            ema200: { description: 'Media Móvil Exponencial de 200 días (EMA 200). La frontera principal entre un mercado alcista (bull) y bajista (bear) a largo plazo.' },
+            macd: { description: 'MACD (Convergencia/Divergencia de Medias Móviles). Indicador de seguimiento de tendencia y momentum.\n• Cruce alcista: Señal de compra potencial.' },
         },
         momentum: {
-            rsi: { description: 'Índice de Fuerza Relativa.\nSi el valor es:\n- >70: Sobrecompra (riesgo caída)\n- <30: Sobreventa (oportunidad rebote)' },
+            rsi: { description: 'Índice de Fuerza Relativa (RSI). Oscilador que mide la velocidad y cambio de los movimientos de precios.\n• >70: Sobrecompra (posible corrección).\n• <30: Sobreventa (posible rebote).' },
         },
         volatility: {
-            bb: { description: 'Bandas de Bollinger.\nSi el precio toca:\n- Banda superior: Sobreextensión\n- Banda inferior: Soporte' },
-            fib: { description: 'Retroceso de Fibonacci. Niveles clave (38.2%, 61.8%) donde el precio suele rebotar.' },
+            bb: { description: 'Bandas de Bollinger. Miden la volatilidad del mercado.\n• Precio en banda superior: Mercado extendido.\n• Estrechamiento de bandas: Precede a movimientos explosivos.' },
+            fib: { description: 'Retrocesos de Fibonacci. Niveles horizontales que indican posibles soportes o resistencias basados en la proporción áurea (38.2%, 61.8%).' },
         }
       },
       commodities: {
-        gold: { description: 'Activo refugio. Sube con incertidumbre, inflación o dólar débil. Protege poder adquisitivo.' },
-        silver: { description: 'Oro con beta alta. Más volátil y con usos industriales. Sigue al oro pero con movimientos más bruscos.' },
-        copper: { description: '"Doctor Cobre". Barómetro de la economía global. Sube con crecimiento industrial fuerte.' },
-        oil: { description: 'Crudo WTI. Afecta inflación y costos de transporte. Sensible a geopolítica y OPEP.' },
-        gas: { description: 'Gas Natural. Muy volátil, dependiente del clima y niveles de almacenamiento.' },
+        gold: { name: 'Oro', description: 'El activo refugio por excelencia. Históricamente preserva el poder adquisitivo frente a la inflación y la devaluación monetaria.' },
+        silver: { name: 'Plata', description: 'Metal híbrido: monetario e industrial. Alta correlación con el oro pero con mayor volatilidad (beta alta).' },
+        copper: { name: 'Cobre', description: 'Conocido como "Doctor Cobre". Su precio es un indicador adelantado de la salud de la economía industrial global.' },
+        oil: { name: 'Petróleo', description: 'Crudo WTI. La materia prima más estratégica. Su precio impacta directamente en la inflación y los costes de transporte.' },
+        gas: { name: 'Gas Natural', description: 'Fuente de energía clave para calefacción y electricidad. Precios altamente estacionales y dependientes de la geopolítica.' },
       },
       gold: {
         correlations: {
-            usd: { description: 'Correlación inversa con Dólar.\nSi el valor es:\n- Dólar baja: Oro suele subir' },
+            usd: { name: 'Dólar (DXY)', description: 'Correlación Inversa. El oro se cotiza en dólares; cuando el dólar se debilita, el oro tiende a encarecerse para los tenedores de otras divisas.' },
         },
         factors: {
-            rates: { description: 'Tipos de interés reales.\nSi el valor es:\n- Alto: Malo para el oro (costo de oportunidad)' },
-            banks: { description: 'Compras de Bancos Centrales. Demanda estructural que sostiene el precio a largo plazo.' },
-            risk: { description: 'Riesgo geopolítico. Guerras o crisis aumentan la demanda de oro como seguro.' },
+            rates: { name: 'Tipos Reales', description: 'Tipos de Interés Reales. El principal conductor del precio del oro. Tipos reales altos aumentan el coste de oportunidad de mantener oro (que no paga intereses).' },
+            banks: { name: 'Bancos Centrales', description: 'Demanda Oficial. Las compras netas de oro por parte de los bancos centrales (especialmente en mercados emergentes) sostienen los precios a largo plazo.' },
+            risk: { name: 'Riesgo Geopolítico', description: 'Prima de Riesgo. En tiempos de conflicto, inestabilidad política o crisis financiera, la demanda de oro como "seguro" aumenta.' },
         }
       },
       ml: {
         classification: {
-            rf: { purpose: 'Clasifica tendencias de mercado usando múltiples árboles de decisión para reducir el sobreajuste.' },
-            xgb: { purpose: 'Algoritmo de boosting de gradiente altamente eficiente para clasificación de señales de trading.' },
-            lr: { purpose: 'Modelo base para estimar probabilidad de dirección del mercado (Subida/Bajada).' },
+            rf: { purpose: 'Random Forest. Algoritmo de conjunto que utiliza múltiples árboles de decisión para clasificar la tendencia del mercado, reduciendo el riesgo de sobreajuste.' },
+            xgb: { purpose: 'XGBoost. Algoritmo de boosting de gradiente altamente eficiente y preciso, utilizado para detectar señales de trading complejas.' },
+            lr: { purpose: 'Regresión Logística. Modelo estadístico base para estimar la probabilidad binaria de que el mercado suba o baje.' },
         },
         timeseries: {
-            lstm: { purpose: 'Red neuronal recurrente capaz de aprender dependencias a largo plazo en precios.', horizon: 'Corto Plazo' },
-            hybrid: { purpose: 'Combina CNN (patrones visuales) con LSTM (tiempo) para mayor precisión.' },
-            arima: { type: 'Estadístico', purpose: 'Modelo clásico para series temporales estacionarias.', },
+            lstm: { purpose: 'LSTM (Long Short-Term Memory). Red neuronal recurrente especializada en aprender dependencias a largo plazo en series temporales financieras.', horizon: 'Corto Plazo' },
+            hybrid: { purpose: 'Modelo Híbrido (CNN + LSTM). Combina la extracción de características visuales de los gráficos (CNN) con el análisis temporal (LSTM).' },
+            arima: { type: 'Estadístico', purpose: 'ARIMA. Modelo clásico para series temporales que utiliza valores pasados y errores de predicción para proyectar precios futuros.', },
         }
       }
     },
@@ -1111,6 +1111,47 @@ export const es = {
         overview: 'Resumen de Salud del Mercado',
         overviewDesc: 'Análisis integral de valoración, sentimiento e indicadores de recesión.',
         analysis: 'Las valoraciones actuales (P/E Forward > 20x) sugieren un potencial alcista limitado, mientras que la Prima de Riesgo de Acciones (ERP) al 3.8% ofrece poca compensación por el riesgo de renta variable sobre las tasas libres de riesgo. Los diferenciales de crédito (HY OAS) permanecen ajustados, indicando complacencia del mercado a pesar de que la curva de rendimiento invertida señala posibles vientos en contra de recesión. Se recomienda un posicionamiento defensivo hasta que los múltiplos de valoración se compriman o las condiciones macroeconómicas se aclaren.'
+      },
+      macro: {
+        usa: 'Estados Unidos',
+        eurozone: 'Zona Euro',
+        china: 'China',
+        overview: 'Resumen Macroeconómico Global',
+        overviewDesc: 'Monitorización de las principales economías mundiales y sus indicadores clave.',
+        analysis: 'La economía estadounidense muestra resiliencia con un mercado laboral fuerte, aunque la inflación persistente mantiene la presión sobre la Fed. La Zona Euro enfrenta desafíos de crecimiento estancado, mientras China lucha por reactivar su economía tras la crisis inmobiliaria. El entorno global sugiere una divergencia en las políticas monetarias.'
+      },
+      fundamental: {
+        profitability: 'Rentabilidad',
+        liquidity: 'Liquidez',
+        operating: 'Eficiencia Operativa',
+        overview: 'Análisis Fundamental',
+        overviewDesc: 'Evaluación profunda de la salud financiera y operativa de las empresas.',
+        analysis: 'El análisis fundamental revela empresas con balances sólidos y flujos de caja robustos. Se priorizan compañías con ventajas competitivas duraderas (Moat) y capacidad de fijación de precios en un entorno inflacionario. La selección de activos se centra en la calidad y la sostenibilidad de los beneficios a largo plazo.'
+      },
+      technical: {
+        trend: 'Tendencia',
+        momentum: 'Momentum',
+        volatility: 'Volatilidad',
+        overview: 'Análisis Técnico',
+        overviewDesc: 'Estudio de la acción del precio y patrones para identificar oportunidades de trading.',
+        analysis: 'Los indicadores técnicos muestran una tendencia alcista en los principales índices, aunque con señales de sobrecompra en el corto plazo. La volatilidad se mantiene en niveles bajos, lo que podría preceder a un movimiento brusco. Se recomienda vigilar los niveles clave de soporte y resistencia para la gestión del riesgo.'
+      },
+      gold: {
+        metals: 'Metales Preciosos',
+        energy: 'Energía',
+        drivers: 'Factores Clave',
+        correlations: 'Correlaciones',
+        factors: 'Factores Macroeconómicos',
+        overview: 'Oro y Materias Primas',
+        overviewDesc: 'Análisis del mercado de commodities y su papel como cobertura y diversificación.',
+        analysis: 'El oro continúa actuando como refugio ante la incertidumbre geopolítica y la debilidad del dólar. Las materias primas energéticas muestran volatilidad debido a las tensiones en la oferta. La diversificación en commodities ofrece protección contra la inflación y mejora el perfil de riesgo-retorno de la cartera.'
+      },
+      mlModels: {
+        classification: 'Modelos de Clasificación',
+        timeseries: 'Series Temporales',
+        overview: 'Modelos de Inteligencia Artificial',
+        overviewDesc: 'Aplicación de algoritmos avanzados para la predicción y análisis de mercados.',
+        analysis: 'Nuestros modelos de IA procesan grandes volúmenes de datos para identificar patrones no lineales. Los modelos de clasificación ayudan a determinar el régimen de mercado, mientras que las redes neuronales de series temporales ofrecen proyecciones de precios. La combinación de ambos enfoques mejora la toma de decisiones.'
       }
     },
     sentiment: {

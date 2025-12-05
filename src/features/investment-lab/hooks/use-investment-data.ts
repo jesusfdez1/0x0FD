@@ -145,24 +145,24 @@ export const useInvestmentData = () => {
 
   const commoditiesData = {
     metals: [
-      { name: t('investmentLab.data.commodities.gold'), value: '$2,150', change: '+1.2%', trend: t('investmentLab.data.status.bullish'), description: t('investmentLab.data.commodities.gold.description') },
-      { name: t('investmentLab.data.commodities.silver'), value: '$24.50', change: '+0.8%', trend: t('investmentLab.data.status.neutral'), description: t('investmentLab.data.commodities.silver.description') },
-      { name: t('investmentLab.data.commodities.copper'), value: '$3.95', change: '+0.5%', trend: t('investmentLab.data.status.recovering'), description: t('investmentLab.data.commodities.copper.description') },
+      { name: t('investmentLab.data.commodities.gold.name'), value: '$2,150', change: '+1.2%', trend: t('investmentLab.data.status.bullish'), description: t('investmentLab.data.commodities.gold.description') },
+      { name: t('investmentLab.data.commodities.silver.name'), value: '$24.50', change: '+0.8%', trend: t('investmentLab.data.status.neutral'), description: t('investmentLab.data.commodities.silver.description') },
+      { name: t('investmentLab.data.commodities.copper.name'), value: '$3.95', change: '+0.5%', trend: t('investmentLab.data.status.recovering'), description: t('investmentLab.data.commodities.copper.description') },
     ],
     energy: [
-      { name: t('investmentLab.data.commodities.oil'), value: '$78.50', change: '-0.3%', trend: t('investmentLab.data.status.neutral'), description: t('investmentLab.data.commodities.oil.description') },
-      { name: t('investmentLab.data.commodities.gas'), value: '$1.85', change: '-1.5%', trend: t('investmentLab.data.status.bearish'), description: t('investmentLab.data.commodities.gas.description') },
+      { name: t('investmentLab.data.commodities.oil.name'), value: '$78.50', change: '-0.3%', trend: t('investmentLab.data.status.neutral'), description: t('investmentLab.data.commodities.oil.description') },
+      { name: t('investmentLab.data.commodities.gas.name'), value: '$1.85', change: '-1.5%', trend: t('investmentLab.data.status.bearish'), description: t('investmentLab.data.commodities.gas.description') },
     ]
   }
 
   const goldData = {
     correlations: [
-      { name: t('investmentLab.data.gold.correlations.usd'), value: '-0.85', description: t('investmentLab.data.gold.correlations.usd.description') },
+      { name: t('investmentLab.data.gold.correlations.usd.name'), value: '-0.85', description: t('investmentLab.data.gold.correlations.usd.description') },
     ],
     factors: [
-      { name: t('investmentLab.data.gold.factors.rates'), value: '1.5%', impact: t('investmentLab.data.status.neutral'), description: t('investmentLab.data.gold.factors.rates.description') },
-      { name: t('investmentLab.data.gold.factors.banks'), value: t('investmentLab.data.status.high'), impact: t('investmentLab.data.status.positive'), description: t('investmentLab.data.gold.factors.banks.description') },
-      { name: t('investmentLab.data.gold.factors.risk'), level: t('investmentLab.data.status.elevated'), impact: t('investmentLab.data.status.positive'), description: t('investmentLab.data.gold.factors.risk.description') },
+      { name: t('investmentLab.data.gold.factors.rates.name'), value: '1.5%', impact: t('investmentLab.data.status.neutral'), description: t('investmentLab.data.gold.factors.rates.description') },
+      { name: t('investmentLab.data.gold.factors.banks.name'), value: t('investmentLab.data.status.high'), impact: t('investmentLab.data.status.positive'), description: t('investmentLab.data.gold.factors.banks.description') },
+      { name: t('investmentLab.data.gold.factors.risk.name'), level: t('investmentLab.data.status.elevated'), impact: t('investmentLab.data.status.positive'), description: t('investmentLab.data.gold.factors.risk.description') },
     ]
   }
 

@@ -11,6 +11,7 @@ import { Activity, AlertTriangle, TrendingUp, Info } from 'lucide-react'
 import {
   Tooltip,
   TooltipContent,
+  TooltipContentMultiline,
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip'
@@ -38,9 +39,9 @@ export function MarketHealth() {
                                 <TooltipTrigger>
                                     <Info className="h-3 w-3 text-muted-foreground cursor-help" />
                                 </TooltipTrigger>
-                                <TooltipContent>
-                                    <p className="max-w-xs text-xs whitespace-pre-line">{item.description}</p>
-                                </TooltipContent>
+                                <TooltipContentMultiline>
+                                    <p>{item.description}</p>
+                                </TooltipContentMultiline>
                             </Tooltip>
                         </TooltipProvider>
                     </div>
@@ -66,9 +67,9 @@ export function MarketHealth() {
                                 <TooltipTrigger>
                                     <Info className="h-3 w-3 text-muted-foreground cursor-help" />
                                 </TooltipTrigger>
-                                <TooltipContent>
-                                    <p className="max-w-xs text-xs whitespace-pre-line">{item.description}</p>
-                                </TooltipContent>
+                                <TooltipContentMultiline>
+                                    <p>{item.description}</p>
+                                </TooltipContentMultiline>
                             </Tooltip>
                         </TooltipProvider>
                     </div>
@@ -94,9 +95,9 @@ export function MarketHealth() {
                                 <TooltipTrigger>
                                     <Info className="h-3 w-3 text-muted-foreground cursor-help" />
                                 </TooltipTrigger>
-                                <TooltipContent>
-                                    <p className="max-w-xs text-xs whitespace-pre-line">{item.description}</p>
-                                </TooltipContent>
+                                <TooltipContentMultiline>
+                                    <p>{item.description}</p>
+                                </TooltipContentMultiline>
                             </Tooltip>
                         </TooltipProvider>
                     </div>
