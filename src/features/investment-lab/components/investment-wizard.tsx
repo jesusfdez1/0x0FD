@@ -10,7 +10,7 @@ import {
 } from 'lucide-react'
 import { Switch } from '@/components/ui/switch'
 
-type WizardStep = 'intro' | 'age' | 'experience' | 'horizon' | 'goal' | 'risk' | 'amount' | 'sector' | 'result'
+type WizardStep = 'intro' | 'age' | 'experience' | 'horizon' | 'goal' | 'risk' | 'amount' | 'sector' | 'processing' | 'result'
 
 export function InvestmentWizard() {
   const { t } = useLanguage()

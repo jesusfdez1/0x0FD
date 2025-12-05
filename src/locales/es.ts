@@ -107,6 +107,7 @@ export const es = {
     columns: 'Columnas',
     toggleColumns: 'Alternar columnas',
   },
+
   apps: {
     title: 'Integraciones de aplicaciones',
     description: '¡Aquí está la lista de tus aplicaciones para la integración!',
@@ -801,16 +802,316 @@ export const es = {
     title: 'Laboratorio de Inversión',
     description: 'Inteligencia de mercado avanzada y herramientas inteligentes para optimizar tu estrategia de cartera.',
     guide: {
-      welcome: "¡Hola! Soy tu Asistente de Inversión. Estoy aquí para ayudarte a navegar por los mercados.",
-      sentiment: "Este es el medidor de Sentimiento del Mercado. Indica si en el mercado predomina el Miedo o la Codicia.",
-      insights: "Aquí encontrarás análisis impulsados por IA. Procesamos millones de datos para detectar oportunidades para ti.",
-      screener: "Utiliza el Buscador de Oportunidades para encontrar los mejores activos basados en nuestra Puntuación Inteligente.",
-      help: "Si necesitas ayuda, pulsa sobre mi icono en la esquina inferior derecha para volver a activar el tutorial. ¡Buena suerte!",
-      next: "Siguiente",
+      welcome: {
+        title: "Bienvenido al Laboratorio de Inversión",
+        content: "Soy tu Copiloto Financiero. Esta plataforma no es solo un panel de control; es un ecosistema de inteligencia institucional simplificado para ti. Aquí combinamos datos macroeconómicos, fundamentales y técnicos para darte una ventaja competitiva real."
+      },
+      sentiment: {
+        title: "El Psicólogo del Mercado",
+        content: "Los mercados se mueven por emociones: Miedo y Codicia. Este indicador es contrarian: cuando el mercado tiene 'Miedo Extremo', suele ser una oportunidad de compra (activos baratos). Cuando hay 'Codicia Extrema', el riesgo de corrección es alto. Úsalo para medir la temperatura emocional antes de operar."
+      },
+      insights: {
+        title: "Inteligencia Artificial Aplicada",
+        content: "Nuestros algoritmos leen millones de noticias, reportes de ganancias y transcripciones de conferencias que un humano no podría procesar. Destilamos ese ruido en 'Insights' accionables, detectando anomalías y tendencias ocultas antes de que sean obvias para la masa."
+      },
+      screener: {
+        title: "Escáner de Alta Precisión",
+        content: "Olvídate de buscar agujas en un pajar. Nuestro 'Smart Score' es un modelo multifactorial que evalúa Calidad, Valor y Momentum. Filtramos miles de activos para mostrarte solo aquellos con la mayor probabilidad estadística de superar al mercado."
+      },
+      help: {
+        title: "Tu Guía Permanente",
+        content: "La inversión es un viaje continuo de aprendizaje. Si alguna vez te sientes perdido o necesitas refrescar un concepto, haz clic en mi icono. Estaré aquí para explicarte cada métrica y herramienta con la profundidad que necesites."
+      },
+      marketHealth: {
+        intro: { 
+          title: "Misión: Diagnóstico Estructural", 
+          content: "Antes de desplegar capital, debemos asegurar la integridad del sistema. Analizamos la estructura del mercado para saber si estamos en un terreno sólido o en una burbuja a punto de estallar. No operes a ciegas." 
+        },
+        valuation: { 
+          title: "Análisis de Valoración", 
+          content: "¿Estamos pagando demasiado? Utilizamos métricas como el 'Indicador Buffett' (Cap. Mercado / PIB) y el Ratio PE. Piensa en esto como el precio por kilo de las acciones. Si pagas demasiado por las ganancias futuras, tus retornos esperados serán bajos." 
+        },
+        sentiment: {
+            title: "Escáner Psicológico",
+            content: "El mercado es bipolar. Detectamos euforia (peligro) o pánico (oportunidad). El índice de Miedo y Codicia combina volatilidad, momentum y opciones para darte una lectura precisa del sentimiento inversor."
+        },
+        credit: { 
+          title: "Sensores de Riesgo Sistémico", 
+          content: "El mercado de bonos es más inteligente que el de acciones. Los 'Spreads de Crédito' (High Yield OAS) miden el miedo de los prestamistas. Si estos diferenciales se disparan, significa que el 'dinero inteligente' teme impagos. Es la señal de alerta temprana más fiable de una recesión." 
+        },
+        conclusion: {
+            title: "Diagnóstico Completado",
+            content: "Revisa estos indicadores semanalmente. Si la Valoración es alta y el Crédito se deteriora, aumenta tu liquidez (cash). Si hay Miedo y el Crédito es estable, es momento de comprar."
+        }
+      },
+      macro: {
+        intro: { 
+          title: "Misión: Entorno Global", 
+          content: "Navegamos en un océano de liquidez controlado por los Bancos Centrales. La regla de oro: 'No luches contra la Fed'. Aquí monitoreamos las fuerzas tectónicas que mueven el dinero global: Crecimiento, Inflación y Liquidez." 
+        },
+        usa: { 
+          title: "Motor Principal: EE.UU.", 
+          content: "El consumidor americano mueve el mundo. Vigila el PIB (el motor) y el IPC (el freno). Buscamos el equilibrio 'Ricitos de Oro': crecimiento sólido con inflación controlada. Si el desempleo sube, la recesión es inminente." 
+        },
+        eurozone: { 
+          title: "Zona Euro", 
+          content: "Un bloque económico gigante pero a menudo estancado. Sus datos son cruciales para entender la debilidad o fortaleza del Dólar (DXY). Una Europa débil suele fortalecer al Dólar, lo que afecta a los activos de riesgo." 
+        },
+        china: { 
+          title: "El Dragón Dormido", 
+          content: "La fábrica del mundo. Su demanda de materias primas dicta los precios globales. Si China estornuda (desaceleración inmobiliaria), los mercados emergentes y las commodities se resfrían." 
+        },
+        conclusion: {
+            title: "Informe Macro Finalizado",
+            content: "Ajusta tu exposición al riesgo según el ciclo. En expansión, apuesta por acciones (Growth). En contracción o estanflación, refúgiate en Oro, Bonos o Sectores Defensivos."
+        }
+      },
+      fundamental: {
+        intro: { 
+          title: "Misión: Inspección de Activos", 
+          content: "A largo plazo, una acción es un pedazo de un negocio. Aquí abrimos el capó de las empresas para ver el motor real. Buscamos calidad, no solo hype." 
+        },
+        profitability: {
+            title: "Potencia del Motor (Rentabilidad)",
+            content: "ROE y Márgenes. ¿La empresa genera dinero real por cada dólar invertido? Una empresa con altos márgenes tiene un 'Moat' (ventaja competitiva) que la protege de la competencia."
+        },
+        liquidity: {
+            title: "Combustible (Liquidez)",
+            content: "Ratios de Corriente y Solvencia. ¿Puede la empresa pagar sus facturas a corto plazo? Sin liquidez, incluso una empresa rentable puede quebrar. Es el chequeo de supervivencia."
+        },
+        operating: {
+            title: "Eficiencia Operativa",
+            content: "EBITDA y Flujo de Caja Libre (FCF). El beneficio contable se puede manipular; el Flujo de Caja no. Buscamos empresas que sean máquinas de generar efectivo para reinvertir o pagar dividendos."
+        },
+        conclusion: {
+            title: "Inspección Finalizada",
+            content: "Busca la trinidad: Altos Retornos sobre Capital (ROIC), Balance Sólido (Poca Deuda) y Flujos de Caja Crecientes. Esas son las acciones que quieres mantener para siempre."
+        }
+      },
+      technical: {
+        intro: { 
+          title: "Misión: Tácticas de Combate", 
+          content: "El precio tiene memoria. El Análisis Técnico no es magia; es el estudio de la psicología de masas reflejada en gráficos. Usamos esto para cronometrar nuestras entradas y salidas con precisión de francotirador." 
+        },
+        trend: {
+            title: "Identificación de Tendencia",
+            content: "'La tendencia es tu amiga'. Las Medias Móviles (SMA 50/200) nos dicen la dirección del viento. Nunca operes contra la tendencia principal a menos que tengas una razón muy poderosa."
+        },
+        momentum: {
+            title: "Fuerza del Movimiento",
+            content: "RSI y MACD. ¿El movimiento tiene fuerza o está agotado? Si el precio sube pero el momentum baja (divergencia), es una señal de alerta de que la subida es falsa."
+        },
+        volatility: {
+            title: "Bandas de Volatilidad",
+            content: "Bollinger Bands. El mercado alterna entre calma y tormenta. Cuando las bandas se estrechan (squeeze), prepárate para una explosión de movimiento inminente."
+        },
+        conclusion: {
+            title: "Análisis Táctico Completado",
+            content: "No uses esto para adivinar el futuro, sino para gestionar el riesgo. Compra en soportes, vende en resistencias. Y siempre, siempre usa Stop Loss."
+        }
+      },
+      gold: {
+        intro: { 
+          title: "Misión: Reserva de Valor", 
+          content: "El oro no es solo una roca brillante; es dinero real que los gobiernos no pueden imprimir. Es tu seguro contra el caos monetario, la inflación descontrolada y la incertidumbre geopolítica." 
+        },
+        metals: {
+            title: "Metales Preciosos",
+            content: "Oro y Plata. El Oro es el rey de la preservación de riqueza. La Plata es su hermano volátil, con más uso industrial. Ambos tienden a brillar cuando la confianza en el papel moneda se desvanece."
+        },
+        energy: {
+            title: "Energía (Petróleo y Gas)",
+            content: "La sangre de la economía global. Precios altos del petróleo actúan como un impuesto al crecimiento y alimentan la inflación. Es un sector cíclico vital para entender los costos de producción."
+        },
+        drivers: {
+            title: "Factores Clave",
+            content: "Tipos Reales y Bancos Centrales. El oro odia los tipos de interés altos (porque no paga dividendos). Pero si la inflación es mayor que los tipos (Tipos Reales Negativos), el oro vuela. También vigilamos las compras de China y Rusia."
+        },
+        conclusion: {
+            title: "Informe de Commodities Finalizado",
+            content: "Mantén una asignación estratégica (5-10%) en Oro/Commodities. No te hará rico de la noche a la mañana, pero evitará que te arruines en una crisis monetaria."
+        }
+      },
+      mlModels: {
+        intro: { 
+          title: "Misión: Inteligencia Artificial", 
+          content: "Los mercados son sistemas complejos y no lineales. Desplegamos redes neuronales para encontrar patrones invisibles al ojo humano en el caos de los datos." 
+        },
+        classification: {
+            title: "Modelos de Clasificación",
+            content: "Random Forest y XGBoost. ¿Comprar o Vender? Estos modelos analizan miles de variables para darnos una probabilidad binaria. Son excelentes para detectar regímenes de mercado."
+        },
+        timeseries: {
+            title: "Predicción Temporal (Deep Learning)",
+            content: "LSTM y Transformers. Intentamos predecir la trayectoria futura del precio aprendiendo de secuencias pasadas. Capturan la 'memoria' a largo plazo del mercado."
+        },
+        conclusion: {
+            title: "Análisis IA Completado",
+            content: "Recuerda: La IA es una herramienta de apoyo probabilístico, no una bola de cristal. Úsala para confirmar tu tesis fundamental y técnica, no para seguirla ciegamente."
+        }
+      },
+      next: "Siguiente Lección",
       prev: "Anterior",
-      close: "Cerrar",
-      start: "Iniciar Recorrido",
-      skip: "Saltar"
+      close: "Entendido",
+      start: "Iniciar Tour Guiado",
+      skip: "Explorar por mi cuenta"
+    },
+    data: {
+      status: {
+        elevated: 'Elevado',
+        tight: 'Ajustado',
+        overvalued: 'Sobrevalorado',
+        extreme: 'Extremo',
+        extremeGreed: 'Avaricia Extrema',
+        bullish: 'Alcista',
+        complacency: 'Complacencia',
+        inverted: 'Invertido',
+        rising: 'Subiendo',
+        restrictive: 'Restrictivo',
+        resilient: 'Resiliente',
+        stable: 'Estable',
+        strong: 'Fuerte',
+        sticky: 'Persistente',
+        decreasing: 'Decreciente',
+        peak: 'Pico',
+        contraction: 'Contracción',
+        expansion: 'Expansión',
+        stagnant: 'Estancado',
+        improving: 'Mejorando',
+        moderate: 'Moderado',
+        recovering: 'Recuperando',
+        soft: 'Débil',
+        low: 'Bajo',
+        easing: 'Relajando',
+        high: 'Alto',
+        good: 'Bueno',
+        healthy: 'Saludable',
+        balanced: 'Equilibrado',
+        watch: 'Vigilar',
+        optimal: 'Óptimo',
+        positive: 'Positivo',
+        neutral: 'Neutral',
+        bearish: 'Bajista',
+        buy: 'Compra',
+        normal: 'Normal',
+        support: 'Soporte',
+        superior: 'Superior',
+      },
+      marketHealth: {
+        valuation: {
+          sp500pe: { description: 'Mide el precio pagado por cada dólar de ganancias futuras. >20x indica sobrevaloración (riesgo de corrección); <15x sugiere subvaloración (oportunidad).' },
+          erp: { description: 'Compensación extra por invertir en acciones vs bonos. <4% es bajo (riesgo alto para el retorno); >5% es atractivo.' },
+          shiller: { description: 'P/E ajustado por inflación de 10 años. >30x históricamente precede a rendimientos bajos en la próxima década.' },
+          buffett: { description: 'Cap. Mercado Total / PIB. >120% indica mercado muy caro; <80% indica mercado barato.' },
+        },
+        sentiment: {
+          fng: { description: '0-25: Miedo Extremo (Compra); 75-100: Avaricia Extrema (Venta/Precaución). Mide la emoción del mercado.' },
+          aaii: { description: '% Alcistas menos % Bajistas. Valores muy negativos sugieren pánico (suelo de mercado); muy positivos sugieren euforia (techo).' },
+          vix: { description: 'Índice del miedo. >30: Pánico/Alta volatilidad; <15: Complacencia (riesgo de corrección repentina).' },
+          pcr: { description: 'Volumen Puts/Calls. >1.0: Bajista (miedo); <0.7: Alcista (avaricia). Úsalo como indicador contrarian.' },
+        },
+        credit: {
+          spread: { description: 'Diferencia entre bonos 10Y y 2Y. Inversión (negativo) ha predicho todas las recesiones desde 1950.' },
+          yield: { description: 'Retorno del bono a 10 años. Si sube rápido, daña a las acciones tecnológicas y al sector inmobiliario.' },
+          realYield: { description: 'Rendimiento nominal menos inflación. >2% es restrictivo para la economía; <0% es estimulante.' },
+          hyOas: { description: 'Spread de bonos basura. Si se dispara (>500bps), indica estrés financiero y riesgo de impagos.' },
+        }
+      },
+      macro: {
+        usa: {
+            gdp: { description: 'Crecimiento económico. >3%: Fuerte; <0%: Recesión. Mide la salud general de la economía.' },
+            unemployment: { description: '% de fuerza laboral sin trabajo. <4%: Pleno empleo (presión inflacionaria); >6%: Debilidad económica.' },
+            nfp: { description: 'Nuevos empleos creados. >200k: Fuerte; <100k: Debilidad. Mueve el mercado significativamente.' },
+            cpi: { description: 'Inflación al consumidor. Objetivo Fed: 2%. >3% obliga a mantener tasas altas.' },
+            pce: { description: 'Medida de inflación preferida por la Fed. Determina la política de tasas de interés.' },
+            fedRate: { description: 'Tasa de interés base. Tasas altas frenan la economía e inflación; bajas la estimulan.' },
+            ismMfg: { description: 'Actividad manufacturera. >50: Expansión; <50: Contracción. Indicador líder del ciclo.' },
+            ismServices: { description: 'Actividad de servicios (>70% economía). >50: Expansión. Mantiene la economía a flote.' },
+        },
+        eurozone: {
+            gdp: { description: 'Crecimiento Zona Euro. Estancamiento (0%) indica riesgo de recesión técnica.' },
+            hicp: { description: 'Inflación armonizada europea. Clave para decisiones del BCE.' },
+            ecbRate: { description: 'Tasa de depósito del BCE. Afecta al par EUR/USD y costos de préstamo en Europa.' },
+            zew: { description: 'Sentimiento económico alemán. Indicador líder de la salud industrial de Europa.' },
+            pmi: { description: 'Índice de Gestores de Compras. <50 indica contracción en la actividad empresarial.' },
+        },
+        china: {
+            gdp: { description: 'Crecimiento de China. <5% se considera débil para sus estándares históricos.' },
+            industrial: { description: 'Producción de fábricas. Clave para la demanda de materias primas globales.' },
+            retail: { description: 'Consumo interno. Mide la transición de China hacia una economía de consumo.' },
+            cpi: { description: 'Inflación China. Riesgo de deflación si es negativo (<0%), indicando demanda débil.' },
+            lpr: { description: 'Tasa preferencial de préstamos. Recortes buscan estimular el sector inmobiliario.' },
+        }
+      },
+      fundamental: {
+        profitability: {
+            pe: { description: 'Precio/Beneficio. Mide cuánto pagas por ganancias. Alto: Crecimiento esperado; Bajo: Valor.' },
+            roe: { description: 'Retorno sobre Patrimonio. >15%: Gerencia eficiente creando valor para accionistas.' },
+            roa: { description: 'Retorno sobre Activos. Mide eficiencia usando recursos. >5% es generalmente bueno.' },
+        },
+        liquidity: {
+            currentRatio: { description: 'Activos/Pasivos Corrientes. >1.5: Buena liquidez; <1.0: Riesgo de impago a corto plazo.' },
+            quickRatio: { description: 'Liquidez inmediata (sin inventario). >1.0 es ideal para seguridad financiera.' },
+            solvencyRatio: { description: 'Capacidad de pago a largo plazo. >20% indica salud financiera sólida.' },
+        },
+        operating: {
+            ebitda: { description: 'Beneficio antes de intereses, impuestos, dep. y amort. Mide rentabilidad operativa pura.' },
+            fcf: { description: 'Flujo de Caja Libre. Dinero real disponible para dividendos o reinversión. Clave para valoración.' },
+        }
+      },
+      technical: {
+        trend: {
+            sma50: { description: 'Media Móvil 50 días. Precio por encima = Tendencia alcista a corto plazo.' },
+            ema200: { description: 'Media Móvil 200 días. La línea divisoria entre mercado alcista (arriba) y bajista (abajo).' },
+            macd: { description: 'Convergencia/Divergencia. Cruce por encima de 0 o línea de señal indica impulso alcista.' },
+        },
+        momentum: {
+            rsi: { description: 'Índice de Fuerza Relativa. >70: Sobrecompra (riesgo caída); <30: Sobreventa (oportunidad rebote).' },
+        },
+        volatility: {
+            bb: { description: 'Bandas de Bollinger. Precio tocando banda superior: Sobreextensión. Banda inferior: Soporte.' },
+            fib: { description: 'Retroceso de Fibonacci. Niveles clave (38.2%, 61.8%) donde el precio suele rebotar.' },
+        }
+      },
+      commodities: {
+        gold: { description: 'Activo refugio. Sube con incertidumbre, inflación o dólar débil. Protege poder adquisitivo.' },
+        silver: { description: 'Oro con beta alta. Más volátil y con usos industriales. Sigue al oro pero con movimientos más bruscos.' },
+        copper: { description: '"Doctor Cobre". Barómetro de la economía global. Sube con crecimiento industrial fuerte.' },
+        oil: { description: 'Crudo WTI. Afecta inflación y costos de transporte. Sensible a geopolítica y OPEP.' },
+        gas: { description: 'Gas Natural. Muy volátil, dependiente del clima y niveles de almacenamiento.' },
+      },
+      gold: {
+        correlations: {
+            usd: { description: 'Correlación inversa con Dólar. Si Dólar baja, Oro suele subir.' },
+        },
+        factors: {
+            rates: { description: 'Tipos de interés reales. Tipos altos son malos para el oro (costo de oportunidad).' },
+            banks: { description: 'Compras de Bancos Centrales. Demanda estructural que sostiene el precio a largo plazo.' },
+            risk: { description: 'Riesgo geopolítico. Guerras o crisis aumentan la demanda de oro como seguro.' },
+        }
+      },
+      ml: {
+        classification: {
+            rf: { purpose: 'Clasifica tendencias de mercado usando múltiples árboles de decisión para reducir el sobreajuste.' },
+            xgb: { purpose: 'Algoritmo de boosting de gradiente altamente eficiente para clasificación de señales de trading.' },
+            lr: { purpose: 'Modelo base para estimar probabilidad de dirección del mercado (Subida/Bajada).' },
+        },
+        timeseries: {
+            lstm: { purpose: 'Red neuronal recurrente capaz de aprender dependencias a largo plazo en precios.', horizon: 'Corto Plazo' },
+            hybrid: { purpose: 'Combina CNN (patrones visuales) con LSTM (tiempo) para mayor precisión.' },
+            arima: { type: 'Estadístico', purpose: 'Modelo clásico para series temporales estacionarias.', },
+        }
+      }
+    },
+    ui: {
+      marketHealth: {
+        valuation: 'Métricas de Valoración',
+        sentiment: 'Sentimiento del Mercado',
+        credit: 'Crédito y Tasas',
+        overview: 'Resumen de Salud del Mercado',
+        overviewDesc: 'Análisis integral de valoración, sentimiento e indicadores de recesión.',
+        analysis: 'Las valoraciones actuales (P/E Forward > 20x) sugieren un potencial alcista limitado, mientras que la Prima de Riesgo de Acciones (ERP) al 3.8% ofrece poca compensación por el riesgo de renta variable sobre las tasas libres de riesgo. Los diferenciales de crédito (HY OAS) permanecen ajustados, indicando complacencia del mercado a pesar de que la curva de rendimiento invertida señala posibles vientos en contra de recesión. Se recomienda un posicionamiento defensivo hasta que los múltiplos de valoración se compriman o las condiciones macroeconómicas se aclaren.'
+      }
     },
     sentiment: {
       title: "Sentimiento del Mercado",
@@ -844,6 +1145,14 @@ export const es = {
       healthCheck: "Diagnóstico de Cartera",
       connectText: "Conecta tu cartera para obtener un análisis de riesgo personalizado.",
       connectButton: "Conectar Cartera"
+    },
+    tabs: {
+      overview: 'Resumen',
+      fundamental: 'Fundamental',
+      technical: 'Técnico',
+      macro: 'Macroeconómico',
+      gold: 'Oro y Materias Primas',
+      mlModels: 'Modelos IA',
     }
   }
 }

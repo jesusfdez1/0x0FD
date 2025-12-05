@@ -107,6 +107,7 @@ export const en = {
     columns: 'Columns',
     toggleColumns: 'Toggle columns',
   },
+
   apps: {
     title: 'App integrations',
     description: "Here's a list of your apps for the integration!",
@@ -800,15 +801,203 @@ export const en = {
     title: 'Investment Lab',
     description: 'Advanced market intelligence and smart tools to optimize your portfolio strategy.',
     guide: {
-      welcome: "Hi! I'm your Investment Assistant. I'm here to help you navigate the markets.",
-      sentiment: "This is the Market Sentiment gauge. It tells you if the market is feeling Fearful or Greedy.",
-      insights: "Here you'll find AI-powered insights. We analyze millions of data points to find opportunities for you.",
-      screener: "Use the Opportunity Screener to find the best assets based on our Smart Score.",
-      next: "Next",
+      welcome: {
+        title: "Welcome to the Investment Lab",
+        content: "I am your Financial Copilot. This platform is not just a dashboard; it's an institutional intelligence ecosystem simplified for you. Here we combine macroeconomic, fundamental, and technical data to give you a real competitive edge."
+      },
+      sentiment: {
+        title: "The Market Psychologist",
+        content: "Markets move on emotions: Fear and Greed. This indicator is contrarian: when the market has 'Extreme Fear', it's usually a buying opportunity (cheap assets). When there is 'Extreme Greed', the risk of correction is high. Use it to gauge emotional temperature before trading."
+      },
+      insights: {
+        title: "Applied Artificial Intelligence",
+        content: "Our algorithms read millions of news items, earnings reports, and conference transcripts that a human couldn't process. We distill that noise into actionable 'Insights', detecting anomalies and hidden trends before they become obvious to the crowd."
+      },
+      screener: {
+        title: "High Precision Scanner",
+        content: "Forget looking for needles in a haystack. Our 'Smart Score' is a multi-factor model that evaluates Quality, Value, and Momentum. We filter thousands of assets to show you only those with the highest statistical probability of outperforming the market."
+      },
+      help: {
+        title: "Your Permanent Guide",
+        content: "Investing is a continuous journey of learning. If you ever feel lost or need to refresh a concept, click on my icon. I'll be here to explain every metric and tool with the depth you need."
+      },
+      marketHealth: {
+        intro: { 
+          title: "Mission: Structural Diagnosis", 
+          content: "Before deploying capital, we must ensure system integrity. We analyze the market structure to know if we are on solid ground or in a bubble about to burst. Don't trade blindly." 
+        },
+        valuation: { 
+          title: "Valuation Analysis", 
+          content: "Are we paying too much? We use metrics like the 'Buffett Indicator' (Market Cap / GDP) and PE Ratio. Think of this as the price per pound of stocks. If you pay too much for future earnings, your expected returns will be low." 
+        },
+        sentiment: {
+            title: "Psychological Scanner",
+            content: "The market is bipolar. We detect euphoria (danger) or panic (opportunity). The Fear & Greed index combines volatility, momentum, and options to give you a precise reading of investor sentiment."
+        },
+        credit: { 
+          title: "Systemic Risk Sensors", 
+          content: "The bond market is smarter than the stock market. 'Credit Spreads' (High Yield OAS) measure lender fear. If these spreads widen, it means 'smart money' fears defaults. It is the most reliable early warning signal of a recession." 
+        },
+        conclusion: {
+            title: "Diagnosis Complete",
+            content: "Check these indicators weekly. If Valuation is high and Credit deteriorates, increase your liquidity (cash). If there is Fear and Credit is stable, it is time to buy."
+        }
+      },
+      macro: {
+        intro: { 
+          title: "Mission: Global Environment", 
+          content: "We navigate an ocean of liquidity controlled by Central Banks. The golden rule: 'Don't fight the Fed'. Here we monitor the tectonic forces moving global money: Growth, Inflation, and Liquidity." 
+        },
+        usa: { 
+          title: "Main Engine: USA", 
+          content: "The American consumer moves the world. Watch GDP (the engine) and CPI (the brake). We look for the 'Goldilocks' balance: solid growth with controlled inflation. If unemployment rises, recession is imminent." 
+        },
+        eurozone: { 
+          title: "Eurozone", 
+          content: "A giant economic block but often stagnant. Its data is crucial to understand the weakness or strength of the Dollar (DXY). A weak Europe usually strengthens the Dollar, which affects risk assets." 
+        },
+        china: { 
+          title: "The Sleeping Dragon", 
+          content: "The factory of the world. Its demand for raw materials dictates global prices. If China sneezes (property slowdown), emerging markets and commodities catch a cold." 
+        },
+        conclusion: {
+            title: "Macro Report Finished",
+            content: "Adjust your risk exposure according to the cycle. In expansion, bet on stocks (Growth). In contraction or stagflation, take refuge in Gold, Bonds, or Defensive Sectors."
+        }
+      },
+      fundamental: {
+        intro: { 
+          title: "Mission: Asset Inspection", 
+          content: "In the long run, a stock is a piece of a business. Here we open the hood of companies to see the real engine. We look for quality, not just hype." 
+        },
+        profitability: {
+            title: "Engine Power (Profitability)",
+            content: "ROE and Margins. Does the company generate real money for every dollar invested? A company with high margins has a 'Moat' (competitive advantage) that protects it from competition."
+        },
+        liquidity: {
+            title: "Fuel (Liquidity)",
+            content: "Current and Solvency Ratios. Can the company pay its short-term bills? Without liquidity, even a profitable company can go bankrupt. It is the survival check."
+        },
+        operating: {
+            title: "Operating Efficiency",
+            content: "EBITDA and Free Cash Flow (FCF). Accounting profit can be manipulated; Cash Flow cannot. We look for companies that are cash-generating machines to reinvest or pay dividends."
+        },
+        conclusion: {
+            title: "Inspection Finished",
+            content: "Look for the trinity: High Returns on Capital (ROIC), Solid Balance Sheet (Low Debt), and Growing Cash Flows. Those are the stocks you want to hold forever."
+        }
+      },
+      technical: {
+        intro: { 
+          title: "Mission: Combat Tactics", 
+          content: "Price has memory. Technical Analysis is not magic; it is the study of mass psychology reflected in charts. We use this to time our entries and exits with sniper precision." 
+        },
+        trend: {
+            title: "Trend Identification",
+            content: "'The trend is your friend'. Moving Averages (SMA 50/200) tell us the wind direction. Never trade against the main trend unless you have a very powerful reason."
+        },
+        momentum: {
+            title: "Movement Strength",
+            content: "RSI and MACD. Is the move strong or exhausted? If price goes up but momentum goes down (divergence), it is a warning sign that the rise is fake."
+        },
+        volatility: {
+            title: "Volatility Bands",
+            content: "Bollinger Bands. The market alternates between calm and storm. When the bands squeeze, prepare for an imminent explosion of movement."
+        },
+        conclusion: {
+            title: "Tactical Analysis Complete",
+            content: "Do not use this to guess the future, but to manage risk. Buy at support, sell at resistance. And always, always use Stop Loss."
+        }
+      },
+      gold: {
+        intro: { 
+          title: "Mission: Store of Value", 
+          content: "Gold is not just a shiny rock; it is real money that governments cannot print. It is your insurance against monetary chaos, uncontrolled inflation, and geopolitical uncertainty." 
+        },
+        metals: {
+            title: "Precious Metals",
+            content: "Gold and Silver. Gold is the king of wealth preservation. Silver is its volatile brother, with more industrial use. Both tend to shine when confidence in paper money fades."
+        },
+        energy: {
+            title: "Energy (Oil & Gas)",
+            content: "The blood of the global economy. High oil prices act as a tax on growth and fuel inflation. It is a vital cyclical sector to understand production costs."
+        },
+        drivers: {
+            title: "Key Factors",
+            content: "Real Rates and Central Banks. Gold hates high interest rates (because it pays no dividends). But if inflation is higher than rates (Negative Real Rates), gold flies. We also watch buying from China and Russia."
+        },
+        conclusion: {
+            title: "Commodities Report Finished",
+            content: "Keep a strategic allocation (5-10%) in Gold/Commodities. It won't make you rich overnight, but it will prevent you from going broke in a monetary crisis."
+        }
+      },
+      mlModels: {
+        intro: { 
+          title: "Mission: Artificial Intelligence", 
+          content: "Markets are complex, non-linear systems. We deploy neural networks to find patterns invisible to the human eye in the chaos of data." 
+        },
+        classification: {
+            title: "Classification Models",
+            content: "Random Forest and XGBoost. Buy or Sell? These models analyze thousands of variables to give us a binary probability. They are excellent for detecting market regimes."
+        },
+        timeseries: {
+            title: "Time Prediction (Deep Learning)",
+            content: "LSTM and Transformers. We try to predict future price trajectory learning from past sequences. They capture the 'long-term memory' of the market."
+        },
+        conclusion: {
+            title: "AI Analysis Complete",
+            content: "Remember: AI is a probabilistic support tool, not a crystal ball. Use it to confirm your fundamental and technical thesis, not to follow it blindly."
+        }
+      },
+      next: "Next Lesson",
       prev: "Previous",
-      close: "Close",
-      start: "Start Tour",
-      skip: "Skip"
+      close: "Got it",
+      start: "Start Guided Tour",
+      skip: "Explore on my own"
+    },
+    data: {
+      status: {
+        elevated: 'Elevated',
+        tight: 'Tight',
+        overvalued: 'Overvalued',
+        extreme: 'Extreme',
+        extremeGreed: 'Extreme Greed',
+        bullish: 'Bullish',
+        complacency: 'Complacency',
+        inverted: 'Inverted',
+        rising: 'Rising',
+        restrictive: 'Restrictive',
+      },
+      marketHealth: {
+        valuation: {
+          sp500pe: { description: 'Price vs Next 12M Earnings (Hist. Avg: 17.5x).' },
+          erp: { description: 'Earnings Yield minus 10Y Treasury Yield.' },
+          shiller: { description: 'Cyclically Adjusted PE Ratio.' },
+          buffett: { description: 'Total Market Cap to GDP.' },
+        },
+        sentiment: {
+          fng: { description: 'CNN Multi-factor sentiment index.' },
+          aaii: { description: 'Retail investor sentiment spread.' },
+          vix: { description: 'Implied volatility (30-day).' },
+          pcr: { description: 'Options volume sentiment.' },
+        },
+        credit: {
+          spread: { description: 'Recession indicator (Inversion).' },
+          yield: { description: 'Benchmark risk-free rate.' },
+          realYield: { description: 'Nominal yield minus inflation expectations.' },
+          hyOas: { description: 'High Yield Option-Adjusted Spread (Risk appetite).' },
+        }
+      }
+    },
+    ui: {
+      marketHealth: {
+        valuation: 'Valuation Metrics',
+        sentiment: 'Market Sentiment',
+        credit: 'Credit & Rates',
+        overview: 'Market Health Overview',
+        overviewDesc: 'Comprehensive analysis of market valuation, investor sentiment, and recession indicators.',
+        analysis: 'Current valuations (Forward P/E > 20x) suggest limited upside potential, while the Equity Risk Premium (ERP) at 3.8% offers little compensation for equity risk over risk-free rates. Credit spreads (HY OAS) remain tight, indicating market complacency despite the inverted yield curve signaling potential recessionary headwinds. Defensive positioning is recommended until valuation multiples compress or macro conditions clarify.'
+      }
     },
     sentiment: {
       title: "Market Sentiment",
@@ -842,6 +1031,14 @@ export const en = {
       healthCheck: "Portfolio Health Check",
       connectText: "Connect your portfolio to get a personalized risk analysis.",
       connectButton: "Connect Portfolio"
+    },
+    tabs: {
+      overview: 'Overview',
+      fundamental: 'Fundamental',
+      technical: 'Technical',
+      macro: 'Macroeconomic',
+      gold: 'Gold & Commodities',
+      mlModels: 'AI Models',
     }
   }
 }
