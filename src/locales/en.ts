@@ -298,6 +298,7 @@ export const en = {
       retail: 'Retail & consumer',
       automotive: 'Automotive',
     },
+
     regionOverview: {
       kicker: 'Regional breakdown',
       title: 'Depth by region & market',
@@ -369,6 +370,7 @@ export const en = {
     filters: {
       region: 'Region',
       market: 'Market',
+      sector: 'Sector',
     },
     entity: {
       singular: 'company',

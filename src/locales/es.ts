@@ -298,6 +298,11 @@ export const es = {
       retail: 'Consumo y retail',
       automotive: 'Automoción',
     },
+    filters: {
+      region: 'Región',
+      market: 'Mercado',
+      sector: 'Sector',
+    },
     regionOverview: {
       kicker: 'Desglose regional',
       title: 'Profundidad por región y mercado',
@@ -366,10 +371,6 @@ export const es = {
       },
     },
     byRegion: 'Agrupadas por región y bolsa',
-    filters: {
-      region: 'Región',
-      market: 'Mercado',
-    },
     entity: {
       singular: 'empresa',
       plural: 'empresas',

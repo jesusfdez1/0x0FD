@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/badge'
 import { LongText } from '@/components/long-text'
 import { type Company } from '../data/schema'
 import { DataTableRowActions } from './data-table-row-actions'
+import { useTheme } from '@/context/theme-provider'
 
 export const companiesColumns: ColumnDef<Company>[] = [
   {
@@ -42,15 +43,17 @@ export const companiesColumns: ColumnDef<Company>[] = [
       // Limpiar el ticker para quitar sufijos de exchange (ej: SAN.MC -> SAN, 7203.T -> 7203)
       const cleanTicker = company.ticker.split('.')[0]
       const token = import.meta.env.VITE_LOGO_DEV_TOKEN || ''
+      const { resolvedTheme } = useTheme()
+      const themeParam = resolvedTheme === 'dark' ? '&theme=dark' : ''
       
       // Primero intentar con ticker usando fallback=404
       const tickerUrl = token
-        ? `https://img.logo.dev/ticker/${encodeURIComponent(cleanTicker)}?token=${token}&format=webp&retina=true&size=64&fallback=404`
+        ? `https://img.logo.dev/ticker/${encodeURIComponent(cleanTicker)}?token=${token}&format=webp&retina=true&size=64&fallback=404${themeParam}`
         : null
       
       // Si hay token, intentar con nombre como fallback
       const nameUrl = token
-        ? `https://img.logo.dev/name/${encodeURIComponent(company.name)}?token=${token}&format=webp&retina=true&size=64`
+        ? `https://img.logo.dev/name/${encodeURIComponent(company.name)}?token=${token}&format=webp&retina=true&size=64${themeParam}`
         : null
       
       // Placeholder como último recurso
