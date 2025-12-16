@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import {
   type SortingState,
   type VisibilityState,
+  type ColumnFiltersState,
   flexRender,
   getCoreRowModel,
   getFacetedRowModel,
@@ -34,9 +35,10 @@ type DataTableProps = {
   search: Record<string, unknown>
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   navigate: UseNavigateResult<any>
+  presetFilters?: ColumnFiltersState
 }
 
-export function CompaniesTable({ data, search, navigate }: DataTableProps) {
+export function CompaniesTable({ data, search, navigate, presetFilters }: DataTableProps) {
   const { t } = useLanguage()
   // Local UI-only states
   const [rowSelection, setRowSelection] = useState({})
@@ -84,6 +86,12 @@ export function CompaniesTable({ data, search, navigate }: DataTableProps) {
     ensurePageInRange(table.getPageCount())
   }, [table, ensurePageInRange])
 
+  useEffect(() => {
+    if (!presetFilters) return
+    onColumnFiltersChange(() => presetFilters)
+    ensurePageInRange(table.getPageCount())
+  }, [presetFilters, onColumnFiltersChange, ensurePageInRange, table])
+
   return (
     <div className={cn('max-sm:has-[div[role="toolbar"]]:mb-16', 'flex flex-1 flex-col gap-4')}>
       <DataTableToolbar
@@ -105,6 +113,14 @@ export function CompaniesTable({ data, search, navigate }: DataTableProps) {
             options: Array.from(new Set(data.map((d) => d.market))).map((market) => ({
               label: market,
               value: market,
+            })),
+          },
+          {
+            columnId: 'sector',
+            title: t('companies.filters.sector'),
+            options: Array.from(new Set(data.map((d) => d.sector).filter(Boolean))).map((sector) => ({
+              label: sector as string,
+              value: sector as string,
             })),
           },
         ]}

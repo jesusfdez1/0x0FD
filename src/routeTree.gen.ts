@@ -26,6 +26,7 @@ import { Route as AuthenticatedSettingsNotificationsRouteImport } from './routes
 import { Route as AuthenticatedSettingsDisplayRouteImport } from './routes/_authenticated/settings/display'
 import { Route as AuthenticatedSettingsAppearanceRouteImport } from './routes/_authenticated/settings/appearance'
 import { Route as AuthenticatedSettingsAccountRouteImport } from './routes/_authenticated/settings/account'
+import { Route as AuthenticatedCompaniesTickerRouteImport } from './routes/_authenticated/companies/$ticker'
 import { Route as AuthenticatedAssetsAssetIdRouteImport } from './routes/_authenticated/assets/$assetId'
 
 const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
@@ -123,6 +124,12 @@ const AuthenticatedSettingsAccountRoute =
     path: '/account',
     getParentRoute: () => AuthenticatedSettingsRouteRoute,
   } as any)
+const AuthenticatedCompaniesTickerRoute =
+  AuthenticatedCompaniesTickerRouteImport.update({
+    id: '/companies/$ticker',
+    path: '/companies/$ticker',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedAssetsAssetIdRoute =
   AuthenticatedAssetsAssetIdRouteImport.update({
     id: '/assets/$assetId',
@@ -134,6 +141,7 @@ export interface FileRoutesByFullPath {
   '/settings': typeof AuthenticatedSettingsRouteRouteWithChildren
   '/': typeof AuthenticatedIndexRoute
   '/assets/$assetId': typeof AuthenticatedAssetsAssetIdRoute
+  '/companies/$ticker': typeof AuthenticatedCompaniesTickerRoute
   '/settings/account': typeof AuthenticatedSettingsAccountRoute
   '/settings/appearance': typeof AuthenticatedSettingsAppearanceRoute
   '/settings/display': typeof AuthenticatedSettingsDisplayRoute
@@ -152,6 +160,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof AuthenticatedIndexRoute
   '/assets/$assetId': typeof AuthenticatedAssetsAssetIdRoute
+  '/companies/$ticker': typeof AuthenticatedCompaniesTickerRoute
   '/settings/account': typeof AuthenticatedSettingsAccountRoute
   '/settings/appearance': typeof AuthenticatedSettingsAppearanceRoute
   '/settings/display': typeof AuthenticatedSettingsDisplayRoute
@@ -173,6 +182,7 @@ export interface FileRoutesById {
   '/_authenticated/settings': typeof AuthenticatedSettingsRouteRouteWithChildren
   '/_authenticated/': typeof AuthenticatedIndexRoute
   '/_authenticated/assets/$assetId': typeof AuthenticatedAssetsAssetIdRoute
+  '/_authenticated/companies/$ticker': typeof AuthenticatedCompaniesTickerRoute
   '/_authenticated/settings/account': typeof AuthenticatedSettingsAccountRoute
   '/_authenticated/settings/appearance': typeof AuthenticatedSettingsAppearanceRoute
   '/_authenticated/settings/display': typeof AuthenticatedSettingsDisplayRoute
@@ -194,6 +204,7 @@ export interface FileRouteTypes {
     | '/settings'
     | '/'
     | '/assets/$assetId'
+    | '/companies/$ticker'
     | '/settings/account'
     | '/settings/appearance'
     | '/settings/display'
@@ -212,6 +223,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/assets/$assetId'
+    | '/companies/$ticker'
     | '/settings/account'
     | '/settings/appearance'
     | '/settings/display'
@@ -232,6 +244,7 @@ export interface FileRouteTypes {
     | '/_authenticated/settings'
     | '/_authenticated/'
     | '/_authenticated/assets/$assetId'
+    | '/_authenticated/companies/$ticker'
     | '/_authenticated/settings/account'
     | '/_authenticated/settings/appearance'
     | '/_authenticated/settings/display'
@@ -373,6 +386,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedSettingsAccountRouteImport
       parentRoute: typeof AuthenticatedSettingsRouteRoute
     }
+    '/_authenticated/companies/$ticker': {
+      id: '/_authenticated/companies/$ticker'
+      path: '/companies/$ticker'
+      fullPath: '/companies/$ticker'
+      preLoaderRoute: typeof AuthenticatedCompaniesTickerRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/assets/$assetId': {
       id: '/_authenticated/assets/$assetId'
       path: '/assets/$assetId'
@@ -410,6 +430,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedSettingsRouteRoute: typeof AuthenticatedSettingsRouteRouteWithChildren
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
   AuthenticatedAssetsAssetIdRoute: typeof AuthenticatedAssetsAssetIdRoute
+  AuthenticatedCompaniesTickerRoute: typeof AuthenticatedCompaniesTickerRoute
   AuthenticatedAppsIndexRoute: typeof AuthenticatedAppsIndexRoute
   AuthenticatedAssetsIndexRoute: typeof AuthenticatedAssetsIndexRoute
   AuthenticatedChatsIndexRoute: typeof AuthenticatedChatsIndexRoute
@@ -425,6 +446,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedSettingsRouteRoute: AuthenticatedSettingsRouteRouteWithChildren,
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
   AuthenticatedAssetsAssetIdRoute: AuthenticatedAssetsAssetIdRoute,
+  AuthenticatedCompaniesTickerRoute: AuthenticatedCompaniesTickerRoute,
   AuthenticatedAppsIndexRoute: AuthenticatedAppsIndexRoute,
   AuthenticatedAssetsIndexRoute: AuthenticatedAssetsIndexRoute,
   AuthenticatedChatsIndexRoute: AuthenticatedChatsIndexRoute,
