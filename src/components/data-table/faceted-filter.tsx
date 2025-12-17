@@ -38,7 +38,11 @@ export function DataTableFacetedFilter<TData, TValue>({
 }: DataTableFacetedFilterProps<TData, TValue>) {
   const { t } = useLanguage()
   const facets = column?.getFacetedUniqueValues()
-  const selectedValues = new Set((column?.getFilterValue() as string[] | undefined) ?? [])
+  const selectedValues = new Set(
+    (column?.getFilterValue() as string[] | undefined) ?? []
+  )
+  const selectedLabel =
+    selectedValues.size === 1 ? t('common.selected') : t('common.selectedPlural')
 
   return (
     <Popover>
@@ -46,7 +50,7 @@ export function DataTableFacetedFilter<TData, TValue>({
         <Button variant='outline' size='sm' className='h-8 border-dashed'>
           <PlusCircledIcon className='size-4' />
           {title}
-          {selectedValues?.size > 0 && (
+          {selectedValues.size > 0 && (
             <>
               <Separator orientation='vertical' className='mx-2 h-4' />
               <Badge
@@ -61,10 +65,7 @@ export function DataTableFacetedFilter<TData, TValue>({
                     variant='secondary'
                     className='rounded-sm px-1 font-normal'
                   >
-                    {selectedValues.size}{' '}
-                    {selectedValues.size === 1
-                      ? t('common.selected')
-                      : t('common.selectedPlural')}
+                    {selectedValues.size} {selectedLabel}
                   </Badge>
                 ) : (
                   options

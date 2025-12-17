@@ -95,40 +95,37 @@ export function Companies() {
       </Header>
 
       <Main className='flex flex-1 flex-col gap-4 sm:gap-6'>
-        <div className='grid gap-4 xl:grid-cols-[320px,1fr]'>
+        <div className='grid gap-4'>
           <aside className='space-y-4 min-w-0'>
             <div className='rounded-2xl bg-card border p-4 shadow-sm max-w-full min-w-0'>
               <div className='p-3 space-y-3 min-w-0 max-w-full'>
-                <div className='flex items-start justify-between gap-3'>
-                  <div className='space-y-1.5'>
+                <div className='flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between'>
+                  <div className='space-y-1.5 min-w-0 lg:flex-1'>
                     <p className='text-[11px] uppercase tracking-[0.12em] text-muted-foreground'>{t('companies.hero.kicker')}</p>
                     <h2 className='text-lg font-semibold leading-tight text-foreground'>{t('companies.hero.title')}</h2>
                     <p className='text-sm leading-snug text-muted-foreground max-w-lg'>{t('companies.hero.subtitle')}</p>
                   </div>
-                  {/* Badges: usamos una versión más compacta y neutra (movida desde la parte inferior) */}
-                  <Badge variant='outline' className='w-fit border-muted-foreground/20 bg-muted/10 text-foreground backdrop-blur'>
-                    {metrics.totals.regions} {t('companies.metrics.regionsLabel')} • {metrics.totals.sectors} {t('companies.metrics.sectorsLabel')}
-                  </Badge>
-                </div>
 
-                <div className='grid grid-cols-2 gap-2'>
-                  <div className='rounded-lg p-2 border bg-white/30 dark:bg-black/20 border-white/10 dark:border-black/30 text-foreground shadow-sm backdrop-blur-md'>
-                    <div className='flex items-center justify-between text-[11px] uppercase tracking-wide text-slate-700 dark:text-white/80'>
-                      <span>{t('companies.metrics.coverage')}</span>
-                      <Globe2 className='h-4 w-4' />
+                  <div className='grid gap-2 sm:grid-cols-2 lg:grid-cols-2 lg:shrink-0'>
+                    <div className='rounded-lg p-2 border bg-white/30 dark:bg-black/20 border-white/10 dark:border-black/30 text-foreground shadow-sm backdrop-blur-md h-full lg:w-[240px]'>
+                      <div className='flex items-center justify-between text-[11px] uppercase tracking-wide text-slate-700 dark:text-white/80'>
+                        <span>{t('companies.metrics.coverage')}</span>
+                        <Globe2 className='h-4 w-4' />
+                      </div>
+                      <p className='mt-1 text-xl font-semibold text-slate-900 dark:text-white'>{metrics.totals.companies}</p>
+                      <p className='text-[11px] text-muted-foreground'>{t('companies.metrics.coverageHint')}</p>
                     </div>
-                    <p className='mt-1 text-xl font-semibold text-slate-900 dark:text-white'>{metrics.totals.companies}</p>
-                    <p className='text-[11px] text-muted-foreground'>{t('companies.metrics.coverageHint')}</p>
-                  </div>
-                  <div className='rounded-lg p-2 border bg-white/30 dark:bg-black/20 border-white/10 dark:border-black/30 text-foreground shadow-sm backdrop-blur-md'>
-                    <div className='flex items-center justify-between text-[11px] uppercase tracking-wide text-slate-700 dark:text-white/80'>
-                      <span>{t('companies.metrics.marketAccess')}</span>
-                      <LineChart className='h-4 w-4' />
+
+                    <div className='rounded-lg p-2 border bg-white/30 dark:bg-black/20 border-white/10 dark:border-black/30 text-foreground shadow-sm backdrop-blur-md h-full lg:w-[240px]'>
+                      <div className='flex items-center justify-between text-[11px] uppercase tracking-wide text-slate-700 dark:text-white/80'>
+                        <span>{t('companies.metrics.marketAccess')}</span>
+                        <LineChart className='h-4 w-4' />
+                      </div>
+                      <p className='mt-1 text-xl font-semibold text-slate-900 dark:text-white'>{metrics.totals.markets}</p>
+                      <p className='text-[11px] text-muted-foreground'>
+                        {t('companies.metrics.marketHint', { regions: metrics.totals.regions })}
+                      </p>
                     </div>
-                    <p className='mt-1 text-xl font-semibold text-slate-900 dark:text-white'>{metrics.totals.markets}</p>
-                    <p className='text-[11px] text-muted-foreground'>
-                      {t('companies.metrics.marketHint', { regions: metrics.totals.regions })}
-                    </p>
                   </div>
                 </div>
                 {/* Badge inferior original eliminada: la hemos movido arriba */}
