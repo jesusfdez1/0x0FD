@@ -104,12 +104,20 @@ export function useTableUrlState(
   const [columnFilters, setColumnFilters] =
     useState<ColumnFiltersState>(initialColumnFilters)
 
+  const readNumber = (value: unknown, fallback: number) => {
+    if (typeof value === 'number' && Number.isFinite(value)) return value
+    if (typeof value === 'string') {
+      const parsed = Number(value)
+      return Number.isFinite(parsed) ? parsed : fallback
+    }
+    return fallback
+  }
+
   const pagination: PaginationState = useMemo(() => {
     const rawPage = (search as SearchRecord)[pageKey]
     const rawPageSize = (search as SearchRecord)[pageSizeKey]
-    const pageNum = typeof rawPage === 'number' ? rawPage : defaultPage
-    const pageSizeNum =
-      typeof rawPageSize === 'number' ? rawPageSize : defaultPageSize
+    const pageNum = readNumber(rawPage, defaultPage)
+    const pageSizeNum = readNumber(rawPageSize, defaultPageSize)
     return { pageIndex: Math.max(0, pageNum - 1), pageSize: pageSizeNum }
   }, [search, pageKey, pageSizeKey, defaultPage, defaultPageSize])
 
@@ -189,7 +197,7 @@ export function useTableUrlState(
     opts: { resetTo?: 'first' | 'last' } = { resetTo: 'first' }
   ) => {
     const currentPage = (search as SearchRecord)[pageKey]
-    const pageNum = typeof currentPage === 'number' ? currentPage : defaultPage
+    const pageNum = readNumber(currentPage, defaultPage)
     if (pageCount > 0 && pageNum > pageCount) {
       navigate({
         replace: true,

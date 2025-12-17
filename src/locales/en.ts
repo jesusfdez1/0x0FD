@@ -258,7 +258,7 @@ export const en = {
   companies: {
     title: 'Companies',
     description: 'Browse publicly-listed companies grouped by region and market. Use the search bar to find companies across markets.',
-    filterPlaceholder: 'Buscar empresas...',
+    filterPlaceholder: 'Search companies...',
     hero: {
       kicker: 'Equity cockpit',
       title: 'Actionable market intelligence',
@@ -297,6 +297,14 @@ export const en = {
       energy: 'Energy',
       retail: 'Retail & consumer',
       automotive: 'Automotive',
+    },
+
+    view: {
+      default: 'Default',
+      fundamentals: 'Fundamentals',
+      balance: 'Balance sheet',
+      performance: 'Performance',
+      all: 'All',
     },
 
     regionOverview: {
@@ -370,6 +378,36 @@ export const en = {
     filters: {
       region: 'Region',
       market: 'Market',
+      sector: 'Sector',
+    },
+    columns: {
+      selectAll: 'Select all',
+      selectRow: 'Select row',
+      company: 'Company',
+      market: 'Market',
+      price: 'Price',
+      change30d: '30d',
+      trend30d: 'Trend (30d)',
+      marketCap: 'Market Cap',
+      volume: 'Vol.',
+      updated: 'Updated',
+      rank: 'Rank',
+      earnings: 'Earnings',
+      revenue: 'Revenue',
+      employees: 'Employees',
+      peRatio: 'P/E',
+      dividendYield: 'Dividend %',
+      marketCapGain: 'MC Gain',
+      marketCapLoss: 'MC Loss',
+      operatingMargin: 'Op. Margin %',
+      costToBorrow: 'Cost to borrow',
+      totalAssets: 'Total assets',
+      netAssets: 'Net assets',
+      totalLiabilities: 'Total liabilities',
+      totalDebt: 'Total debt',
+      cash: 'Cash',
+      priceToBook: 'P/B',
+      region: 'Region',
       sector: 'Sector',
     },
     entity: {

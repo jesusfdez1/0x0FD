@@ -83,7 +83,7 @@ export function CompanyDetail({ ticker }: { ticker: string }) {
             <AlertDescription className='flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between'>
               <span>{t('companies.detail.notFoundCopy')}</span>
               <Button asChild variant='outline' size='sm'>
-                <Link to='/companies/'>
+                <Link to='/companies'>
                   <ArrowLeft className='mr-2 h-4 w-4' />
                   {t('companies.detail.backToList')}
                 </Link>
@@ -99,7 +99,7 @@ export function CompanyDetail({ ticker }: { ticker: string }) {
                 <div className='space-y-3'>
                   <div className='flex flex-wrap items-center gap-2'>
                     <Button asChild variant='ghost' size='sm' className='px-2'>
-                      <Link to='/companies/'>
+                      <Link to='/companies'>
                         <ArrowLeft className='mr-2 h-4 w-4' />
                         {t('companies.detail.backToList')}
                       </Link>

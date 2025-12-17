@@ -21,6 +21,7 @@ export function Companies() {
   const { data: companies = [], isLoading, isError, error } = useCompanies()
 
   const [quickFilters, setQuickFilters] = useState<ColumnFiltersState>([])
+  const [viewPreset, setViewPreset] = useState<'default'|'fundamentals'|'balance'|'performance'|'all'>('default')
 
   const metrics = useMemo(() => {
     const regions = new Set<string>()
@@ -95,9 +96,9 @@ export function Companies() {
 
       <Main className='flex flex-1 flex-col gap-4 sm:gap-6'>
         <div className='grid gap-4 xl:grid-cols-[320px,1fr]'>
-          <aside className='space-y-4'>
-            <div className='rounded-2xl bg-card border p-4 shadow-sm'>
-              <div className='p-3 space-y-3'>
+          <aside className='space-y-4 min-w-0'>
+            <div className='rounded-2xl bg-card border p-4 shadow-sm max-w-full min-w-0'>
+              <div className='p-3 space-y-3 min-w-0 max-w-full'>
                 <div className='flex items-start justify-between gap-3'>
                   <div className='space-y-1.5'>
                     <p className='text-[11px] uppercase tracking-[0.12em] text-muted-foreground'>{t('companies.hero.kicker')}</p>
@@ -155,7 +156,19 @@ export function Companies() {
                   </div>
                 ) : (
                   <>
-                    <CompaniesTable data={companies} search={search} navigate={navigate} presetFilters={quickFilters} />
+                    {/* View preset buttons for columns */}
+                    <div className='mb-3 flex items-center gap-2 min-w-0 max-w-full'>
+                      <div className='text-xs text-muted-foreground mr-2 shrink-0'>Vista:</div>
+                      <div className='flex items-center gap-2 min-w-0 max-w-full overflow-x-auto whitespace-nowrap'>
+                        <Button size='sm' variant={viewPreset === 'default' ? 'default' : 'ghost'} onClick={() => setViewPreset('default')}>{t('companies.view.default')}</Button>
+                        <Button size='sm' variant={viewPreset === 'fundamentals' ? 'default' : 'ghost'} onClick={() => setViewPreset('fundamentals')}>{t('companies.view.fundamentals')}</Button>
+                        <Button size='sm' variant={viewPreset === 'balance' ? 'default' : 'ghost'} onClick={() => setViewPreset('balance')}>{t('companies.view.balance')}</Button>
+                        <Button size='sm' variant={viewPreset === 'performance' ? 'default' : 'ghost'} onClick={() => setViewPreset('performance')}>{t('companies.view.performance')}</Button>
+                        <Button size='sm' variant={viewPreset === 'all' ? 'default' : 'ghost'} onClick={() => setViewPreset('all')}>{t('companies.view.all')}</Button>
+                      </div>
+                    </div>
+
+                    <CompaniesTable data={companies} search={search} navigate={navigate} presetFilters={quickFilters} viewPreset={viewPreset} />
 
                     {/* Desglose regional: movido fuera de la tarjeta principal (se renderiza en la sección principal) */}
                   </>

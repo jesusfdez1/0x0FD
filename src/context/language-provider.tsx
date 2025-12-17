@@ -7,7 +7,7 @@ type Language = 'en' | 'es'
 type LanguageContextType = {
   language: Language
   setLanguage: (language: Language) => void
-  t: (key: string) => string
+  t: (key: string, params?: Record<string, any>) => string
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(
@@ -33,7 +33,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     setLanguageState(newLanguage)
   }
 
-  const t = (key: string): string => {
+  const t = (key: string, params?: Record<string, any>): string => {
     const keys = key.split('.')
     let value: any = translations[language]
 
@@ -41,7 +41,15 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
       value = value?.[k]
     }
 
-    return value || key
+    if (value == null) return key
+
+    if (params && typeof value === 'string') {
+      return value.replace(/\{(\w+)\}/g, (_, name) => {
+        return params[name] ?? `{${name}}`
+      })
+    }
+
+    return typeof value === 'string' ? value : key
   }
 
   return (
