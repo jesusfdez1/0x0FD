@@ -5,15 +5,22 @@ export type PricePoint = { date: string; price: number }
 export type SyntheticPriceData = {
   currentPrice: number
   history30d: PricePoint[]
+  change1dPercent: number
   change30dPercent: number
+  change1yPercent: number
   marketCap: number
+  sharesOutstanding: number
   volume: number
   lastUpdated: string
   earnings?: number
   revenue?: number
   employees?: number
   peRatio?: number
+  eps?: number
   dividendYield?: number
+  dividends?: Array<{ date: string; amount: number }>
+  stockSplits?: Array<{ date: string; ratio: string }>
+  failsToDeliver?: number
   marketCapGain?: number
   marketCapLoss?: number
   operatingMargin?: number
@@ -67,7 +74,12 @@ export function generateSyntheticPrices(ticker: string): SyntheticPriceData {
 
   const first = history[0].price
   const last = history[history.length - 1].price
+  const prev = history[Math.max(0, history.length - 2)].price
+  const change1dPercent = +(((last - prev) / prev) * 100).toFixed(2)
   const change30dPercent = +(((last - first) / first) * 100).toFixed(2)
+
+  const rand1y = mulberry32(seedFromString(`${ticker.toUpperCase()}:1y`))
+  const change1yPercent = +(((rand1y() - 0.35) * 180).toFixed(2))
 
   // Market cap synthetic: price * shares (shares between 10M and 200B)
   const shares = Math.round(1e7 + rand() * 2e11)
@@ -81,7 +93,37 @@ export function generateSyntheticPrices(ticker: string): SyntheticPriceData {
   const revenue = Math.round(earnings * (5 + rand() * 10))
   const employees = Math.round(50 + rand() * 200000)
   const peRatio = +(rand() * 30 + 5).toFixed(2)
+  const eps = +(earnings / Math.max(1, shares)).toFixed(4)
   const dividendYield = +(rand() * 5).toFixed(2)
+
+  // Dividend history (last 8 quarters)
+  const dividends: Array<{ date: string; amount: number }> = []
+  const annualDividend = (dividendYield / 100) * last
+  const quarterlyDividend = +(annualDividend / 4).toFixed(4)
+  for (let q = 7; q >= 0; q--) {
+    const d = new Date()
+    d.setMonth(d.getMonth() - q * 3)
+    dividends.push({
+      date: d.toISOString().slice(0, 10),
+      amount: +(Math.max(0, quarterlyDividend * (0.85 + rand() * 0.3))).toFixed(4),
+    })
+  }
+
+  // Stock splits (0-3 deterministic events)
+  const splitCount = Math.floor(rand() * 4)
+  const splitRatios = ['2:1', '3:1', '3:2']
+  const stockSplits: Array<{ date: string; ratio: string }> = []
+  for (let i = 0; i < splitCount; i++) {
+    const year = 2000 + Math.floor(rand() * 26)
+    const month = 1 + Math.floor(rand() * 12)
+    const day = 1 + Math.floor(rand() * 28)
+    const date = new Date(Date.UTC(year, month - 1, day)).toISOString().slice(0, 10)
+    const ratio = splitRatios[Math.floor(rand() * splitRatios.length)]
+    stockSplits.push({ date, ratio })
+  }
+  stockSplits.sort((a, b) => a.date.localeCompare(b.date))
+
+  const failsToDeliver = Math.round(rand() * 1_500_000)
   const marketCapGain = Math.round(rand() * marketCap * 0.2)
   const marketCapLoss = Math.round(rand() * marketCap * 0.15)
   const operatingMargin = +(rand() * 40 - 5).toFixed(2) // -5% to 35%
@@ -98,15 +140,22 @@ export function generateSyntheticPrices(ticker: string): SyntheticPriceData {
   return {
     currentPrice: last,
     history30d: history,
+    change1dPercent,
     change30dPercent,
+    change1yPercent,
     marketCap,
+    sharesOutstanding: shares,
     volume,
     lastUpdated,
     earnings,
     revenue,
     employees,
     peRatio,
+    eps,
     dividendYield,
+    dividends,
+    stockSplits,
+    failsToDeliver,
     marketCapGain,
     marketCapLoss,
     operatingMargin,
