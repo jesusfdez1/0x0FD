@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from 'react'
+import { useEffect, useRef, useState, useMemo } from 'react'
 import {
   type SortingState,
   type VisibilityState,
@@ -73,6 +73,62 @@ export function CompaniesTable({ data, search, navigate, presetFilters, viewPres
 
   const columnsMemo = useMemo(() => getCompaniesColumns({ t, language, ranksByTicker }), [t, language, ranksByTicker])
 
+  const regionLabel = (region: string) => {
+    switch (region) {
+      case 'North America':
+        return t('companies.optionLabels.regions.northAmerica')
+      case 'Europe':
+        return t('companies.optionLabels.regions.europe')
+      case 'Asia':
+        return t('companies.optionLabels.regions.asia')
+      case 'Oceania':
+        return t('companies.optionLabels.regions.oceania')
+      case 'South America':
+        return t('companies.optionLabels.regions.southAmerica')
+      case 'Other':
+        return t('companies.optionLabels.regions.other')
+      default:
+        return region
+    }
+  }
+
+  const sectorLabel = (sector: string) => {
+    switch (sector) {
+      case 'Technology':
+        return t('companies.optionLabels.sectors.technology')
+      case 'Financial':
+        return t('companies.optionLabels.sectors.financial')
+      case 'Energy':
+        return t('companies.optionLabels.sectors.energy')
+      case 'Retail':
+        return t('companies.optionLabels.sectors.retail')
+      case 'Automotive':
+        return t('companies.optionLabels.sectors.automotive')
+      case 'Healthcare':
+        return t('companies.optionLabels.sectors.healthcare')
+      case 'Consumer':
+        return t('companies.optionLabels.sectors.consumer')
+      case 'Telecommunications':
+        return t('companies.optionLabels.sectors.telecommunications')
+      case 'Industrial':
+        return t('companies.optionLabels.sectors.industrial')
+      case 'Utilities':
+        return t('companies.optionLabels.sectors.utilities')
+      case 'Real Estate':
+        return t('companies.optionLabels.sectors.realEstate')
+      case 'Materials':
+        return t('companies.optionLabels.sectors.materials')
+      case 'E-commerce':
+        return t('companies.optionLabels.sectors.ecommerce')
+      case 'Mining':
+        return t('companies.optionLabels.sectors.mining')
+      case 'Other':
+        return t('companies.optionLabels.sectors.other')
+      default:
+        return sector
+    }
+  }
+
   const table = useReactTable({
     data,
     columns: columnsMemo,
@@ -118,10 +174,38 @@ export function CompaniesTable({ data, search, navigate, presetFilters, viewPres
     ensurePageInRange(pageCount)
   }, [pageCount, ensurePageInRange])
 
+  const lastAppliedPresetRef = useRef<{ signature: string; ids: string[] } | null>(null)
+
   useEffect(() => {
     if (!presetFilters) return
-    if (areColumnFiltersEqual(columnFilters, presetFilters)) return
-    onColumnFiltersChange(() => presetFilters)
+
+    const presetSignature = JSON.stringify(
+      [...presetFilters]
+        .map((f) => ({ id: f.id, value: f.value }))
+        .sort((x, y) => x.id.localeCompare(y.id))
+    )
+
+    // Evita que un preset vacío inicial "controle" la tabla y borre filtros del usuario.
+    if (!lastAppliedPresetRef.current && presetFilters.length === 0) return
+
+    if (lastAppliedPresetRef.current?.signature === presetSignature) return
+
+    const previousPresetIds = new Set(lastAppliedPresetRef.current?.ids ?? [])
+    const nextPresetIds = new Set(presetFilters.map((f) => f.id))
+    const idsToManage = new Set<string>([...previousPresetIds, ...nextPresetIds])
+
+    const nextColumnFilters = [
+      ...columnFilters.filter((f) => !idsToManage.has(f.id)),
+      ...presetFilters,
+    ]
+
+    if (areColumnFiltersEqual(columnFilters, nextColumnFilters)) {
+      lastAppliedPresetRef.current = { signature: presetSignature, ids: [...nextPresetIds] }
+      return
+    }
+
+    onColumnFiltersChange(() => nextColumnFilters)
+    lastAppliedPresetRef.current = { signature: presetSignature, ids: [...nextPresetIds] }
     ensurePageInRange(pageCount)
   }, [presetFilters, columnFilters, onColumnFiltersChange, ensurePageInRange, pageCount])
 
@@ -158,7 +242,7 @@ export function CompaniesTable({ data, search, navigate, presetFilters, viewPres
             columnId: 'region',
             title: t('companies.filters.region'),
             options: Array.from(new Set(data.map((d) => d.region))).map((region) => ({
-              label: region,
+              label: regionLabel(region),
               value: region,
             })),
           },
@@ -174,7 +258,7 @@ export function CompaniesTable({ data, search, navigate, presetFilters, viewPres
             columnId: 'sector',
             title: t('companies.filters.sector'),
             options: Array.from(new Set(data.map((d) => d.sector).filter(Boolean))).map((sector) => ({
-              label: sector as string,
+              label: sectorLabel(sector as string),
               value: sector as string,
             })),
           },

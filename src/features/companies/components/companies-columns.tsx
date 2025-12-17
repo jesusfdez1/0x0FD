@@ -12,6 +12,21 @@ import { useSyntheticPrices } from '../hooks/use-synthetic-prices'
 import { format } from 'date-fns'
 import { enUS, es as esLocale } from 'date-fns/locale'
 
+const includesSome = (rowValue: unknown, filterValue: unknown) => {
+  if (filterValue == null) return true
+
+  // Faceted filters set an array of selected values
+  if (Array.isArray(filterValue)) {
+    if (filterValue.length === 0) return true
+    return filterValue.includes(String(rowValue))
+  }
+
+  // Some callers (e.g. preset/quick filters) may set a single string
+  const fv = String(filterValue)
+  if (fv.trim() === '') return true
+  return String(rowValue) === fv
+}
+
 type Language = 'en' | 'es'
 type Translator = (key: string, params?: Record<string, any>) => string
 
@@ -53,6 +68,15 @@ export const getCompaniesColumns = ({
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title={t('companies.columns.company')} />
     ),
+    filterFn: (row, _columnId, filterValue) => {
+      const q = String(filterValue ?? '').trim().toLowerCase()
+      if (!q) return true
+      const company = row.original
+      return (
+        String(company.name ?? '').toLowerCase().includes(q) ||
+        String(company.ticker ?? '').toLowerCase().includes(q)
+      )
+    },
     cell: ({ row }) => {
       const company = row.original
       // Limpiar el ticker para quitar sufijos de exchange (ej: SAN.MC -> SAN, 7203.T -> 7203)
@@ -120,6 +144,7 @@ export const getCompaniesColumns = ({
       <DataTableColumnHeader column={column} title={t('companies.columns.market')} />
     ),
     cell: ({ row }) => <div>{row.getValue('market')}</div>,
+    filterFn: (row, columnId, filterValue) => includesSome(row.getValue(columnId), filterValue),
   },
   {
     id: 'price',
@@ -354,6 +379,7 @@ export const getCompaniesColumns = ({
         {row.getValue('region')}
       </Badge>
     ),
+    filterFn: (row, columnId, filterValue) => includesSome(row.getValue(columnId), filterValue),
   },
   {
     accessorKey: 'sector',
@@ -361,6 +387,7 @@ export const getCompaniesColumns = ({
       <DataTableColumnHeader column={column} title={t('companies.columns.sector')} />
     ),
     cell: ({ row }) => <LongText>{row.getValue('sector')}</LongText>,
+    filterFn: (row, columnId, filterValue) => includesSome(row.getValue(columnId), filterValue),
   },
   {
     id: 'actions',
